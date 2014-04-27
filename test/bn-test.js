@@ -86,6 +86,11 @@ describe('BN', function() {
                  '39e58a8055b6fb264b75ec8c646509784204ac15a8c24e05babc9729ab9' +
                      'b055c3a9458e4ce3289560a38e08ba8175a9446ce14e608245ab3a9' +
                      '978a8bd8acaa40');
+    assert.equal(n.mul(n).mul(n).toString(16),
+                 '1b888e01a06e974017a28a5b4da436169761c9730b7aeedf75fc60f687b' +
+                     '46e0cf2cb11667f795d5569482640fe5f628939467a01a612b02350' +
+                     '0d0161e9730279a7561043af6197798e41b7432458463e64fa81158' +
+                     '907322dc330562697d0d600');
   });
 
   it('should div numbers', function() {
@@ -151,6 +156,14 @@ describe('BN', function() {
     assert.equal(bn(2).binc(1).binc(1).toString(16),
                  bn(2).binc(2).toString(16));
     assert.equal(bn(0xffffff).binc(1).toString(16), '1000001');
+  });
+
+  it('should support imask', function() {
+    assert.equal(bn(0).imask(1).toString(16), '0');
+    assert.equal(bn(3).imask(1).toString(16), '1');
+    assert.equal(bn('123456789', 16).imask(4).toString(16), '9');
+    assert.equal(bn('123456789', 16).imask(16).toString(16), '6789');
+    assert.equal(bn('123456789', 16).imask(28).toString(16), '3456789');
   });
 
   it('should support montgomery operations', function() {
