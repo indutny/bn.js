@@ -27,6 +27,20 @@ describe('BN', function() {
     assert.equal(bn([1,2,3,4]).toArray().join(','), '1,2,3,4');
   });
 
+  it('should return proper bitLength', function() {
+    assert.equal(bn(0).bitLength(), 0);
+    assert.equal(bn(0x1).bitLength(), 1);
+    assert.equal(bn(0x2).bitLength(), 2);
+    assert.equal(bn(0x3).bitLength(), 2);
+    assert.equal(bn(0x4).bitLength(), 3);
+    assert.equal(bn(0x8).bitLength(), 4);
+    assert.equal(bn(0x10).bitLength(), 5);
+    assert.equal(bn(0x100).bitLength(), 9);
+    assert.equal(bn(0x123456).bitLength(), 21);
+    assert.equal(bn('123456789', 16).bitLength(), 33);
+    assert.equal(bn('8023456789', 16).bitLength(), 40);
+  });
+
   it('should add numbers', function() {
     assert.equal(bn(14).add(26).toString(16), '28');
     var k = bn(0x1234);
@@ -134,6 +148,8 @@ describe('BN', function() {
   it('should support binc', function() {
     assert.equal(bn(0).binc(1).toString(16), '2');
     assert.equal(bn(2).binc(1).toString(16), '4');
+    assert.equal(bn(2).binc(1).binc(1).toString(16),
+                 bn(2).binc(2).toString(16));
     assert.equal(bn(0xffffff).binc(1).toString(16), '1000001');
   });
 
