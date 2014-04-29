@@ -175,5 +175,31 @@ describe('BN', function() {
     var b = bn(231);
     var c = a.toMont(m).montMul(b.toMont(m)).fromMont();
     assert(c.cmp(a.mul(b).mod(p192)) === 0);
+
+    assert.equal(a.toMont(m).montPow(3).fromMont().cmp(a.sqr().mul(a)), 0);
+    assert.equal(a.toMont(m).montPow(4).fromMont().cmp(a.sqr().sqr()), 0);
+    assert.equal(a.toMont(m).montPow(8).fromMont().cmp(a.sqr().sqr().sqr()), 0);
+    assert.equal(a.toMont(m).montPow(9).fromMont()
+                  .cmp(a.sqr().sqr().sqr().mul(a)), 0);
+  });
+
+  it('should sqrtm numbers', function() {
+    var p = bn(263);
+    var m = bn.mont(p);
+    var q = bn(11).toMont(m);
+    var qr = q.montSqrt(true, p);
+    assert.equal(qr.montSqr().cmp(q), 0);
+    var qr = q.montSqrt(false, p);
+    assert.equal(qr.montSqr().cmp(q), 0);
+
+    var p = bn(
+        'fffffffffffffffffffffffffffffffeffffffffffffffff',
+        16);
+    var m = bn.mont(p);
+    var q = bn(13).toMont(m);
+    var qr = q.montSqrt(true, p);
+    assert.equal(qr.montSqr().cmp(q), 0);
+    var qr = q.montSqrt(false, p);
+    assert.equal(qr.montSqr().cmp(q), 0);
   });
 });
