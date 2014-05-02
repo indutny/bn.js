@@ -18,6 +18,7 @@ describe('BN', function() {
                  '29048849665247');
     assert.equal(bn('a89c e5af8724 c0a23e0e 0ff77500', 16).toString(16),
                  'a89ce5af8724c0a23e0e0ff77500');
+    assert.equal(bn('10654321').toString(), '10654321');
   });
 
   it('should import/export big endian', function() {
