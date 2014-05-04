@@ -49,6 +49,12 @@ describe('BN', function() {
     for (var i = 0; i < 257; i++)
       r = r.add(k);
     assert.equal(r.toString(16), '125868');
+
+    var k = bn('abcdefabcdefabcdef', 16);
+    var r = bn('deadbeef', 16);
+    for (var i = 0; i < 257; i++)
+      r.iadd(k);
+    assert.equal(r.toString(16), 'ac79bd9b79be7a277bde');
   });
 
   it('should subtract numbers', function() {
@@ -124,16 +130,16 @@ describe('BN', function() {
   });
 
   it('should shl numbers', function() {
-    assert.equal(bn('69527932928').shl(13).toString(16),
+    assert.equal(bn('69527932928').shln(13).toString(16),
                  '2060602000000');
-    assert.equal(bn('69527932928').shl(45).toString(16),
+    assert.equal(bn('69527932928').shln(45).toString(16),
                  '206060200000000000000');
   });
 
   it('should shr numbers', function() {
-    assert.equal(bn('69527932928').shr(13).toString(16),
+    assert.equal(bn('69527932928').shrn(13).toString(16),
                  '818180');
-    assert.equal(bn('69527932928').shr(17).toString(16),
+    assert.equal(bn('69527932928').shrn(17).toString(16),
                  '81818');
   });
 
@@ -159,12 +165,12 @@ describe('BN', function() {
     assert.equal(bn(0xffffff).binc(1).toString(16), '1000001');
   });
 
-  it('should support imask', function() {
-    assert.equal(bn(0).imask(1).toString(16), '0');
-    assert.equal(bn(3).imask(1).toString(16), '1');
-    assert.equal(bn('123456789', 16).imask(4).toString(16), '9');
-    assert.equal(bn('123456789', 16).imask(16).toString(16), '6789');
-    assert.equal(bn('123456789', 16).imask(28).toString(16), '3456789');
+  it('should support imaskn', function() {
+    assert.equal(bn(0).imaskn(1).toString(16), '0');
+    assert.equal(bn(3).imaskn(1).toString(16), '1');
+    assert.equal(bn('123456789', 16).imaskn(4).toString(16), '9');
+    assert.equal(bn('123456789', 16).imaskn(16).toString(16), '6789');
+    assert.equal(bn('123456789', 16).imaskn(28).toString(16), '3456789');
   });
 
   it('should support montgomery operations', function() {
