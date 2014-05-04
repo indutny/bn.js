@@ -63,12 +63,30 @@ describe('BN', function() {
     assert.equal(bn(26).sub(26).toString(16), '0');
     assert.equal(bn(-26).sub(26).toString(16), '-34');
 
-    var a = '31ff3c61db2db84b9823d320907a573f6ad37c437abe458b1802cda041d6384' +
-            'a7d8daef41395491e2';
-    var b = '6f0e4d9f1d6071c183677f601af9305721c91d31b0bbbae8fb790000';
-    var r = '31ff3c61db2db84b9823d3208989726578fd75276287cd9516533a9acfb9a67' +
-            '76281f34583ddb91e2';
-    assert.equal(bn(a, 16).sub(b, 16).toString(16), r);
+    var a = new bn(
+      '31ff3c61db2db84b9823d320907a573f6ad37c437abe458b1802cda041d6384' +
+          'a7d8daef41395491e2',
+      16);
+    var b = new bn(
+      '6f0e4d9f1d6071c183677f601af9305721c91d31b0bbbae8fb790000',
+      16);
+    var r = new bn(
+      '31ff3c61db2db84b9823d3208989726578fd75276287cd9516533a9acfb9a67' +
+          '76281f34583ddb91e2',
+      16);
+    assert.equal(a.sub(b).cmp(r), 0);
+
+    // In-place
+    assert.equal(b.clone().isub(a).neg().cmp(r), 0);
+
+    // Carry and copy
+    var a = new bn('12345', 16);
+    var b = new bn('1000000000000', 16);
+    assert.equal(a.isub(b).toString(16), '-fffffffedcbb');
+
+    var a = new bn('12345', 16);
+    var b = new bn('1000000000000', 16);
+    assert.equal(b.isub(a).toString(16), 'fffffffedcbb');
   });
 
   it('should mul numbers', function() {

@@ -46,9 +46,9 @@ var a2 = new bignum('012345678901234567890123456789012345678901234567890', 10);
 var b2 = new bignum('213509123601923760129376102397651203958123402314875', 10);
 var a3 = new bbignum('012345678901234567890123456789012345678901234567890', 10);
 var b3 = new bbignum('213509123601923760129376102397651203958123402314875', 10);
-var as1 = a1.mul(a1);
-var as2 = a2.mul(a2);
-var as3 = a3.mul(a3);
+var as1 = a1.mul(a1).iaddn(0xdeadbeef);
+var as2 = a2.mul(a2).add(0xdeadbeef);
+var as3 = a3.mul(a3).add(0xdeadbeef);
 
 add('create-10', function() {
   new bn('012345678901234567890123456789012345678901234567890', 10);
@@ -64,6 +64,22 @@ add('create-hex', function() {
   new bignum('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
 }, function() {
   new bbignum('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
+});
+
+add('toString-10', function() {
+  a1.toString(10);
+}, function() {
+  a2.toString(10);
+}, function() {
+  a3.toString(10);
+});
+
+add('toString-hex', function() {
+  a1.toString(16);
+}, function() {
+  a2.toString(16);
+}, function() {
+  a3.toString(16);
 });
 
 add('add', function() {
