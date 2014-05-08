@@ -43,7 +43,7 @@ describe('BN', function() {
   });
 
   it('should add numbers', function() {
-    assert.equal(bn(14).add(26).toString(16), '28');
+    assert.equal(bn(14).add(bn(26)).toString(16), '28');
     var k = bn(0x1234);
     var r = k;
     for (var i = 0; i < 257; i++)
@@ -58,10 +58,10 @@ describe('BN', function() {
   });
 
   it('should subtract numbers', function() {
-    assert.equal(bn(14).sub(26).toString(16), '-c');
-    assert.equal(bn(26).sub(14).toString(16), 'c');
-    assert.equal(bn(26).sub(26).toString(16), '0');
-    assert.equal(bn(-26).sub(26).toString(16), '-34');
+    assert.equal(bn(14).sub(bn(26)).toString(16), '-c');
+    assert.equal(bn(26).sub(bn(14)).toString(16), 'c');
+    assert.equal(bn(26).sub(bn(26)).toString(16), '0');
+    assert.equal(bn(-26).sub(bn(26)).toString(16), '-34');
 
     var a = new bn(
       '31ff3c61db2db84b9823d320907a573f6ad37c437abe458b1802cda041d6384' +
@@ -90,11 +90,11 @@ describe('BN', function() {
   });
 
   it('should mul numbers', function() {
-    assert.equal(bn(0x1001).mul(0x1234).toString(16),
+    assert.equal(bn(0x1001).mul(bn(0x1234)).toString(16),
                  '1235234');
-    assert.equal(bn(-0x1001).mul(0x1234).toString(16),
+    assert.equal(bn(-0x1001).mul(bn(0x1234)).toString(16),
                  '-1235234');
-    assert.equal(bn(-0x1001).mul(-0x1234).toString(16),
+    assert.equal(bn(-0x1001).mul(bn(-0x1234)).toString(16),
                  '1235234');
     var n = bn(0x1001);
     var r = n;
@@ -119,11 +119,11 @@ describe('BN', function() {
   });
 
   it('should div numbers', function() {
-    assert.equal(bn('10').div('256').toString(16),
+    assert.equal(bn('10').div(bn(256)).toString(16),
                  '0');
-    assert.equal(bn('69527932928').div('16974594').toString(16),
+    assert.equal(bn('69527932928').div(bn('16974594')).toString(16),
                  'fff');
-    assert.equal(bn('-69527932928').div('16974594').toString(16),
+    assert.equal(bn('-69527932928').div(bn('16974594')).toString(16),
                  '-fff');
 
     var b = bn(
@@ -139,11 +139,11 @@ describe('BN', function() {
   });
 
   it('should mod numbers', function() {
-    assert.equal(bn('10').mod('256').toString(16),
+    assert.equal(bn('10').mod(bn(256)).toString(16),
                  'a');
-    assert.equal(bn('69527932928').mod('16974594').toString(16),
+    assert.equal(bn('69527932928').mod(bn('16974594')).toString(16),
                  '102f302');
-    assert.equal(bn('-69527932928').mod('16974594').toString(16),
+    assert.equal(bn('-69527932928').mod(bn('16974594')).toString(16),
                  '1000');
   });
 
@@ -175,12 +175,12 @@ describe('BN', function() {
     assert.equal(a.mul(b).mod(p192).toString(16), '1');
   });
 
-  it('should support binc', function() {
-    assert.equal(bn(0).binc(1).toString(16), '2');
-    assert.equal(bn(2).binc(1).toString(16), '4');
-    assert.equal(bn(2).binc(1).binc(1).toString(16),
-                 bn(2).binc(2).toString(16));
-    assert.equal(bn(0xffffff).binc(1).toString(16), '1000001');
+  it('should support bincn', function() {
+    assert.equal(bn(0).bincn(1).toString(16), '2');
+    assert.equal(bn(2).bincn(1).toString(16), '4');
+    assert.equal(bn(2).bincn(1).bincn(1).toString(16),
+                 bn(2).bincn(2).toString(16));
+    assert.equal(bn(0xffffff).bincn(1).toString(16), '1000001');
   });
 
   it('should support imaskn', function() {
@@ -201,11 +201,14 @@ describe('BN', function() {
     var c = a.toMont(m).montMul(b.toMont(m)).fromMont();
     assert(c.cmp(a.mul(b).mod(p192)) === 0);
 
-    assert.equal(a.toMont(m).montPow(3).fromMont().cmp(a.sqr().mul(a)), 0);
-    assert.equal(a.toMont(m).montPow(4).fromMont().cmp(a.sqr().sqr()), 0);
-    assert.equal(a.toMont(m).montPow(8).fromMont().cmp(a.sqr().sqr().sqr()), 0);
-    assert.equal(a.toMont(m).montPow(9).fromMont()
-                  .cmp(a.sqr().sqr().sqr().mul(a)), 0);
+    assert.equal(a.toMont(m).montPow(bn(3)).fromMont()
+                            .cmp(a.sqr().mul(a)), 0);
+    assert.equal(a.toMont(m).montPow(bn(4)).fromMont()
+                            .cmp(a.sqr().sqr()), 0);
+    assert.equal(a.toMont(m).montPow(bn(8)).fromMont()
+                            .cmp(a.sqr().sqr().sqr()), 0);
+    assert.equal(a.toMont(m).montPow(bn(9)).fromMont()
+                            .cmp(a.sqr().sqr().sqr().mul(a)), 0);
   });
 
   it('should sqrtm numbers', function() {
