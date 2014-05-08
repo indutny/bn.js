@@ -79,6 +79,9 @@ describe('BN', function() {
     // In-place
     assert.equal(b.clone().isub(a).neg().cmp(r), 0);
 
+    var r = b.sub(new BN(14));
+    assert.equal(b.clone().isubn(14).cmp(r), 0);
+
     // Carry and copy
     var a = new BN('12345', 16);
     var b = new BN('1000000000000', 16);
