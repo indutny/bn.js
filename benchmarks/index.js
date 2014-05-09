@@ -114,4 +114,12 @@ add('div', function() {
   as3.div(a3);
 });
 
+add('mod', function() {
+  as1.mod(a1);
+}, function() {
+  as2.mod(a2);
+}, function() {
+  as3.mod(a3);
+});
+
 start();
