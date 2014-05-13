@@ -139,6 +139,8 @@ describe('BN', function() {
       16
     );
     assert.equal(b.div(n).toString(16), n.toString(16));
+
+    assert.equal(new BN('1').div(new BN('-5')).toString(10), '0');
   });
 
   it('should mod numbers', function() {
