@@ -30,6 +30,8 @@ describe('BN', function() {
     assert.equal(new BN([1,2,3,4,5]).toString(16), '102030405');
     assert.equal(new BN([1,2,3,4,5,6,7,8]).toString(16), '102030405060708');
     assert.equal(new BN([1,2,3,4]).toArray().join(','), '1,2,3,4');
+    assert.equal(new BN([1,2,3,4,5,6,7,8]).toArray().join(','),
+                 '1,2,3,4,5,6,7,8');
   });
 
   it('should return proper bitLength', function() {
