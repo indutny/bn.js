@@ -18,6 +18,9 @@ describe('BN', function() {
                  '29048849665247');
     assert.equal(new BN('a89c e5af8724 c0a23e0e 0ff77500', 16).toString(16),
                  'a89ce5af8724c0a23e0e0ff77500');
+    assert.equal(new BN('123456789abcdef123456789abcdef123456789abcdef',
+                        16).toString(16),
+                 '123456789abcdef123456789abcdef123456789abcdef');
     assert.equal(new BN('10654321').toString(), '10654321');
   });
 
@@ -25,6 +28,7 @@ describe('BN', function() {
     assert.equal(new BN([1,2,3]).toString(16), '10203');
     assert.equal(new BN([1,2,3,4]).toString(16), '1020304');
     assert.equal(new BN([1,2,3,4,5]).toString(16), '102030405');
+    assert.equal(new BN([1,2,3,4,5,6,7,8]).toString(16), '102030405060708');
     assert.equal(new BN([1,2,3,4]).toArray().join(','), '1,2,3,4');
   });
 
