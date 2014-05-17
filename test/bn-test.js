@@ -22,6 +22,8 @@ describe('BN', function() {
                         16).toString(16),
                  '123456789abcdef123456789abcdef123456789abcdef');
     assert.equal(new BN('10654321').toString(), '10654321');
+    assert.equal(new BN('10000000000000000').toString(10),
+                 '10000000000000000');
   });
 
   it('should import/export big endian', function() {
@@ -156,6 +158,30 @@ describe('BN', function() {
                  '102f302');
     assert.equal(new BN('-69527932928').mod(new BN('16974594')).toString(16),
                  '1000');
+  });
+
+  it('should modn numbers', function() {
+    assert.equal(new BN('10', 16).modn(256).toString(16), '10');
+    assert.equal(new BN('100', 16).modn(256).toString(16), '0');
+    assert.equal(new BN('1001', 16).modn(256).toString(16), '1');
+    assert.equal(new BN('100000000001', 16).modn(256).toString(16), '1');
+    assert.equal(new BN('100000000001', 16).modn(257).toString(16),
+                 new BN('100000000001', 16).mod(new BN(257)).toString(16));
+    assert.equal(new BN('123456789012', 16).modn(3).toString(16),
+                 new BN('123456789012', 16).mod(new BN(3)).toString(16));
+  });
+
+  it('should idivn numbers', function() {
+    assert.equal(new BN('10', 16).idivn(3).toString(16), '5');
+    assert.equal(new BN('12', 16).idivn(3).toString(16), '6');
+    assert.equal(new BN('10000000000000000').idivn(3).toString(10),
+                 '3333333333333333');
+    assert.equal(new BN('100000000000000000000000000000').idivn(3).toString(10),
+                 '33333333333333333333333333333');
+
+    var t = new BN(3);
+    assert.equal(new BN('12345678901234567890123456', 16).idivn(3).toString(16),
+                 new BN('12345678901234567890123456', 16).div(t).toString(16));
   });
 
   it('should shl numbers', function() {
