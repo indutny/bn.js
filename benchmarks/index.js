@@ -3,10 +3,11 @@ var benchmark = require('benchmark');
 var bn = require('../');
 var bignum = require('bignum');
 var bbignum = require('browserify-bignum');
+var sjcl = require('eccjs').sjcl.bn;
 
 var benchmarks = [];
 
-function add(op, a, b, c) {
+function add(op, a, b, c, d) {
   benchmarks.push({
     name: op,
     start: function start() {
@@ -14,9 +15,20 @@ function add(op, a, b, c) {
 
       console.log('Benchmarking: ' + op);
       suite
-        .add('bn.js#' + op, a)
-        .add('bignum#' + op, b)
-        .add('browserify-bignum#' + op, c)
+
+      if (a)
+        suite.add('bn.js#' + op, a)
+
+      if (b)
+        suite.add('bignum#' + op, b)
+
+      if (c)
+        suite.add('browserify-bignum#' + op, c)
+
+      if (d)
+        suite.add('sjcl#' + op, d)
+
+      suite
         .on('cycle', function(event) {
           console.log(String(event.target));
         })
@@ -46,9 +58,12 @@ var a2 = new bignum('012345678901234567890123456789012345678901234567890', 10);
 var b2 = new bignum('213509123601923760129376102397651203958123402314875', 10);
 var a3 = new bbignum('012345678901234567890123456789012345678901234567890', 10);
 var b3 = new bbignum('213509123601923760129376102397651203958123402314875', 10);
+var a4 = new sjcl(a1.toString(16));
+var b4 = new sjcl(b1.toString(16));
 var as1 = a1.mul(a1).iaddn(0xdeadbeef);
 var as2 = a2.mul(a2).add(0xdeadbeef);
 var as3 = a3.mul(a3).add(0xdeadbeef);
+var as4 = a4.mul(a4).add(0xdeadbeef);
 
 add('create-10', function() {
   new bn('012345678901234567890123456789012345678901234567890', 10);
@@ -64,6 +79,8 @@ add('create-hex', function() {
   new bignum('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
 }, function() {
   new bbignum('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
+}, function() {
+  new sjcl('01234567890abcdef01234567890abcdef01234567890abcdef');
 });
 
 add('toString-10', function() {
@@ -80,6 +97,8 @@ add('toString-hex', function() {
   a2.toString(16);
 }, function() {
   a3.toString(16);
+}, function() {
+  a4.toString(16)
 });
 
 add('add', function() {
@@ -88,6 +107,8 @@ add('add', function() {
   a2.add(b2);
 }, function() {
   a3.add(b3);
+}, function() {
+  a4.add(b4);
 });
 
 add('mul', function() {
@@ -96,6 +117,8 @@ add('mul', function() {
   a2.mul(b2);
 }, function() {
   a3.mul(b3);
+}, function() {
+  a4.mul(b4);
 });
 
 add('sqr', function() {
@@ -104,6 +127,8 @@ add('sqr', function() {
   a2.mul(a2);
 }, function() {
   a3.mul(a3);
+}, function() {
+  a4.mul(a4);
 });
 
 add('div', function() {
@@ -120,6 +145,22 @@ add('mod', function() {
   as2.mod(a2);
 }, function() {
   as3.mod(a3);
+});
+
+add('mod', function() {
+  as1.mod(a1);
+}, function() {
+  as2.mod(a2);
+}, function() {
+  as3.mod(a3);
+});
+
+var am1 = a1.toMont(bn.mont(b1));
+
+add('mul-mod', function() {
+  am1.montSqr();
+}, false, false, function() {
+  a4.mulmod(a4, b4);
 });
 
 start();
