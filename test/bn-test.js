@@ -170,6 +170,8 @@ describe('BN', function() {
                  '818180');
     assert.equal(new BN('69527932928').shrn(17).toString(16),
                  '81818');
+    assert.equal(new BN('69527932928').shrn(256).toString(16),
+                 '0');
   });
 
   it('should invm numbers', function() {
