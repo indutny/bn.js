@@ -63,4 +63,18 @@ describe('BN.js/Reduction context', function() {
 
   testMethod('Plain', BN.red);
   testMethod('Montgomery', BN.mont);
+
+  describe('Pseudo-Mersenne Primes', function() {
+    it('should reduce numbers mod k256', function() {
+      var p = BN._prime('k256');
+
+      assert.equal(p.reduce(new BN(0xdead)).toString(16), 'dead');
+      assert.equal(p.reduce(new BN('deadbeef', 16)).toString(16), 'deadbeef');
+
+      var num = new BN('fedcba9876543210fedcba9876543210dead' +
+                           'fedcba9876543210fedcba9876543210dead',
+                       16);
+      assert.equal(p.reduce(num).toString(16), num.mod(p.p).toString(16));
+    });
+  });
 });
