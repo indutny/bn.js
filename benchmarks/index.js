@@ -147,14 +147,6 @@ add('mod', function() {
   as3.mod(a3);
 });
 
-add('mod', function() {
-  as1.mod(a1);
-}, function() {
-  as2.mod(a2);
-}, function() {
-  as3.mod(a3);
-});
-
 var am1 = a1.toRed(bn.red('k256'));
 var am4 = new sjcl.prime.p256k(a4);
 
