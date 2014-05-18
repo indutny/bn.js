@@ -229,44 +229,4 @@ describe('BN', function() {
     assert.equal(new BN('123456789', 16).imaskn(16).toString(16), '6789');
     assert.equal(new BN('123456789', 16).imaskn(28).toString(16), '3456789');
   });
-
-  it('should support montgomery operations', function() {
-    var p192 = new BN(
-        'fffffffffffffffffffffffffffffffeffffffffffffffff',
-        16);
-    var m = BN.mont(p192);
-    var a = new BN(123);
-    var b = new BN(231);
-    var c = a.toMont(m).montMul(b.toMont(m)).fromMont();
-    assert(c.cmp(a.mul(b).mod(p192)) === 0);
-
-    assert.equal(a.toMont(m).montPow(new BN(3)).fromMont()
-                            .cmp(a.sqr().mul(a)), 0);
-    assert.equal(a.toMont(m).montPow(new BN(4)).fromMont()
-                            .cmp(a.sqr().sqr()), 0);
-    assert.equal(a.toMont(m).montPow(new BN(8)).fromMont()
-                            .cmp(a.sqr().sqr().sqr()), 0);
-    assert.equal(a.toMont(m).montPow(new BN(9)).fromMont()
-                            .cmp(a.sqr().sqr().sqr().mul(a)), 0);
-  });
-
-  it('should sqrtm numbers', function() {
-    var p = new BN(263);
-    var m = BN.mont(p);
-    var q = new BN(11).toMont(m);
-    var qr = q.montSqrt(true, p);
-    assert.equal(qr.montSqr().cmp(q), 0);
-    var qr = q.montSqrt(false, p);
-    assert.equal(qr.montSqr().cmp(q), 0);
-
-    var p = new BN(
-        'fffffffffffffffffffffffffffffffeffffffffffffffff',
-        16);
-    var m = BN.mont(p);
-    var q = new BN(13).toMont(m);
-    var qr = q.montSqrt(true, p);
-    assert.equal(qr.montSqr().cmp(q), 0);
-    var qr = q.montSqrt(false, p);
-    assert.equal(qr.montSqr().cmp(q), 0);
-  });
 });
