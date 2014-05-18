@@ -155,12 +155,13 @@ add('mod', function() {
   as3.mod(a3);
 });
 
-var am1 = a1.toMont(bn.mont(b1));
+var am1 = a1.toRed(bn.red('k256'));
+var am4 = new sjcl.prime.p256k(a4);
 
-add('mul-mod', function() {
-  am1.montSqr();
+add('mul-mod k256', function() {
+  am1.redSqr();
 }, false, false, function() {
-  a4.mulmod(a4, b4);
+  am4.square().fullReduce();
 });
 
 start();
