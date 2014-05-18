@@ -4,7 +4,22 @@ var BN = require('../').BN;
 describe('BN.js/Reduction context', function() {
   function testMethod(name, fn) {
     describe(name + ' method', function() {
-      it('should support montgomery operations', function() {
+      it('should support add, iadd, sub, isub operations', function() {
+        var p = new BN(257);
+        var m = fn(p);
+        var a = new BN(123).toRed(m);
+        var b = new BN(231).toRed(m);
+
+        assert.equal(a.redAdd(b).fromRed().toString(10), '97');
+        assert.equal(a.redSub(b).fromRed().toString(10), '149');
+        assert.equal(b.redSub(a).fromRed().toString(10), '108');
+
+        assert.equal(a.clone().redIAdd(b).fromRed().toString(10), '97');
+        assert.equal(a.clone().redISub(b).fromRed().toString(10), '149');
+        assert.equal(b.clone().redISub(a).fromRed().toString(10), '108');
+      });
+
+      it('should support pow and mul operations', function() {
         var p192 = new BN(
             'fffffffffffffffffffffffffffffffeffffffffffffffff',
             16);
