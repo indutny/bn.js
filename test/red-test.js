@@ -66,6 +66,20 @@ describe('BN.js/Reduction context', function() {
         var b = a.redInvm(p);
         assert.equal(a.redMul(b).fromRed().toString(16), '1');
       });
+
+      it('should imul numbers', function() {
+        var p = new BN(
+            'fffffffffffffffffffffffffffffffeffffffffffffffff',
+            16);
+        var m = fn(p);
+
+        var a = new BN('deadbeefabbadead', 16);
+        var b = new BN('abbadeadbeefdead', 16);
+        var c = a.mul(b).mod(p);
+
+        assert.equal(a.toRed(m).redIMul(b.toRed(m)).fromRed().toString(16),
+                     c.toString(16));
+      });
     });
   }
 

@@ -134,6 +134,20 @@ describe('BN', function() {
                      '907322dc330562697d0d600');
   });
 
+  it('should imul numbers', function() {
+    var a = new BN('abcdef01234567890abcd', 16);
+    var b = new BN('deadbeefa551edebabba8', 16);
+    var c = a.mul(b);
+
+    assert.equal(a.imul(b).toString(16), c.toString(16));
+
+    var a = new BN('abcdef01234567890abcd214a25123f512361e6d236', 16);
+    var b = new BN('deadbeefa551edebabba8121234fd21bac0341324dd', 16);
+    var c = a.mul(b);
+
+    assert.equal(a.imul(b).toString(16), c.toString(16));
+  });
+
   it('should div numbers', function() {
     assert.equal(new BN('10').div(new BN(256)).toString(16),
                  '0');
