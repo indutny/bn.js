@@ -58,6 +58,14 @@ describe('BN.js/Reduction context', function() {
         var qr = q.redSqrt(false, p);
         assert.equal(qr.redSqr().cmp(q), 0);
       });
+
+      it('should invm numbers', function() {
+        var p = new BN(257);
+        var m = fn(p);
+        var a = new BN(3).toRed(m);
+        var b = a.redInvm(p);
+        assert.equal(a.redMul(b).fromRed().toString(16), '1');
+      });
     });
   }
 
