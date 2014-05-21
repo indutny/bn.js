@@ -90,6 +90,11 @@ describe('BN', function() {
     var r = b.sub(new BN(14));
     assert.equal(b.clone().isubn(14).cmp(r), 0);
 
+    var r = new BN(
+      '7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b', 16);
+    assert.equal(r.isubn(-1).toString(16),
+      '7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681c');
+
     // Carry and copy
     var a = new BN('12345', 16);
     var b = new BN('1000000000000', 16);

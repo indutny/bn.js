@@ -75,6 +75,13 @@ describe('BN.js/Reduction context', function() {
                            'fedcba9876543210fedcba9876543210dead',
                        16);
       assert.equal(p.reduce(num).toString(16), num.mod(p.p).toString(16));
+
+      var regr = new BN('f7e46df64c1815962bf7bc9c56128798' +
+                            '3f4fcef9cb1979573163b477eab93959' +
+                            '335dfb29ef07a4d835d22aa3b6797760' +
+                            '70a8b8f59ba73d56d01a79af9',
+                        16);
+      assert.equal(p.reduce(regr).toString(16), regr.mod(p.p).toString(16));
     });
   });
 });
