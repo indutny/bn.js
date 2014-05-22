@@ -132,6 +132,11 @@ describe('BN', function() {
                      '46e0cf2cb11667f795d5569482640fe5f628939467a01a612b02350' +
                      '0d0161e9730279a7561043af6197798e41b7432458463e64fa81158' +
                      '907322dc330562697d0d600');
+
+    assert.equal(
+      new BN('-100000000000').mul(new BN('3').div(new BN('4'))).toString(16),
+      '0'
+    );
   });
 
   it('should imul numbers', function() {
