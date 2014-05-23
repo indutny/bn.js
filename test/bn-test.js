@@ -184,6 +184,23 @@ describe('BN', function() {
                  '1000');
   });
 
+  it('should divRound numbers', function() {
+    assert.equal(new BN(9).divRound(new BN(20)).toString(10),
+                 '0');
+    assert.equal(new BN(10).divRound(new BN(20)).toString(10),
+                 '1');
+    assert.equal(new BN(150).divRound(new BN(20)).toString(10),
+                 '8');
+    assert.equal(new BN(149).divRound(new BN(20)).toString(10),
+                 '7');
+    assert.equal(new BN(149).divRound(new BN(17)).toString(10),
+                 '9');
+    assert.equal(new BN(144).divRound(new BN(17)).toString(10),
+                 '8');
+    assert.equal(new BN(-144).divRound(new BN(17)).toString(10),
+                 '-8');
+  });
+
   it('should modn numbers', function() {
     assert.equal(new BN('10', 16).modn(256).toString(16), '10');
     assert.equal(new BN('100', 16).modn(256).toString(16), '0');
