@@ -37,6 +37,8 @@ describe('BN.js/Reduction context', function() {
                                 .cmp(a.sqr().sqr().sqr()), 0);
         assert.equal(a.toRed(m).redPow(new BN(9)).fromRed()
                                 .cmp(a.sqr().sqr().sqr().mul(a)), 0);
+        assert.equal(a.toRed(m).redPow(new BN(17)).fromRed()
+                                .cmp(a.sqr().sqr().sqr().sqr().mul(a)), 0);
       });
 
       it('should sqrtm numbers', function() {

@@ -156,4 +156,15 @@ add('mul-mod k256', function() {
   am4.square().fullReduce();
 });
 
+var pow1 = am1.fromRed();
+var prime1 = new bignum(
+  'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
+  16);
+
+add('pow k256', function() {
+  am1.redPow(pow1);
+}, function() {
+  a2.powm(a2, prime1);
+}, false, false);
+
 start();
