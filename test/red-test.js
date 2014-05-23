@@ -57,6 +57,12 @@ describe('BN.js/Reduction context', function() {
         assert.equal(qr.redSqr().cmp(q), 0);
         var qr = q.redSqrt(false, p);
         assert.equal(qr.redSqr().cmp(q), 0);
+
+        // Tonelli-shanks
+        var p = new BN(13);
+        var m = fn(p);
+        var q = new BN(10).toRed(m);
+        assert.equal(q.redSqrt().fromRed().toString(10), '7');
       });
 
       it('should invm numbers', function() {
