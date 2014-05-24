@@ -160,11 +160,19 @@ var pow1 = am1.fromRed();
 var prime1 = new bignum(
   'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
   16);
+var prime4 = new sjcl(
+  'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f');
 
 add('pow k256', function() {
   am1.redPow(pow1);
 }, function() {
   a2.powm(a2, prime1);
 }, false, false);
+
+add('invm k256', function() {
+  am1.redInvm();
+}, false, false, function() {
+  am4.inverseMod(prime4);
+});
 
 start();
