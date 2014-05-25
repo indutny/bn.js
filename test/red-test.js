@@ -115,5 +115,12 @@ describe('BN.js/Reduction context', function() {
       var exp = regr.mod(p.p).toString(16);
       assert.equal(p.ireduce(regr).toString(16), exp);
     });
+
+    it('should not fail to invm number mod k256', function() {
+      var regr2 = new BN(
+        '6c150c4aa9a8cf1934485d40674d4a7cd494675537bda36d49405c5d2c6f496f', 16);
+      regr2 = regr2.toRed(BN.red('k256'));
+      assert.equal(regr2.redInvm().redMul(regr2).fromRed().cmpn(1), 0);
+    });
   });
 });
