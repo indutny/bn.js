@@ -173,6 +173,29 @@ describe('BN', function() {
     assert.equal(b.div(n).toString(16), n.toString(16));
 
     assert.equal(new BN('1').div(new BN('-5')).toString(10), '0');
+
+    // Regression after moving to word div
+    var p = new BN(
+      'ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffffffe fffffc2f',
+      16);
+    var a = new BN(
+      '79be667e f9dcbbac 55a06295 ce870b07 029bfcdb 2dce28d9 59f2815b 16f81798',
+      16);
+    var as = a.sqr();
+    assert.equal(
+        as.div(p).toString(16),
+        '39e58a8055b6fb264b75ec8c646509784204ac15a8c24e05babc9729e58090b9');
+
+    var p = new BN(
+      'ffffffff00000001000000000000000000000000ffffffffffffffffffffffff',
+      16);
+    var a = new BN(
+      'fffffffe00000003fffffffd0000000200000001fffffffe00000002ffffffff' +
+      'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+      16);
+    assert.equal(
+      a.div(p).toString(16),
+      'ffffffff00000002000000000000000000000001000000000000000000000001');
   });
 
   it('should mod numbers', function() {
@@ -182,6 +205,17 @@ describe('BN', function() {
                  '102f302');
     assert.equal(new BN('-69527932928').mod(new BN('16974594')).toString(16),
                  '1000');
+
+    var p = new BN(
+      'ffffffff00000001000000000000000000000000ffffffffffffffffffffffff',
+      16);
+    var a = new BN(
+      'fffffffe00000003fffffffd0000000200000001fffffffe00000002ffffffff' +
+      'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+      16);
+    assert.equal(
+      a.mod(p).toString(16),
+      '0');
   });
 
   it('should divRound numbers', function() {
