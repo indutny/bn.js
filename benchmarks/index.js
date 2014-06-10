@@ -4,10 +4,11 @@ var bn = require('../');
 var bignum = require('bignum');
 var bbignum = require('browserify-bignum');
 var sjcl = require('eccjs').sjcl.bn;
+var bigi = require('bigi')
 
 var benchmarks = [];
 
-function add(op, a, b, c, d) {
+function add(op, a, b, c, d, e) {
   benchmarks.push({
     name: op,
     start: function start() {
@@ -26,7 +27,10 @@ function add(op, a, b, c, d) {
         suite.add('browserify-bignum#' + op, c)
 
       if (d)
-        suite.add('sjcl#' + op, d)
+        suite.add('bigi#' + op, d)
+
+      if (e)
+        suite.add('sjcl#' + op, e)
 
       suite
         .on('cycle', function(event) {
@@ -52,18 +56,28 @@ function start() {
   });
 }
 
+benchmark.options.minTime = 1
+
 var a1 = new bn('012345678901234567890123456789012345678901234567890', 10);
 var b1 = new bn('213509123601923760129376102397651203958123402314875', 10);
+
 var a2 = new bignum('012345678901234567890123456789012345678901234567890', 10);
 var b2 = new bignum('213509123601923760129376102397651203958123402314875', 10);
+
 var a3 = new bbignum('012345678901234567890123456789012345678901234567890', 10);
 var b3 = new bbignum('213509123601923760129376102397651203958123402314875', 10);
-var a4 = new sjcl(a1.toString(16));
-var b4 = new sjcl(b1.toString(16));
+
+var a4 = new bigi('012345678901234567890123456789012345678901234567890', 10);
+var b4 = new bigi('213509123601923760129376102397651203958123402314875', 10);
+
+var a5 = new sjcl(a1.toString(16));
+var b5 = new sjcl(b1.toString(16));
+
 var as1 = a1.mul(a1).iaddn(0xdeadbeef);
 var as2 = a2.mul(a2).add(0xdeadbeef);
 var as3 = a3.mul(a3).add(0xdeadbeef);
-var as4 = a4.mul(a4).add(0xdeadbeef);
+var as4 = a4.multiply(a4).add(bigi.valueOf(0xdeadbeef));
+var as5 = a5.mul(a5).add(0xdeadbeef);
 
 add('create-10', function() {
   new bn('012345678901234567890123456789012345678901234567890', 10);
@@ -71,6 +85,8 @@ add('create-10', function() {
   new bignum('012345678901234567890123456789012345678901234567890', 10);
 }, function() {
   new bbignum('012345678901234567890123456789012345678901234567890', 10);
+}, function() {
+  new bigi('012345678901234567890123456789012345678901234567890', 10);
 });
 
 add('create-hex', function() {
@@ -79,6 +95,8 @@ add('create-hex', function() {
   new bignum('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
 }, function() {
   new bbignum('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
+}, function() {
+  new bigi('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
 }, function() {
   new sjcl('01234567890abcdef01234567890abcdef01234567890abcdef');
 });
@@ -89,6 +107,8 @@ add('toString-10', function() {
   a2.toString(10);
 }, function() {
   a3.toString(10);
+}, function() {
+  a4.toString(10);
 });
 
 add('toString-hex', function() {
@@ -98,7 +118,9 @@ add('toString-hex', function() {
 }, function() {
   a3.toString(16);
 }, function() {
-  a4.toString(16)
+  a4.toString(16);
+}, function() {
+  a5.toString(16)
 });
 
 add('add', function() {
@@ -109,6 +131,8 @@ add('add', function() {
   a3.add(b3);
 }, function() {
   a4.add(b4);
+}, function() {
+  a5.add(b5);
 });
 
 add('mul', function() {
@@ -118,7 +142,9 @@ add('mul', function() {
 }, function() {
   a3.mul(b3);
 }, function() {
-  a4.mul(b4);
+  a4.multiply(b4);
+}, function() {
+  a5.mul(b5);
 });
 
 add('sqr', function() {
@@ -128,7 +154,9 @@ add('sqr', function() {
 }, function() {
   a3.mul(a3);
 }, function() {
-  a4.mul(a4);
+  a4.square();
+}, function() {
+  a5.mul(a5);
 });
 
 add('div', function() {
@@ -137,6 +165,8 @@ add('div', function() {
   as2.div(a2);
 }, function() {
   as3.div(a3);
+}, function() {
+  as4.divide(a4);
 });
 
 add('mod', function() {
@@ -145,34 +175,39 @@ add('mod', function() {
   as2.mod(a2);
 }, function() {
   as3.mod(a3);
+}, function() {
+  as4.mod(a4);
 });
 
 var am1 = a1.toRed(bn.red('k256'));
-var am4 = new sjcl.prime.p256k(a4);
+var am5 = new sjcl.prime.p256k(a5);
 
 add('mul-mod k256', function() {
   am1.redSqr();
-}, false, false, function() {
-  am4.square().fullReduce();
+}, false, false, false, function() {
+  am5.square().fullReduce();
 });
 
 var pow1 = am1.fromRed();
 var prime1 = new bignum(
   'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
   16);
-var prime4 = new sjcl(
+var prime4 = new bigi(
+  'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
+  16);
+var prime5 = new sjcl(
   'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f');
 
 add('pow k256', function() {
   am1.redPow(pow1);
 }, function() {
   a2.powm(a2, prime1);
-}, false, false);
+}, false, false, false);
 
 add('invm k256', function() {
   am1.redInvm();
-}, false, false, function() {
-  am4.inverseMod(prime4);
+}, false, false, false, function() {
+  am5.inverseMod(prime5);
 });
 
 start();
