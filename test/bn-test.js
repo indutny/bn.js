@@ -1,6 +1,8 @@
 var assert = require('assert');
 var BN = require('../').BN;
 
+var fixtures = require('./fixtures/bn')
+
 describe('BN', function() {
   it('should work with Number input', function() {
     assert.equal(new BN(12345).toString(16), '3039');
@@ -340,4 +342,15 @@ describe('BN', function() {
     assert.equal(new BN(18).gcd(new BN(12)).toString(16), '6');
     assert.equal(new BN(-18).gcd(new BN(12)).toString(16), '6');
   });
+
+  describe('toArray', function() {
+    fixtures.valid.forEach(function(f) {
+      it('should return a big-endian twos complement integer for ' + f.dec, function() {
+        var bi = new BN(f.dec)
+        var ba = new Buffer(bi.toArray())
+
+        assert.equal(ba.toString('hex'), f.DER)
+      })
+    })
+  })
 });
