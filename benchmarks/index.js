@@ -5,10 +5,11 @@ var bignum = require('bignum');
 var bbignum = require('browserify-bignum');
 var sjcl = require('eccjs').sjcl.bn;
 var bigi = require('bigi')
+var BigInteger = require('./libs/BigInteger.js');
 
 var benchmarks = [];
 
-function add(op, a, b, c, d, e) {
+function add(op, a, b, c, d, e, f) {
   benchmarks.push({
     name: op,
     start: function start() {
@@ -31,6 +32,9 @@ function add(op, a, b, c, d, e) {
 
       if (e)
         suite.add('sjcl#' + op, e)
+
+      if (f)
+        suite.add('BigInteger#' + op, f);
 
       suite
         .on('cycle', function(event) {
@@ -73,11 +77,15 @@ var b4 = new bigi('213509123601923760129376102397651203958123402314875', 10);
 var a5 = new sjcl(a1.toString(16));
 var b5 = new sjcl(b1.toString(16));
 
+var a6 = new BigInteger('012345678901234567890123456789012345678901234567890', 10);
+var b6 = new BigInteger('213509123601923760129376102397651203958123402314875', 10);
+
 var as1 = a1.mul(a1).iaddn(0xdeadbeef);
 var as2 = a2.mul(a2).add(0xdeadbeef);
 var as3 = a3.mul(a3).add(0xdeadbeef);
 var as4 = a4.multiply(a4).add(bigi.valueOf(0xdeadbeef));
 var as5 = a5.mul(a5).add(0xdeadbeef);
+var as6 = a6.multiply(a6).add(new BigInteger('deadbeef', 16));
 
 add('create-10', function() {
   new bn('012345678901234567890123456789012345678901234567890', 10);
@@ -87,6 +95,10 @@ add('create-10', function() {
   new bbignum('012345678901234567890123456789012345678901234567890', 10);
 }, function() {
   new bigi('012345678901234567890123456789012345678901234567890', 10);
+},
+null,
+function() {
+  new BigInteger('012345678901234567890123456789012345678901234567890', 10);
 });
 
 add('create-hex', function() {
@@ -99,6 +111,8 @@ add('create-hex', function() {
   new bigi('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
 }, function() {
   new sjcl('01234567890abcdef01234567890abcdef01234567890abcdef');
+}, function() {
+  new BigInteger('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
 });
 
 add('toString-10', function() {
@@ -109,6 +123,10 @@ add('toString-10', function() {
   a3.toString(10);
 }, function() {
   a4.toString(10);
+},
+null,
+function() {
+  a6.toString(10);
 });
 
 add('toString-hex', function() {
@@ -121,6 +139,8 @@ add('toString-hex', function() {
   a4.toString(16);
 }, function() {
   a5.toString(16)
+}, function() {
+  a6.toString(16)
 });
 
 add('add', function() {
@@ -133,6 +153,8 @@ add('add', function() {
   a4.add(b4);
 }, function() {
   a5.add(b5);
+}, function() {
+  a6.add(b6);
 });
 
 add('mul', function() {
@@ -145,6 +167,8 @@ add('mul', function() {
   a4.multiply(b4);
 }, function() {
   a5.mul(b5);
+}, function() {
+  a6.multiply(b6);
 });
 
 add('sqr', function() {
@@ -157,6 +181,8 @@ add('sqr', function() {
   a4.square();
 }, function() {
   a5.mul(a5);
+}, function() {
+  a6.multiply(a6);
 });
 
 add('div', function() {
@@ -167,6 +193,10 @@ add('div', function() {
   as3.div(a3);
 }, function() {
   as4.divide(a4);
+},
+null,
+function() {
+  as6.divide(a6);
 });
 
 add('mod', function() {
@@ -177,6 +207,9 @@ add('mod', function() {
   as3.mod(a3);
 }, function() {
   as4.mod(a4);
+}, null, function () {
+  var remainder = as6.remainder(a6);
+  return remainder.compareTo(BigInteger.ZERO) < 0 ? remainder.add(a6) : remainder;
 });
 
 var am1 = a1.toRed(bn.red('k256'));
