@@ -304,4 +304,34 @@ describe('BN', function() {
     assert.equal(new BN('123456789', 16).imaskn(16).toString(16), '6789');
     assert.equal(new BN('123456789', 16).imaskn(28).toString(16), '3456789');
   });
+
+  it('should support testn', function() {
+    [
+      'ff',
+      'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+    ].forEach(function(hex) {
+      var bn = new BN(hex, 16)
+      var bl = bn.bitLength()
+
+      for (var i = 0; i < bl; ++i) {
+        assert.equal(bn.testn(i), true);
+      }
+
+      // test off the end
+      assert.equal(bn.testn(bl), false);
+    })
+
+    var xbits = [
+      '01111001010111001001000100011101110100111011000110001110010111011001010',
+      '01110000000010110001111010101111100111110010001111000001001011010100111',
+      '01000101001100010001101001011110100001001111100110001110010111'
+    ].join('')
+
+    var x = new BN(
+      '23478905234580795234378912401239784125643978256123048348957342'
+    )
+    for (var i = 0; i < x.bitLength(); ++i) {
+      assert.equal(x.testn(i), (xbits.charAt(i) === '1'), 'Failed @ bit ' + i)
+    }
+  });
 });
