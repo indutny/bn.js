@@ -334,4 +334,10 @@ describe('BN', function() {
       assert.equal(x.testn(i), (xbits.charAt(i) === '1'), 'Failed @ bit ' + i)
     }
   });
+
+  it('should support gcd', function() {
+    assert.equal(new BN(3).gcd(new BN(2)).toString(16), '1');
+    assert.equal(new BN(18).gcd(new BN(12)).toString(16), '6');
+    assert.equal(new BN(-18).gcd(new BN(12)).toString(16), '6');
+  });
 });
