@@ -235,6 +235,12 @@ describe('BN', function() {
                  '-8');
   });
 
+  it('should absolute numbers', function() {
+    assert.equal(new BN(0x1001).abs().toString(), '4097');
+    assert.equal(new BN(-0x1001).abs().toString(), '4097');
+    assert.equal(new BN('ffffffff', 16).abs().toString(), '4294967295');
+  })
+
   it('should modn numbers', function() {
     assert.equal(new BN('10', 16).modn(256).toString(16), '10');
     assert.equal(new BN('100', 16).modn(256).toString(16), '0');
