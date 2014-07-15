@@ -4,6 +4,7 @@ var BN = require('../').BN;
 describe('BN', function() {
   it('should work with Number input', function() {
     assert.equal(new BN(12345).toString(16), '3039');
+    assert.equal(new BN(0x4123456).toString(16), '4123456');
   });
 
   it('should work with String input', function() {
