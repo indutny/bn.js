@@ -4,6 +4,7 @@ var BN = require('../').BN;
 describe('BN', function() {
   it('should work with Number input', function() {
     assert.equal(new BN(12345).toString(16), '3039');
+    assert.equal(new BN(0x4123456).toString(16), '4123456');
   });
 
   it('should work with String input', function() {
@@ -69,6 +70,18 @@ describe('BN', function() {
     assert.equal(r.toString(16), 'ac79bd9b79be7a277bde');
   });
 
+  describe('iaddn', function() {
+    it('should allow a sign change', function() {
+      var a = new BN(-100)
+      assert.equal(a.sign, true)
+
+      a.iaddn(200)
+
+      assert.equal(a.sign, false)
+      assert.equal(a.toString(), '100')
+    })
+  })
+
   it('should subtract numbers', function() {
     assert.equal(new BN(14).sub(new BN(26)).toString(16), '-c');
     assert.equal(new BN(26).sub(new BN(14)).toString(16), 'c');
@@ -108,6 +121,26 @@ describe('BN', function() {
     var b = new BN('1000000000000', 16);
     assert.equal(b.isub(a).toString(16), 'fffffffedcbb');
   });
+
+  describe('isubn', function() {
+    it('should work for positive numbers', function() {
+      var a = new BN(-100)
+      assert.equal(a.sign, true)
+
+      a.isubn(200)
+      assert.equal(a.sign, true)
+      assert.equal(a.toString(), '-300')
+    })
+
+    it('should not allow a sign change', function() {
+      var a = new BN(-100)
+      assert.equal(a.sign, true)
+
+      assert.throws(function() {
+        a.isubn(-200)
+      }, /Sign change is not supported in isubn/)
+    })
+  })
 
   it('should mul numbers', function() {
     assert.equal(new BN(0x1001).mul(new BN(0x1234)).toString(16),
@@ -239,6 +272,12 @@ describe('BN', function() {
                  '-8');
   });
 
+  it('should absolute numbers', function() {
+    assert.equal(new BN(0x1001).abs().toString(), '4097');
+    assert.equal(new BN(-0x1001).abs().toString(), '4097');
+    assert.equal(new BN('ffffffff', 16).abs().toString(), '4294967295');
+  })
+
   it('should modn numbers', function() {
     assert.equal(new BN('10', 16).modn(256).toString(16), '10');
     assert.equal(new BN('100', 16).modn(256).toString(16), '0');
@@ -307,5 +346,41 @@ describe('BN', function() {
     assert.equal(new BN('123456789', 16).imaskn(4).toString(16), '9');
     assert.equal(new BN('123456789', 16).imaskn(16).toString(16), '6789');
     assert.equal(new BN('123456789', 16).imaskn(28).toString(16), '3456789');
+  });
+
+  it('should support testn', function() {
+    [
+      'ff',
+      'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+    ].forEach(function(hex) {
+      var bn = new BN(hex, 16)
+      var bl = bn.bitLength()
+
+      for (var i = 0; i < bl; ++i) {
+        assert.equal(bn.testn(i), true);
+      }
+
+      // test off the end
+      assert.equal(bn.testn(bl), false);
+    })
+
+    var xbits = [
+      '01111001010111001001000100011101110100111011000110001110010111011001010',
+      '01110000000010110001111010101111100111110010001111000001001011010100111',
+      '01000101001100010001101001011110100001001111100110001110010111'
+    ].join('')
+
+    var x = new BN(
+      '23478905234580795234378912401239784125643978256123048348957342'
+    )
+    for (var i = 0; i < x.bitLength(); ++i) {
+      assert.equal(x.testn(i), (xbits.charAt(i) === '1'), 'Failed @ bit ' + i)
+    }
+  });
+
+  it('should support gcd', function() {
+    assert.equal(new BN(3).gcd(new BN(2)).toString(16), '1');
+    assert.equal(new BN(18).gcd(new BN(12)).toString(16), '6');
+    assert.equal(new BN(-18).gcd(new BN(12)).toString(16), '6');
   });
 });
