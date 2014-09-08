@@ -25,6 +25,10 @@ describe('BN', function() {
     assert.equal(new BN('10654321').toString(), '10654321');
     assert.equal(new BN('10000000000000000').toString(10),
                  '10000000000000000');
+    var base2 = '11111111111111111111111111111111111111111111111111111';
+    assert.equal(new BN(base2, 2).toString(2), base2);
+    var base36 = 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
+    assert.equal(new BN(base36, 36).toString(36), base36);
   });
 
   it('should import/export big endian', function() {
