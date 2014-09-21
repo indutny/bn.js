@@ -14,6 +14,7 @@
     "browserify-bignum": "^1.3.0-2",
     "eccjs": "^0.3.1",
     "bigi": "*",
-    "node-biginteger": "*"
+    "node-biginteger": "*",
+    "biginteger": "*"
   }
 }
