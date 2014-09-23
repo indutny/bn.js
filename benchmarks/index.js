@@ -4,9 +4,10 @@ var bn = require('../');
 var bignum = require('bignum');
 var bbignum = require('browserify-bignum');
 var sjcl = require('eccjs').sjcl.bn;
-var bigi = require('bigi')
-var BigInteger = require('./libs/BigInteger.js');
-
+var bigi = require('bigi');
+var BigInteger = require('js-big-integer').BigInteger;
+var NodeBigInteger = require('node-biginteger');
+var SilentMattBigInteger = require('biginteger').BigInteger;
 var benchmarks = [];
 
 function add(op, obj) {
@@ -65,12 +66,20 @@ var b5 = new sjcl(b1.toString(16));
 var a6 = new BigInteger('012345678901234567890123456789012345678901234567890', 10);
 var b6 = new BigInteger('213509123601923760129376102397651203958123402314875', 10);
 
+var a7 = NodeBigInteger.fromString('012345678901234567890123456789012345678901234567890', 10);
+var b7 = NodeBigInteger.fromString('213509123601923760129376102397651203958123402314875', 10);
+
+var a8 = SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 10);
+var b8 = SilentMattBigInteger.parse('213509123601923760129376102397651203958123402314875', 10);
+
 var as1 = a1.mul(a1).iaddn(0xdeadbeef);
 var as2 = a2.mul(a2).add(0xdeadbeef);
 var as3 = a3.mul(a3).add(0xdeadbeef);
 var as4 = a4.multiply(a4).add(bigi.valueOf(0xdeadbeef));
 var as5 = a5.mul(a5).add(0xdeadbeef);
 var as6 = a6.multiply(a6).add(new BigInteger('deadbeef', 16));
+var as7 = a7.multiply(a7).add(NodeBigInteger.fromString('deadbeef', 16));
+var as8 = a8.multiply(a8).add(SilentMattBigInteger.parse('deadbeef', 16));
 
 add('create-10', {
   'bn.js': function() {
@@ -87,6 +96,12 @@ add('create-10', {
   },
   'yaffle': function() {
     new BigInteger('012345678901234567890123456789012345678901234567890', 10);
+  },
+  'node-biginteger': function() {
+    NodeBigInteger.fromString('012345678901234567890123456789012345678901234567890', 10);
+  },
+  'silentmatt-biginteger': function() {
+    SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 10);
   }
 });
 
@@ -108,6 +123,12 @@ add('create-hex', {
   },
   'yaffle': function() {
     new BigInteger('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
+  },
+  'node-biginteger': function() {
+    NodeBigInteger.fromString('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
+  },
+  'silentmatt-biginteger': function() {
+    SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 16);
   }
 });
 
@@ -126,6 +147,12 @@ add('toString-10', {
   },
   'yaffle': function() {
     a6.toString(10);
+  },
+  'node-biginteger': function() {
+    a7.toString(10);
+  },
+  'silentmatt-biginteger': function() {
+    a8.toString(10);
   }
 });
 
@@ -147,6 +174,12 @@ add('toString-hex', {
   },
   'yaffle': function() {
     a6.toString(16)
+  },
+  'node-biginteger': function() {
+    a7.toString(16);
+  },
+  'silentmatt-biginteger': function() {
+    a8.toString(16);
   }
 });
 
@@ -168,6 +201,12 @@ add('add', {
   },
   'yaffle': function() {
     a6.add(b6);
+  },
+  'node-biginteger': function() {
+    a7.add(b7);
+  },
+  'silentmatt-biginteger': function() {
+    a8.add(a8);
   }
 });
 
@@ -189,6 +228,12 @@ add('mul', {
   },
   'yaffle': function() {
     a6.multiply(b6);
+  },
+  'node-biginteger': function() {
+    a7.multiply(b7);
+  },
+  'silentmatt-biginteger': function() {
+    a8.multiply(b8);
   }
 });
 
@@ -210,6 +255,12 @@ add('sqr', {
   },
   'yaffle': function() {
     a6.multiply(a6);
+  },
+  'node-biginteger': function() {
+    a7.square();
+  },
+  'silentmatt-biginteger': function() {
+    a8.multiply(a8);
   }
 });
 
@@ -228,6 +279,12 @@ add('div', {
   },
   'yaffle': function() {
     as6.divide(a6);
+  },
+  'node-biginteger': function() {
+    a7.divide(b7);
+  },
+  'silentmatt-biginteger': function() {
+    a8.divide(a8);
   }
 });
 
@@ -248,6 +305,15 @@ add('mod', {
     var remainder = as6.remainder(a6);
     return remainder.compareTo(BigInteger.ZERO) < 0 ?
         remainder.add(a6) :
+        remainder;
+  },
+  'node-biginteger': function() {
+    return as7.mod(a7);
+  },
+  'silentmatt-biginteger': function() {
+    var remainder = as8.remainder(a8);
+    return remainder.compare(BigInteger.ZERO) < 0 ?
+        remainder.add(a8) :
         remainder;
   }
 });
