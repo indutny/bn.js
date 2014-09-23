@@ -10,6 +10,12 @@ var NodeBigInteger = require('node-biginteger');
 var SilentMattBigInteger = require('biginteger').BigInteger;
 var benchmarks = [];
 
+bbignum.config({
+  DECIMAL_PLACES: 0,
+  ROUNDING_MODE: 1,
+  EXPONENTIAL_AT: 1048576
+});
+
 function add(op, obj) {
   benchmarks.push({
     name: op,
@@ -46,7 +52,14 @@ function start() {
   });
 }
 
-benchmark.options.minTime = 1
+if (/fast/i.test(process.argv[3])) {
+  console.log('Running in fast mode...');
+  benchmark.options.minTime = 0.3;
+  benchmark.options.maxTime = 1;
+  benchmark.options.minSamples = 3;
+} else {
+  benchmark.options.minTime = 1;
+}
 
 var a1 = new bn('012345678901234567890123456789012345678901234567890', 10);
 var b1 = new bn('213509123601923760129376102397651203958123402314875', 10);
