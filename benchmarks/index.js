@@ -62,8 +62,7 @@ function start() {
     setTimeout(startNext, 0);
   };
   var startNext = function () {
-    index += 1;
-    while (index < benchmarks.length) {
+    while (++index < benchmarks.length) {
       var b = benchmarks[index];
       if (re.test(b.name)) {
         return b.start(startNextAfterTimeout);
