@@ -10,6 +10,15 @@ var NodeBigInteger = require('node-biginteger');
 var SilentMattBigInteger = require('biginteger').BigInteger;
 var benchmarks = [];
 
+if (typeof bignum === "object") {
+  // browser
+  bignum = bbignum;
+  benchmark = Benchmark;
+  process = {
+    argv: ["", "", "", "fast"]
+  };
+}
+
 bbignum.config({
   DECIMAL_PLACES: 0,
   ROUNDING_MODE: 1,
@@ -19,7 +28,7 @@ bbignum.config({
 function add(op, obj) {
   benchmarks.push({
     name: op,
-    start: function start() {
+    start: function start(callback) {
       var suite = new benchmark.Suite;
 
       console.log('Benchmarking: ' + op);
@@ -35,9 +44,12 @@ function add(op, obj) {
         .on('complete', function() {
           console.log('------------------------');
           console.log('Fastest is ' + this.filter('fastest').pluck('name'));
+          console.log('========================');
+          callback();
         })
-        .run();
-      console.log('========================');
+        .run({
+          async: true
+        });
     }
   });
 }
@@ -45,11 +57,20 @@ function add(op, obj) {
 function start() {
   var re = process.argv[2] ? new RegExp(process.argv[2], 'i') : /./;
 
-  benchmarks.filter(function(b) {
-    return re.test(b.name);
-  }).forEach(function(b) {
-    b.start();
-  });
+  var index = -1;
+  var startNextAfterTimeout = function () {
+    setTimeout(startNext, 0);
+  };
+  var startNext = function () {
+    index += 1;
+    while (index < benchmarks.length) {
+      var b = benchmarks[index];
+      if (re.test(b.name)) {
+        return b.start(startNextAfterTimeout);
+      }
+    }
+  };
+  startNextAfterTimeout();
 }
 
 if (/fast/i.test(process.argv[3])) {
@@ -141,7 +162,7 @@ add('create-hex', {
     NodeBigInteger.fromString('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
   },
   'silentmatt-biginteger': function() {
-    SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 16);
+    SilentMattBigInteger.parse('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
   }
 });
 
@@ -294,10 +315,10 @@ add('div', {
     as6.divide(a6);
   },
   'node-biginteger': function() {
-    a7.divide(b7);
+    as7.divide(a7);
   },
   'silentmatt-biginteger': function() {
-    a8.divide(a8);
+    as8.divide(a8);
   }
 });
 
@@ -325,7 +346,7 @@ add('mod', {
   },
   'silentmatt-biginteger': function() {
     var remainder = as8.remainder(a8);
-    return remainder.compare(BigInteger.ZERO) < 0 ?
+    return remainder.compare(SilentMattBigInteger.ZERO) < 0 ?
         remainder.add(a8) :
         remainder;
   }

@@ -1,0 +1,16 @@
+<head>
+<script>
+
+this.console = {};
+this.console.log = function (s) {
+  var div = document.createElement("div");
+  div.appendChild(document.createTextNode(s));
+  document.body.appendChild(div);
+};
+
+</script>
+<script src="node_modules/benchmark/benchmark.js"></script>
+<script defer="defer" src="index.min.js"></script>
+</head>
+<body>
+</body>

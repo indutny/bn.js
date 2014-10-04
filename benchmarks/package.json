@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "browserify": "browserify index.js --o index.min.js --ignore bignum",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
