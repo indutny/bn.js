@@ -334,7 +334,7 @@ add('mod', {
   'bigi': function() {
     as4.mod(a4);
   },
-  'yaffle': function () {
+  'yaffle': function() {
     var remainder = as6.remainder(a6);
     return remainder.compareTo(BigInteger.ZERO) < 0 ?
         remainder.add(a6) :
