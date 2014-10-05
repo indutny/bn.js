@@ -58,10 +58,10 @@ function start() {
   var re = process.argv[2] ? new RegExp(process.argv[2], 'i') : /./;
 
   var index = -1;
-  var startNextAfterTimeout = function () {
+  var startNextAfterTimeout = function() {
     setTimeout(startNext, 0);
   };
-  var startNext = function () {
+  var startNext = function() {
     while (++index < benchmarks.length) {
       var b = benchmarks[index];
       if (re.test(b.name)) {
