@@ -17,6 +17,8 @@
     "bigi": "*",
     "node-biginteger": "*",
     "biginteger": "*",
-    "js-big-integer": "*"
+    "js-big-integer": "*",
+    "big-integer": "*",
+    "int": "*"
   }
 }
