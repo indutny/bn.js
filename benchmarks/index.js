@@ -8,7 +8,19 @@ var bigi = require('bigi');
 var BigInteger = require('js-big-integer').BigInteger;
 var NodeBigInteger = require('node-biginteger');
 var SilentMattBigInteger = require('biginteger').BigInteger;
+var PeterolsonBigInteger = require('big-integer');
+var DefunctzombieBigInt = require('int');
+var PeteroupcBigNumber = require('bignumber-petero').BigInteger;
 var benchmarks = [];
+
+if (typeof bignum === "object") {
+  // browser
+  bignum = bbignum;
+  benchmark = Benchmark;
+  process = {
+    argv: ["", "", "", "fast"]
+  };
+}
 
 bbignum.config({
   DECIMAL_PLACES: 0,
@@ -19,7 +31,7 @@ bbignum.config({
 function add(op, obj) {
   benchmarks.push({
     name: op,
-    start: function start() {
+    start: function start(callback) {
       var suite = new benchmark.Suite;
 
       console.log('Benchmarking: ' + op);
@@ -35,9 +47,12 @@ function add(op, obj) {
         .on('complete', function() {
           console.log('------------------------');
           console.log('Fastest is ' + this.filter('fastest').pluck('name'));
+          console.log('========================');
+          callback();
         })
-        .run();
-      console.log('========================');
+        .run({
+          async: true
+        });
     }
   });
 }
@@ -45,11 +60,19 @@ function add(op, obj) {
 function start() {
   var re = process.argv[2] ? new RegExp(process.argv[2], 'i') : /./;
 
-  benchmarks.filter(function(b) {
-    return re.test(b.name);
-  }).forEach(function(b) {
-    b.start();
-  });
+  var index = -1;
+  var startNextAfterTimeout = function() {
+    setTimeout(startNext, 0);
+  };
+  var startNext = function() {
+    while (++index < benchmarks.length) {
+      var b = benchmarks[index];
+      if (re.test(b.name)) {
+        return b.start(startNextAfterTimeout);
+      }
+    }
+  };
+  startNextAfterTimeout();
 }
 
 if (/fast/i.test(process.argv[3])) {
@@ -85,6 +108,15 @@ var b7 = NodeBigInteger.fromString('21350912360192376012937610239765120395812340
 var a8 = SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 10);
 var b8 = SilentMattBigInteger.parse('213509123601923760129376102397651203958123402314875', 10);
 
+var a9 = new PeterolsonBigInteger('012345678901234567890123456789012345678901234567890', 10);
+var b9 = new PeterolsonBigInteger('213509123601923760129376102397651203958123402314875', 10);
+
+var a10 = new DefunctzombieBigInt('012345678901234567890123456789012345678901234567890');
+var b10 = new DefunctzombieBigInt('213509123601923760129376102397651203958123402314875');
+
+var a11 = PeteroupcBigNumber.fromString('012345678901234567890123456789012345678901234567890');
+var b11 = PeteroupcBigNumber.fromString('213509123601923760129376102397651203958123402314875');
+
 var as1 = a1.mul(a1).iaddn(0xdeadbeef);
 var as2 = a2.mul(a2).add(0xdeadbeef);
 var as3 = a3.mul(a3).add(0xdeadbeef);
@@ -93,6 +125,9 @@ var as5 = a5.mul(a5).add(0xdeadbeef);
 var as6 = a6.multiply(a6).add(new BigInteger('deadbeef', 16));
 var as7 = a7.multiply(a7).add(NodeBigInteger.fromString('deadbeef', 16));
 var as8 = a8.multiply(a8).add(SilentMattBigInteger.parse('deadbeef', 16));
+var as9 = a9.multiply(a9).add(new PeterolsonBigInteger('deadbeef', 16));
+var as10 = a10.mul(a10).add(new DefunctzombieBigInt((0xdeadbeef).toString(10)));
+var as11 = a11.multiply(a11).add(PeteroupcBigNumber.fromString((0xdeadbeef).toString()));
 
 add('create-10', {
   'bn.js': function() {
@@ -115,6 +150,15 @@ add('create-10', {
   },
   'silentmatt-biginteger': function() {
     SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 10);
+  },
+  'peterolson/BigInteger.js': function () {
+    new PeterolsonBigInteger('012345678901234567890123456789012345678901234567890', 10);
+  },
+  'defunctzombie/int': function () {
+    new DefunctzombieBigInt('012345678901234567890123456789012345678901234567890');  
+  },
+  'peteroupc/BigNumber': function () {
+    PeteroupcBigNumber.fromString('012345678901234567890123456789012345678901234567890');
   }
 });
 
@@ -141,7 +185,7 @@ add('create-hex', {
     NodeBigInteger.fromString('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
   },
   'silentmatt-biginteger': function() {
-    SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 16);
+    SilentMattBigInteger.parse('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
   }
 });
 
@@ -166,6 +210,15 @@ add('toString-10', {
   },
   'silentmatt-biginteger': function() {
     a8.toString(10);
+  },
+  'peterolson/BigInteger.js': function () {
+    a9.toString(10);
+  },
+  'defunctzombie/int': function () {
+    a10.toString(10);
+  },
+  'peteroupc/BigNumber': function () {
+    a11.toString();
   }
 });
 
@@ -193,6 +246,12 @@ add('toString-hex', {
   },
   'silentmatt-biginteger': function() {
     a8.toString(16);
+  },
+  'peterolson/BigInteger.js': function () {
+    a9.toString(16);
+  },
+  'defunctzombie/int': function () {
+    a10.toString(16);
   }
 });
 
@@ -219,7 +278,16 @@ add('add', {
     a7.add(b7);
   },
   'silentmatt-biginteger': function() {
-    a8.add(a8);
+    a8.add(b8);
+  },
+  'peterolson/BigInteger.js': function () {
+    a9.add(b9);
+  },
+  'defunctzombie/int': function () {
+    a10.add(b10);
+  },
+  'peteroupc/BigNumber': function () {
+    a11.add(b11);
   }
 });
 
@@ -247,6 +315,15 @@ add('mul', {
   },
   'silentmatt-biginteger': function() {
     a8.multiply(b8);
+  },
+  'peterolson/BigInteger.js': function () {
+    a9.multiply(b9);
+  },
+  'defunctzombie/int': function () {
+    a10.mul(b10);
+  },
+  'peteroupc/BigNumber': function () {
+    a11.multiply(b11);
   }
 });
 
@@ -274,6 +351,15 @@ add('sqr', {
   },
   'silentmatt-biginteger': function() {
     a8.multiply(a8);
+  },
+  'peterolson/BigInteger.js': function () {
+    a9.multiply(a9);
+  },
+  'defunctzombie/int': function () {
+    a10.mul(a10);
+  },
+  'peteroupc/BigNumber': function () {
+    a11.multiply(a11);
   }
 });
 
@@ -294,10 +380,19 @@ add('div', {
     as6.divide(a6);
   },
   'node-biginteger': function() {
-    a7.divide(b7);
+    as7.divide(a7);
   },
   'silentmatt-biginteger': function() {
-    a8.divide(a8);
+    as8.divide(a8);
+  },
+  'peterolson/BigInteger.js': function () {
+    as9.divide(a9);
+  },
+  'defunctzombie/int': function () {
+    as10.div(a10);
+  },
+  'peteroupc/BigNumber': function () {
+    as11.divide(a11);
   }
 });
 
@@ -314,20 +409,23 @@ add('mod', {
   'bigi': function() {
     as4.mod(a4);
   },
-  'yaffle': function () {
-    var remainder = as6.remainder(a6);
-    return remainder.compareTo(BigInteger.ZERO) < 0 ?
-        remainder.add(a6) :
-        remainder;
+  'yaffle': function() {
+    as6.remainder(a6);
   },
   'node-biginteger': function() {
-    return as7.mod(a7);
+    as7.mod(a7);
   },
   'silentmatt-biginteger': function() {
-    var remainder = as8.remainder(a8);
-    return remainder.compare(BigInteger.ZERO) < 0 ?
-        remainder.add(a8) :
-        remainder;
+    as8.remainder(a8);
+  },
+  'peterolson/BigInteger.js': function () {
+    as9.remainder(a9);
+  },
+  'defunctzombie/int': function () {
+    as10.mod(a10);
+  },
+  'peteroupc/BigNumber': function () {
+    as11.remainder(a11);
   }
 });
 
