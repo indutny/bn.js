@@ -19,6 +19,7 @@
     "biginteger": "*",
     "js-big-integer": "*",
     "big-integer": "*",
-    "int": "*"
+    "int": "*",
+    "bignumber-petero": "peteroupc/BigNumber"
   }
 }

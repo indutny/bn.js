@@ -10,6 +10,7 @@ var NodeBigInteger = require('node-biginteger');
 var SilentMattBigInteger = require('biginteger').BigInteger;
 var PeterolsonBigInteger = require('big-integer');
 var DefunctzombieBigInt = require('int');
+var PeteroupcBigNumber = require('bignumber-petero').BigInteger;
 var benchmarks = [];
 
 if (typeof bignum === "object") {
@@ -113,6 +114,9 @@ var b9 = new PeterolsonBigInteger('213509123601923760129376102397651203958123402
 var a10 = new DefunctzombieBigInt('012345678901234567890123456789012345678901234567890');
 var b10 = new DefunctzombieBigInt('213509123601923760129376102397651203958123402314875');
 
+var a11 = PeteroupcBigNumber.fromString('012345678901234567890123456789012345678901234567890');
+var b11 = PeteroupcBigNumber.fromString('213509123601923760129376102397651203958123402314875');
+
 var as1 = a1.mul(a1).iaddn(0xdeadbeef);
 var as2 = a2.mul(a2).add(0xdeadbeef);
 var as3 = a3.mul(a3).add(0xdeadbeef);
@@ -123,6 +127,7 @@ var as7 = a7.multiply(a7).add(NodeBigInteger.fromString('deadbeef', 16));
 var as8 = a8.multiply(a8).add(SilentMattBigInteger.parse('deadbeef', 16));
 var as9 = a9.multiply(a9).add(new PeterolsonBigInteger('deadbeef', 16));
 var as10 = a10.mul(a10).add(new DefunctzombieBigInt((0xdeadbeef).toString(10)));
+var as11 = a11.multiply(a11).add(PeteroupcBigNumber.fromString((0xdeadbeef).toString()));
 
 add('create-10', {
   'bn.js': function() {
@@ -151,6 +156,9 @@ add('create-10', {
   },
   'defunctzombie/int': function () {
     new DefunctzombieBigInt('012345678901234567890123456789012345678901234567890');  
+  },
+  'peteroupc/BigNumber': function () {
+    PeteroupcBigNumber.fromString('012345678901234567890123456789012345678901234567890');
   }
 });
 
@@ -178,9 +186,6 @@ add('create-hex', {
   },
   'silentmatt-biginteger': function() {
     SilentMattBigInteger.parse('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
-  },
-  'peterolson/BigInteger.js': function () {
-    new PeterolsonBigInteger('01234567890abcdef01234567890abcdef01234567890abcdef', 16);
   }
 });
 
@@ -211,6 +216,9 @@ add('toString-10', {
   },
   'defunctzombie/int': function () {
     a10.toString(10);
+  },
+  'peteroupc/BigNumber': function () {
+    a11.toString();
   }
 });
 
@@ -277,6 +285,9 @@ add('add', {
   },
   'defunctzombie/int': function () {
     a10.add(b10);
+  },
+  'peteroupc/BigNumber': function () {
+    a11.add(b11);
   }
 });
 
@@ -310,6 +321,9 @@ add('mul', {
   },
   'defunctzombie/int': function () {
     a10.mul(b10);
+  },
+  'peteroupc/BigNumber': function () {
+    a11.multiply(b11);
   }
 });
 
@@ -343,6 +357,9 @@ add('sqr', {
   },
   'defunctzombie/int': function () {
     a10.mul(a10);
+  },
+  'peteroupc/BigNumber': function () {
+    a11.multiply(a11);
   }
 });
 
@@ -373,6 +390,9 @@ add('div', {
   },
   'defunctzombie/int': function () {
     as10.div(a10);
+  },
+  'peteroupc/BigNumber': function () {
+    as11.divide(a11);
   }
 });
 
@@ -403,6 +423,9 @@ add('mod', {
   },
   'defunctzombie/int': function () {
     as10.mod(a10);
+  },
+  'peteroupc/BigNumber': function () {
+    as11.remainder(a11);
   }
 });
 
