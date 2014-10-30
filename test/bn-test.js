@@ -72,40 +72,31 @@ describe('BN', function() {
 
   describe('hex padding', function(){
     it('should have length of 8 from leading 15', function(){
-      var byteArray = [ 15, 251, 150, 2];
-      var a = new BN(byteArray);
-      var b = new Buffer(a.toString('hex', 8), 'hex');
-      assert.equal(a.toString('hex', 8).length, 8);
+      var a = new BN('ffb9602', 16);
+      var b = new Buffer(a.toString('hex', 2), 'hex');
+      assert.equal(a.toString('hex', 2).length, 8);
     });
 
     it('should have length of 8 from leading zero', function(){
-      var byteArray = [ 0, 251, 150, 4 ];
-      var a = new BN(byteArray);
+      var a = new BN('fb9604', 16);
       var b = new Buffer(a.toString('hex', 8), 'hex');
       assert.equal(a.toString('hex', 8).length, 8);
     });
 
-    it('should have length of 8 from leading 4 zeros', function(){
-      var byteArray = [ 0, 0, 0, 0];
-      var a = new BN(byteArray);
+    it('should have length of 8 from leading zeros', function(){
+      var a = new BN(0);
       var b = new Buffer(a.toString('hex', 8), 'hex');
       assert.equal(a.toString('hex', 8).length, 8);
     });
 
     it('should have length of 64 from leading 15', function(){
-      var byteArray = [ 15, 251, 150, 255, 101, 78, 97, 19, 11, 168, 66,
-                        47, 13, 235, 202, 119, 160, 234, 116, 174, 94,
-                        168, 188, 169, 181, 74, 182, 74, 171, 240, 16, 3];
-      var a = new BN(byteArray);
-      var b = new Buffer(a.toString('hex', 64), 'hex');
-      assert.equal(a.toString('hex', 64).length, 64);
+      var a = new BN('ffb96ff654e61130ba8422f0debca77a0ea74ae5ea8bca9b54ab64aabf01003', 16);
+      var b = new Buffer(a.toString('hex', 2), 'hex');
+      assert.equal(a.toString('hex', 2).length, 64);
     });
 
     it('should have length of 64 from leading zero', function(){
-      var byteArray = [ 0, 251, 150, 255, 101, 78, 97, 19, 11, 168, 66, 47,
-                        13, 235, 202, 119, 160, 234, 116, 174, 94, 168, 188,
-                        169, 181, 74, 182, 74, 171, 240, 16, 3];
-      var a = new BN(byteArray);
+      var a = new BN('fb96ff654e61130ba8422f0debca77a0ea74ae5ea8bca9b54ab64aabf01003', 16);
       var b = new Buffer(a.toString('hex', 64), 'hex');
       assert.equal(a.toString('hex', 64).length, 64);
     });
