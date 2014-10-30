@@ -136,9 +136,9 @@ describe('BN', function() {
       var a = new BN(-100)
       assert.equal(a.sign, true)
 
-      assert.throws(function() {
-        a.isubn(-200)
-      }, /Sign change is not supported in isubn/)
+      a.isubn(-200);
+      assert.equal(a.sign, false)
+      assert.equal(a.toString(), '100')
     })
   })
 
