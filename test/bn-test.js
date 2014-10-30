@@ -70,37 +70,41 @@ describe('BN', function() {
     assert.equal(r.toString(16), 'ac79bd9b79be7a277bde');
   });
 
-  describe('padding', function(){
-    it('should output a hex with length of 8 with leading integer less than 16', function(){
-      var byteArray = [15,251,150,2];
+  describe('hex padding', function(){
+    it('should have length of 8 from leading 15', function(){
+      var byteArray = [ 15, 251, 150, 2];
       var a = new BN(byteArray);
       var b = new Buffer(a.toString('hex', 8), 'hex');
       assert.equal(a.toString('hex', 8).length, 8);
     });
 
-    it('should output a hex with length of 8 with a leading zero', function(){
-      var byteArray = [0,251,150,4];
+    it('should have length of 8 from leading zero', function(){
+      var byteArray = [ 0, 251, 150, 4 ];
       var a = new BN(byteArray);
       var b = new Buffer(a.toString('hex', 8), 'hex');
       assert.equal(a.toString('hex', 8).length, 8);
     });
 
-    it('should output a hex with length of 8 with all byte array of 4 zeros', function(){
-      var byteArray = [0,0,0,0];
+    it('should have length of 8 from leading 4 zeros', function(){
+      var byteArray = [ 0, 0, 0, 0];
       var a = new BN(byteArray);
       var b = new Buffer(a.toString('hex', 8), 'hex');
       assert.equal(a.toString('hex', 8).length, 8);
     });
 
-    it('should output a hex with length of 64 with a leading integer less than 16', function(){
-      var byteArray = [15,251,150,255,101,78,97,19,11,168,66,47,13,235,202,119,160,234,116,174,94,168,188,169,181,74,182,74,171,240,16,3];
+    it('should have length of 64 from leading 15', function(){
+      var byteArray = [ 15, 251, 150, 255, 101, 78, 97, 19, 11, 168, 66,
+                        47, 13, 235, 202, 119, 160, 234, 116, 174, 94,
+                        168, 188, 169, 181, 74, 182, 74, 171, 240, 16, 3];
       var a = new BN(byteArray);
       var b = new Buffer(a.toString('hex', 64), 'hex');
       assert.equal(a.toString('hex', 64).length, 64);
     });
 
-    it('should output a hex with the length of 64 with a leading zero', function(){
-      var byteArray = [0,251,150,255,101,78,97,19,11,168,66,47,13,235,202,119,160,234,116,174,94,168,188,169,181,74,182,74,171,240,16,3];
+    it('should have length of 64 from leading zero', function(){
+      var byteArray = [ 0, 251, 150, 255, 101, 78, 97, 19, 11, 168, 66, 47,
+                        13, 235, 202, 119, 160, 234, 116, 174, 94, 168, 188,
+                        169, 181, 74, 182, 74, 171, 240, 16, 3];
       var a = new BN(byteArray);
       var b = new Buffer(a.toString('hex', 64), 'hex');
       assert.equal(a.toString('hex', 64).length, 64);
