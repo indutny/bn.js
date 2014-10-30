@@ -70,6 +70,38 @@ describe('BN', function() {
     assert.equal(r.toString(16), 'ac79bd9b79be7a277bde');
   });
 
+  describe('hex padding', function(){
+    it('should have length of 8 from leading 15', function(){
+      var a = new BN('ffb9602', 16);
+      var b = new Buffer(a.toString('hex', 2), 'hex');
+      assert.equal(a.toString('hex', 2).length, 8);
+    });
+
+    it('should have length of 8 from leading zero', function(){
+      var a = new BN('fb9604', 16);
+      var b = new Buffer(a.toString('hex', 8), 'hex');
+      assert.equal(a.toString('hex', 8).length, 8);
+    });
+
+    it('should have length of 8 from leading zeros', function(){
+      var a = new BN(0);
+      var b = new Buffer(a.toString('hex', 8), 'hex');
+      assert.equal(a.toString('hex', 8).length, 8);
+    });
+
+    it('should have length of 64 from leading 15', function(){
+      var a = new BN('ffb96ff654e61130ba8422f0debca77a0ea74ae5ea8bca9b54ab64aabf01003', 16);
+      var b = new Buffer(a.toString('hex', 2), 'hex');
+      assert.equal(a.toString('hex', 2).length, 64);
+    });
+
+    it('should have length of 64 from leading zero', function(){
+      var a = new BN('fb96ff654e61130ba8422f0debca77a0ea74ae5ea8bca9b54ab64aabf01003', 16);
+      var b = new Buffer(a.toString('hex', 64), 'hex');
+      assert.equal(a.toString('hex', 64).length, 64);
+    });
+  });
+
   describe('iaddn', function() {
     it('should allow a sign change', function() {
       var a = new BN(-100)
