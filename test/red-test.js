@@ -123,4 +123,19 @@ describe('BN.js/Reduction context', function() {
       assert.equal(regr2.redInvm().redMul(regr2).fromRed().cmpn(1), 0);
     });
   });
+  describe('test against openssl', function () {
+    checkPrime('modp16');
+    checkPrime('modp17');
+    function checkPrime(modp, fn) {
+      it('same results as ' + modp, function (){
+        this.timeout(40000);
+        var dh = require('crypto').getDiffieHellman(modp);
+        dh.generateKeys();
+        var base = new BN(2);
+        var multed = base.toRed(BN.mont(new BN(dh.getPrime()))).redPow(new BN(dh.getPrivateKey())).fromRed();
+        var actual = new Buffer(multed.toArray());
+        assert.equal(actual.toString('hex'), dh.getPublicKey('hex'));
+      });
+    }
+  })
 });
