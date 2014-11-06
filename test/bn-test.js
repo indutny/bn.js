@@ -366,6 +366,12 @@ describe('BN', function() {
     var a = new BN('deadbeef', 16);
     var b = a.invm(p192);
     assert.equal(a.mul(b).mod(p192).toString(16), '1');
+
+    // Even base
+    var phi = new BN('872d9b030ba368706b68932cf07a0e0c', 16);
+    var e = new BN(65537);
+    var d = e.invm(phi);
+    assert.equal(e.mul(d).mod(phi).toString(16), '1');
   });
 
   it('should support bincn', function() {
