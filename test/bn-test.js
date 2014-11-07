@@ -1,5 +1,6 @@
 var assert = require('assert');
 var BN = require('../').BN;
+var fixtures = require('./fixtures');
 
 describe('BN', function() {
   it('should work with Number input', function() {
@@ -210,6 +211,14 @@ describe('BN', function() {
       new BN('-100000000000').mul(new BN('3').div(new BN('4'))).toString(16),
       '0'
     );
+  });
+
+  it('should regress mul big numbers', function() {
+    var q = fixtures.dhGroups.p17.q;
+    var qs = fixtures.dhGroups.p17.qs;
+
+    var q = new BN(q, 16);
+    assert.equal(q.sqr().toString(16), qs);
   });
 
   it('should imul numbers', function() {
