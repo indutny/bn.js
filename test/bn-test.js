@@ -42,6 +42,13 @@ describe('BN', function() {
                  '1,2,3,4,5,6,7,8');
   });
 
+  it('should import little endian', function() {
+    assert.equal(new BN([1,2,3], 10, 'le').toString(16), '30201');
+    assert.equal(new BN([1,2,3,4], 10, 'le').toString(16), '4030201');
+    assert.equal(new BN([1,2,3,4,5], 10, 'le').toString(16), '504030201');
+    assert.equal(new BN([1,2,3,4,5,6,7,8], 10, 'le').toString(16), '807060504030201');
+  });
+
   it('should return proper bitLength', function() {
     assert.equal(new BN(0).bitLength(), 0);
     assert.equal(new BN(0x1).bitLength(), 1);
