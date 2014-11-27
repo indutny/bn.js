@@ -8,6 +8,8 @@ var BigInteger = require('js-big-integer').BigInteger;
 var SilentMattBigInteger = require('biginteger').BigInteger;
 var benchmarks = [];
 
+var selfOnly = process.env.SELF_ONLY;
+
 function add(op, obj) {
   benchmarks.push({
     name: op,
@@ -17,7 +19,8 @@ function add(op, obj) {
       console.log('Benchmarking: ' + op);
 
       Object.keys(obj).forEach(function(name) {
-        suite.add(name + '#' + op, obj[name]);
+        if (!selfOnly || name === 'bn.js')
+          suite.add(name + '#' + op, obj[name]);
       });
 
       suite
