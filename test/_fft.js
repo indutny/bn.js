@@ -4,8 +4,14 @@ var fixtures = require("./fixtures.js")
 //var a = new BN("1");
 //var b = new BN("1");
 
+//var a = new BN("2");
+//var b = new BN("13");
+
 //var a = new BN("123");
 //var b = new BN("123");
+
+//var a = new BN("12345");
+//var b = new BN("1");
 
 //var a = new BN("123456");
 //var b = new BN("123456");
@@ -16,8 +22,8 @@ var fixtures = require("./fixtures.js")
 //var a = new BN("123456900");
 //var b = new BN("12345601");
 
-//var a = new BN("123456789");
-//var b = new BN("123456780");
+//var a = new BN("0x2000", 16);
+//var b = new BN("12345678");
 
 //var a = new BN("123456789");
 //var b = new BN("123456789");
