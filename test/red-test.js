@@ -123,5 +123,18 @@ describe('BN.js/Reduction context', function() {
       regr2 = regr2.toRed(BN.red('k256'));
       assert.equal(regr2.redInvm().redMul(regr2).fromRed().cmpn(1), 0);
     });
+
+    it('should correctly square the number', function() {
+      var p = BN._prime('k256').p;
+      var red = BN.red('k256');
+
+      var n = new BN('9cd8cb48c3281596139f147c1364a3ed' +
+                         'e88d3f310fdb0eb98c924e599ca1b3c9',
+                     16);
+      var expected = n.sqr().mod(p);
+      var actual = n.toRed(red).redSqr().fromRed();
+
+      assert.equal(actual.toString(16), expected.toString(16));
+    });
   });
 });
