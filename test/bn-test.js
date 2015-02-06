@@ -30,6 +30,10 @@ describe('BN', function() {
     assert.equal(new BN(base2, 2).toString(2), base2);
     var base36 = 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
     assert.equal(new BN(base36, 36).toString(36), base36);
+
+    assert(
+      new BN('6582018229284824168619876730229320890292528855852623664389292032')
+          .words[0] < 0x4000000);
   });
 
   it('should import/export big endian', function() {
