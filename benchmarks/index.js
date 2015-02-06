@@ -180,6 +180,27 @@ add('add', {
   }
 });
 
+add('sub', {
+  'bn.js': function() {
+    b1.sub(a1);
+  },
+  'bignum': function() {
+    b2.sub(a2);
+  },
+  'bigi': function() {
+    b4.subtract(a4);
+  },
+  'sjcl': function() {
+    b5.sub(a5);
+  },
+  'yaffle': function() {
+    b6.subtract(a6);
+  },
+  'silentmatt-biginteger': function() {
+    b8.subtract(a8);
+  }
+});
+
 add('mul', {
   'bn.js': function() {
     a1.mul(b1);
