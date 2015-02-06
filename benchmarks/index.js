@@ -74,12 +74,12 @@ var b6 = new BigInteger('213509123601923760129376102397651203958123402314875', 1
 var a8 = SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 10);
 var b8 = SilentMattBigInteger.parse('213509123601923760129376102397651203958123402314875', 10);
 
-var as1 = a1.mul(a1).iaddn(0xdeadbeef);
-var as2 = a2.mul(a2).add(0xdeadbeef);
-var as4 = a4.multiply(a4).add(bigi.valueOf(0xdeadbeef));
-var as5 = a5.mul(a5).add(0xdeadbeef);
-var as6 = a6.multiply(a6).add(new BigInteger('deadbeef', 16));
-var as8 = a8.multiply(a8).add(SilentMattBigInteger.parse('deadbeef', 16));
+var as1 = a1.mul(a1).iaddn(0x2adbeef);
+var as2 = a2.mul(a2).add(0x2adbeef);
+var as4 = a4.multiply(a4).add(bigi.valueOf(0x2adbeef));
+var as5 = a5.mul(a5).add(0x2adbeef);
+var as6 = a6.multiply(a6).add(new BigInteger('2adbeef', 16));
+var as8 = a8.multiply(a8).add(SilentMattBigInteger.parse('2adbeef', 16));
 
 add('create-10', {
   'bn.js': function() {
@@ -257,7 +257,7 @@ add('div', {
     as6.divide(a6);
   },
   'silentmatt-biginteger': function() {
-    a8.divide(a8);
+    as8.divide(a8);
   }
 });
 
