@@ -494,4 +494,13 @@ describe('BN', function() {
                  .ixor(new BN('11001100110011001100110011001100', 2))
                  .toString(2), '11001100110011001100110011001101');
   });
+
+  it('should allow single bits to be set', function () {
+    assert.equal(new BN(0).setn(2, true).toString(2), '100');
+    assert.equal(new BN(0).setn(27, true).toString(2),
+                 '1000000000000000000000000000');
+    assert.equal(new BN('1000000000000000000000000001', 2).setn(27, false)
+                 .toString(2), '1');
+    assert.equal(new BN('101', 2).setn(2, false).toString(2), '1');
+  });
 });
