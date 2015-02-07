@@ -25,6 +25,6 @@
   "homepage": "https://github.com/indutny/bn.js",
   "devDependencies": {
     "jshint": "^2.6.0",
-    "mocha": "^1.18.2"
+    "mocha": "^2.1.0"
   }
 }
