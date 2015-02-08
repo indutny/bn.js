@@ -334,6 +334,12 @@ add('gcd', {
   },
 });
 
+add('egcd', {
+  'bn.js': function() {
+    a1.egcd(b1);
+  }
+});
+
 add('bitLength', {
   'bn.js': function() {
     a1.bitLength();
