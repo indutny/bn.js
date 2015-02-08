@@ -340,4 +340,13 @@ add('bitLength', {
   }
 });
 
+add('gcd', {
+  'bn.js[gcd]': function() {
+    a1j.gcd(b1j);
+  },
+  'bn.js[egcd]': function() {
+    a1j.egcd(b1j);
+  }
+});
+
 start();

@@ -367,6 +367,12 @@ describe('BN.js/Arithmetic', function() {
       var e = new BN(65537);
       var d = e.invm(phi);
       assert.equal(e.mul(d).mod(phi).toString(16), '1');
+
+      // Even base (take #2)
+      var a = new BN('5');
+      var b = new BN('6');
+      var r = a.invm(b);
+      assert.equal(r.mul(a).mod(b).toString(16), '1');
     });
   });
 
