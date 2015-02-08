@@ -445,4 +445,62 @@ describe('BN', function() {
     assert.equal(new BN(18).gcd(new BN(12)).toString(16), '6');
     assert.equal(new BN(-18).gcd(new BN(12)).toString(16), '6');
   });
+
+  it('should and numbers', function () {
+    assert.equal(new BN('1010101010101010101010101010101010101010', 2)
+                 .and(new BN('101010101010101010101010101010101010101', 2))
+                 .toString(2), '0');
+  });
+  it('should iand numbers', function () {
+    assert.equal(new BN('1010101010101010101010101010101010101010', 2)
+                 .iand(new BN('101010101010101010101010101010101010101', 2))
+                 .toString(2), '0');
+    assert.equal(new BN('1000000000000000000000000000000000000001', 2)
+                 .iand(new BN('1', 2))
+                 .toString(2), '1')
+    assert.equal(new BN('1', 2)
+                 .iand(new BN('1000000000000000000000000000000000000001', 2))
+                 .toString(2), '1')
+  });
+  it('should or numbers', function () {
+    assert.equal(new BN('1010101010101010101010101010101010101010', 2)
+                 .or(new BN('101010101010101010101010101010101010101', 2))
+                 .toString(2), '1111111111111111111111111111111111111111');
+  });
+  it('should ior numbers', function () {
+    assert.equal(new BN('1010101010101010101010101010101010101010', 2)
+                 .ior(new BN('101010101010101010101010101010101010101', 2))
+                 .toString(2), '1111111111111111111111111111111111111111');
+    assert.equal(new BN('1000000000000000000000000000000000000000', 2)
+                 .ior(new BN('1', 2))
+                 .toString(2), '1000000000000000000000000000000000000001');
+    assert.equal(new BN('1', 2)
+                 .ior(new BN('1000000000000000000000000000000000000000', 2))
+                 .toString(2), '1000000000000000000000000000000000000001');
+  });
+  it('should xor numbers', function () {
+    assert.equal(new BN('11001100110011001100110011001100', 2)
+                 .xor(new BN('1100110011001100110011001100110', 2))
+                 .toString(2), '10101010101010101010101010101010');
+  });
+  it('should ixor numbers', function () {
+    assert.equal(new BN('11001100110011001100110011001100', 2)
+                 .ixor(new BN('1100110011001100110011001100110', 2))
+                 .toString(2), '10101010101010101010101010101010');
+    assert.equal(new BN('11001100110011001100110011001100', 2)
+                 .ixor(new BN('1', 2))
+                 .toString(2), '11001100110011001100110011001101');
+    assert.equal(new BN('1', 2)
+                 .ixor(new BN('11001100110011001100110011001100', 2))
+                 .toString(2), '11001100110011001100110011001101');
+  });
+
+  it('should allow single bits to be set', function () {
+    assert.equal(new BN(0).setn(2, true).toString(2), '100');
+    assert.equal(new BN(0).setn(27, true).toString(2),
+                 '1000000000000000000000000000');
+    assert.equal(new BN('1000000000000000000000000001', 2).setn(27, false)
+                 .toString(2), '1');
+    assert.equal(new BN('101', 2).setn(2, false).toString(2), '1');
+  });
 });
