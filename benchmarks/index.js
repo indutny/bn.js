@@ -334,4 +334,10 @@ add('gcd', {
   },
 });
 
+add('bitLength', {
+  'bn.js': function() {
+    a1.bitLength();
+  }
+});
+
 start();
