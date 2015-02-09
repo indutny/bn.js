@@ -67,6 +67,18 @@ describe('BN', function() {
     assert.equal(new BN('8023456789', 16).bitLength(), 40);
   });
 
+  it('should return proper zeroBits', function() {
+    assert.equal(new BN(0).zeroBits(), 0);
+    assert.equal(new BN(0x1).zeroBits(), 0);
+    assert.equal(new BN(0x2).zeroBits(), 1);
+    assert.equal(new BN(0x3).zeroBits(), 0);
+    assert.equal(new BN(0x4).zeroBits(), 2);
+    assert.equal(new BN(0x8).zeroBits(), 3);
+    assert.equal(new BN(0x10).zeroBits(), 4);
+    assert.equal(new BN(0x100).zeroBits(), 8);
+    assert.equal(new BN(0x123456).zeroBits(), 1);
+  });
+
   it('should add numbers', function() {
     assert.equal(new BN(14).add(new BN(26)).toString(16), '28');
     var k = new BN(0x1234);
