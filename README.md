@@ -18,7 +18,7 @@ new BN('FF', 16); // <BN: 255>
 new BN('1A6B765D8CDF', 16); // <BN: 29048849665247>
 
 // Big endian
-new BN([1,2,3,4])); // <BN: 1020304>
+new BN([1,2,3,4]); // <BN: 1020304>
 new BN([1,2,3,4]).toArray().join(','); // <BN: 1,2,3,4>
 
 // Little endian
