@@ -75,6 +75,11 @@ describe('BN.js/Binary', function() {
         assert.equal(x.testn(i), (xbits.charAt(i) === '1'), 'Failed @ bit ' + i)
       }
     });
+
+    it('should have short-cuts', function() {
+      var x = new BN('abcd', 16);
+      assert(!x.testn(128));
+    });
   });
 
   describe('.and()', function() {
@@ -82,6 +87,13 @@ describe('BN.js/Binary', function() {
       assert.equal(new BN('1010101010101010101010101010101010101010', 2)
                    .and(new BN('101010101010101010101010101010101010101', 2))
                    .toString(2), '0');
+    });
+
+    it('should and numbers of different limb-length', function() {
+      assert.equal(
+          new BN('abcd0000ffff', 16)
+              .and(new BN('abcd', 16)).toString(16),
+          'abcd');
     });
   });
 
@@ -104,6 +116,13 @@ describe('BN.js/Binary', function() {
       assert.equal(new BN('1010101010101010101010101010101010101010', 2)
                    .or(new BN('101010101010101010101010101010101010101', 2))
                    .toString(2), '1111111111111111111111111111111111111111');
+    });
+
+    it('should or numbers of different limb-length', function() {
+      assert.equal(
+          new BN('abcd00000000', 16)
+              .or(new BN('abcd', 16)).toString(16),
+          'abcd0000abcd');
     });
   });
 
@@ -140,6 +159,13 @@ describe('BN.js/Binary', function() {
       assert.equal(new BN('1', 2)
                    .ixor(new BN('11001100110011001100110011001100', 2))
                    .toString(2), '11001100110011001100110011001101');
+    });
+
+    it('should and numbers of different limb-length', function() {
+      assert.equal(
+          new BN('abcd0000ffff', 16)
+              .xor(new BN('abcd', 16)).toString(16),
+          'abcd00005432');
     });
   });
 

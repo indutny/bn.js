@@ -67,7 +67,14 @@ describe('BN.js/Utils', function() {
       assert.equal(new BN(0x8).zeroBits(), 3);
       assert.equal(new BN(0x10).zeroBits(), 4);
       assert.equal(new BN(0x100).zeroBits(), 8);
+      assert.equal(new BN(0x1000000).zeroBits(), 24);
       assert.equal(new BN(0x123456).zeroBits(), 1);
+    });
+  });
+
+  describe('.toJSON', function() {
+    it('should return hex string', function() {
+      assert.equal(new BN(0x123).toJSON(), '123');
     });
   });
 });

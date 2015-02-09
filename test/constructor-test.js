@@ -53,8 +53,8 @@ describe('BN.js/Constructor', function() {
     });
 
     it('should accept base-36', function() {
-      var base36 = 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
-      assert.equal(new BN(base36, 36).toString(36), base36);
+      var base36 = 'zzZzzzZzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
+      assert.equal(new BN(base36, 36).toString(36), base36.toLowerCase());
     });
 
     it('should not overflow limbs during base-10', function() {
@@ -87,6 +87,13 @@ describe('BN.js/Constructor', function() {
 
     it('should import big endian with implicit base', function() {
       assert.equal(new BN([ 1, 2, 3, 4, 5 ], 'le').toString(16), '504030201');
+    });
+  });
+
+  describe('with BN input', function() {
+    it('should clone BN', function() {
+      var num = new BN(12345);
+      assert.equal(new BN(num).toString(10), '12345');
     });
   });
 });

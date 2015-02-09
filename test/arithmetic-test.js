@@ -20,6 +20,19 @@ describe('BN.js/Arithmetic', function() {
         r.iadd(k);
       assert.equal(r.toString(16), 'ac79bd9b79be7a277bde');
     });
+
+    it('should properly do positive + negative', function() {
+      var a = new BN('abcd', 16);
+      var b = new BN('-abce', 16);
+
+      assert.equal(a.iadd(b).toString(16), '-1');
+
+      var a = new BN('abcd', 16);
+      var b = new BN('-abce', 16);
+
+      assert.equal(a.add(b).toString(16), '-1');
+      assert.equal(b.add(a).toString(16), '-1');
+    });
   });
 
   describe('.iaddn()', function() {
@@ -31,6 +44,30 @@ describe('BN.js/Arithmetic', function() {
 
       assert.equal(a.sign, false);
       assert.equal(a.toString(), '100');
+    });
+
+    it('should add negative number', function() {
+      var a = new BN(-100);
+      assert.equal(a.sign, true);
+
+      a.iaddn(-200);
+
+      assert.equal(a.toString(), '-300');
+    });
+
+    it('should allow neg + pos with big number', function() {
+      var a = new BN('-1000000000', 10);
+      assert.equal(a.sign, true);
+
+      a.iaddn(200);
+
+      assert.equal(a.toString(), '-999999800');
+    });
+
+    it('should carry limb', function() {
+      var a = new BN('3ffffff', 16);
+
+      assert.equal(a.iaddn(1).toString(16), '4000000');
     });
   });
 
@@ -151,6 +188,7 @@ describe('BN.js/Arithmetic', function() {
 
       var q = new BN(q, 16);
       assert.equal(q.sqr().toString(16), qs);
+      assert.equal(q.isqr().toString(16), qs);
     });
   });
 
@@ -164,6 +202,14 @@ describe('BN.js/Arithmetic', function() {
 
       var a = new BN('abcdef01234567890abcd214a25123f512361e6d236', 16);
       var b = new BN('deadbeefa551edebabba8121234fd21bac0341324dd', 16);
+      var c = a.mul(b);
+
+      assert.equal(a.imul(b).toString(16), c.toString(16));
+    });
+
+    it('should multiply by 0', function() {
+      var a = new BN('abcdef01234567890abcd', 16);
+      var b = new BN('0', 16);
       var c = a.mul(b);
 
       assert.equal(a.imul(b).toString(16), c.toString(16));
@@ -252,6 +298,10 @@ describe('BN.js/Arithmetic', function() {
                    '8');
       assert.equal(new BN(-144).divRound(new BN(17)).toString(10),
                    '-8');
+    });
+
+    it('should return 1 on exact division', function() {
+      assert.equal(new BN(144).divRound(new BN(144)).toString(10), '1');
     });
   });
 
