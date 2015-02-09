@@ -10,70 +10,70 @@
 const BN = require('bn.js');
 
 // Numbers
-new BN(12345).toString(16);     // '3039'
-new BN(0x4123456).toString(16); // '4123456'
+new BN(12345);     // <BN: 3039> 
+new BN(0x4123456); // <BN: 4123456>
 
 // Strings
-new BN('FF', 16).toString(); // '255'
-new BN('1A6B765D8CDF', 16).toString(); // '29048849665247'
+new BN('FF', 16); // <BN: 255>
+new BN('1A6B765D8CDF', 16); // <BN: 29048849665247>
 
 // Big endian
-new BN([1,2,3,4]).toString(16)); // '1020304'
-new BN([1,2,3,4]).toArray().join(','); // '1,2,3,4'
+new BN([1,2,3,4])); // <BN: 1020304>
+new BN([1,2,3,4]).toArray().join(','); // <BN: 1,2,3,4>
 
 // Little endian
-new BN([1,2,3], 10, 'le').toString(16); // '30201'
-new BN([1,2,3,4], 10, 'le').toString(16); // '4030201'
+new BN([1,2,3], 10, 'le'); // <BN: 30201>
+new BN([1,2,3,4], 10, 'le'); // <BN: 4030201>
 
 // bitLength
-new BN(0x123456).bitLength(); // 21
-new BN('123456789', 16).bitLength(); // 33;
+new BN(0x123456).bitLength(); // <BN: 21>
+new BN('123456789', 16).bitLength(); // <BN: 33>
 
 // iaddn
-new BN(-100).sign  // true
-new BN(100).sign   // false
+new BN(-100).sign;  // true
+new BN(100).sign;   // false
 
 // isubn
-new BN(-100).isubn(200) // -300
+new BN(-100).isubn(200) // <BN: -300>
 
 // add
-new BN(14).add(new BN(26)).toString(16); // '28'
+new BN(14).add(new BN(26)); // <BN: 28>
 
 // mul
-new BN(0x1001).mul(new BN(0x1234)).toString(16); // '1235234'
+new BN(0x1001).mul(new BN(0x1234)); // <BN: 1235234>
 
 // div
-new BN('-69527932928').div(new BN('16974594')).toString(16); // '-fff'
+new BN('-69527932928').div(new BN('16974594')); // <BN: -fff>
 
 // mod
-new BN('10').mod(new BN(256)).toString(16); // 'a'
+new BN('10').mod(new BN(256)); // <BN: a>
 
 // divRound
-new BN(9).divRound(new BN(20)).toString(10); // '0'
+new BN(9).divRound(new BN(20)).toString(10); // <BN: 0>
 
 // abs
-new BN(0x1001).abs().toString(); // '4097'
+new BN(0x1001).abs(); // <BN: 4097>
 
 // modn
-new BN('10', 16).modn(256).toString(16); // '10'
+new BN('10', 16).modn(256); // <BN: 10>
 
 // idivn
-new BN('10', 16).idivn(3).toString(16); // '5'
+new BN('10', 16).idivn(3); // <BN: 5>
 
 // shl
-new BN('69527932928').shln(13).toString(16); // '2060602000000'
+new BN('69527932928').shln(13); // <BN: 2060602000000>
 
 // shrn
-new BN('69527932928').shrn(13).toString(16); // '818180'
+new BN('69527932928').shrn(13); // <BN: 818180>
 
 // bincn
-new BN(0xffffff).bincn(1).toString(16);  //'1000001'
+new BN(0xffffff).bincn(1);  // <BN: 1000001>
 
 // imaskn
-new BN('123456789', 16).imaskn(4).toString(16); // '9'
+new BN('123456789', 16).imaskn(4); // <BN: 9>
 
 // gcd
-new BN(-18).gcd(new BN(12)).toString(16); // '6'
+new BN(-18).gcd(new BN(12)); // <BN: 6>
 
 // iand 
 (new BN('1', 2)
@@ -83,15 +83,15 @@ new BN(-18).gcd(new BN(12)).toString(16); // '6'
 // ior
 new BN('1', 2)
 .ior(new BN('1000000000000000000000000000000000000000', 2))
-.toString(2); // '1000000000000000000000000000000000000001'
+// <BN: 1000000000000000000000000000000000000001>
 
 // ixor
 new BN('1', 2)
 .ixor(new BN('11001100110011001100110011001100', 2))
-.toString(2); // '11001100110011001100110011001101'
+// <BN: '11001100110011001100110011001101'>
 
 // setn
-new BN(0).setn(2, true).toString(2); // '100'
+new BN(0).setn(2, true) // <BN: 100>
 
 ```
 
