@@ -326,8 +326,11 @@ add('invm k256', {
 });
 
 add('gcd', {
-  'bn.js': function() {
+  'bn.js[gcd]': function() {
     a1.gcd(b1);
+  },
+  'bn.js[egcd]': function() {
+    a1.egcd(b1);
   },
   'bigi': function() {
     a4.gcd(b4);
