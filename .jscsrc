@@ -16,7 +16,7 @@
   "requireCommaBeforeLineBreak": true,
   "requireOperatorBeforeLineBreak": true,
   "requireSpaceAfterBinaryOperators": true,
-  "requireSpaceAfterKeywords": true,
+  "requireSpaceAfterKeywords": [ "if", "for", "while", "else", "try", "catch" ],
   "requireSpaceAfterLineComment": true,
   "requireSpaceBeforeBinaryOperators": true,
   "requireSpaceBeforeBlockStatements": true,
