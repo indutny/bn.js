@@ -13,7 +13,7 @@
     "freeze"        : true,     // true: prohibits overwriting prototypes of native objects such as Array, Date etc.
     "immed"         : false,    // true: Require immediate invocations to be wrapped in parens e.g. `(function () { } ());`
     "indent"        : 2,        // {int} Number of spaces to use for indentation
-    "latedef"       : false,    // true: Require variables/functions to be defined before being used
+    "latedef"       : true,     // true: Require variables/functions to be defined before being used
     "newcap"        : true,     // true: Require capitalization of all constructor functions e.g. `new F()`
     "noarg"         : true,     // true: Prohibit use of `arguments.caller` and `arguments.callee`
     "noempty"       : false,    // true: Prohibit use of empty blocks
@@ -29,7 +29,7 @@
     "unused"        : true,     // true: Require all defined variables be used
     "strict"        : true,     // true: Requires all functions run in ES5 Strict Mode
     "maxparams"     : false,    // {int} Max number of formal params allowed per function
-    "maxdepth"      : false,    // {int} Max depth of nested blocks (within functions)
+    "maxdepth"      : 3,        // {int} Max depth of nested blocks (within functions)
     "maxstatements" : false,    // {int} Max number statements per function
     "maxcomplexity" : false,    // {int} Max cyclomatic complexity per function
     "maxlen"        : false,    // {int} Max number of characters per line
@@ -64,7 +64,7 @@
 
     // Environments
     "browser"       : true,     // Web Browser (window, document, etc)
-    "browserify"    : false,    // Browserify (node.js code in the browser)
+    "browserify"    : true,     // Browserify (node.js code in the browser)
     "couch"         : false,    // CouchDB
     "devel"         : true,     // Development/debugging (alert, confirm, etc)
     "dojo"          : false,    // Dojo Toolkit
@@ -72,7 +72,7 @@
     "jquery"        : false,    // jQuery
     "mocha"         : true,     // Mocha
     "mootools"      : false,    // MooTools
-    "node"          : false,    // Node.js
+    "node"          : true,     // Node.js
     "nonstandard"   : false,    // Widely adopted globals (escape, unescape, etc)
     "prototypejs"   : false,    // Prototype and Scriptaculous
     "qunit"         : false,    // QUnit
