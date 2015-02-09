@@ -1,8 +1,101 @@
 # bn.js [![Build Status](https://secure.travis-ci.org/indutny/bn.js.png)](http://travis-ci.org/indutny/bn.js)
+> BigNum in pure javascript
 
-Just a bike-shed.
+## Install
+`npm install --save bn.js`
 
-#### LICENSE
+## API
+
+```js
+const BN = require('bn.js');
+
+// Numbers
+new BN(12345).toString(16);     // '3039'
+new BN(0x4123456).toString(16); // '4123456'
+
+// Strings
+new BN('FF', 16).toString(); // '255'
+new BN('1A6B765D8CDF', 16).toString(); // '29048849665247'
+
+// Big endian
+new BN([1,2,3,4]).toString(16)); // '1020304'
+new BN([1,2,3,4]).toArray().join(','); // '1,2,3,4'
+
+// Little endian
+new BN([1,2,3], 10, 'le').toString(16); // '30201'
+new BN([1,2,3,4], 10, 'le').toString(16); // '4030201'
+
+// bitLength
+new BN(0x123456).bitLength(); // 21
+new BN('123456789', 16).bitLength(); // 33;
+
+// iaddn
+new BN(-100).sign  // true
+new BN(100).sign   // false
+
+// isubn
+new BN(-100).isubn(200) // -300
+
+// add
+new BN(14).add(new BN(26)).toString(16); // '28'
+
+// mul
+new BN(0x1001).mul(new BN(0x1234)).toString(16); // '1235234'
+
+// div
+new BN('-69527932928').div(new BN('16974594')).toString(16); // '-fff'
+
+// mod
+new BN('10').mod(new BN(256)).toString(16); // 'a'
+
+// divRound
+new BN(9).divRound(new BN(20)).toString(10); // '0'
+
+// abs
+new BN(0x1001).abs().toString(); // '4097'
+
+// modn
+new BN('10', 16).modn(256).toString(16); // '10'
+
+// idivn
+new BN('10', 16).idivn(3).toString(16); // '5'
+
+// shl
+new BN('69527932928').shln(13).toString(16); // '2060602000000'
+
+// shrn
+new BN('69527932928').shrn(13).toString(16); // '818180'
+
+// bincn
+new BN(0xffffff).bincn(1).toString(16);  //'1000001'
+
+// imaskn
+new BN('123456789', 16).imaskn(4).toString(16); // '9'
+
+// gcd
+new BN(-18).gcd(new BN(12)).toString(16); // '6'
+
+// iand 
+(new BN('1', 2)
+.iand(new BN('1000000000000000000000000000000000000001', 2))
+.toString(2); // '1'
+
+// ior
+new BN('1', 2)
+.ior(new BN('1000000000000000000000000000000000000000', 2))
+.toString(2); // '1000000000000000000000000000000000000001'
+
+// ixor
+new BN('1', 2)
+.ixor(new BN('11001100110011001100110011001100', 2))
+.toString(2); // '11001100110011001100110011001101'
+
+// setn
+new BN(0).setn(2, true).toString(2); // '100'
+
+```
+
+## LICENSE
 
 This software is licensed under the MIT License.
 
