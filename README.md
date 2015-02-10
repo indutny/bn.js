@@ -1,5 +1,8 @@
-# bn.js [![Build Status](https://secure.travis-ci.org/indutny/bn.js.png)](http://travis-ci.org/indutny/bn.js)
+# <img src="./logo.png" alt="bn.js" width="160" height="160" />
+
 > BigNum in pure javascript
+
+[![Build Status](https://secure.travis-ci.org/indutny/bn.js.png)](http://travis-ci.org/indutny/bn.js)
 
 ## Install
 `npm install --save bn.js`
