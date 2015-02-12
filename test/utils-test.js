@@ -1,6 +1,6 @@
 var assert = require('assert');
 var BN = require('../').BN;
-var fixtures = require('./fixtures');
+var fixtures = require('./fixtures/bn');
 
 describe('BN.js/Utils', function() {
   describe('.toString()', function() {

@@ -1,6 +1,5 @@
 var assert = require('assert');
 var BN = require('../').BN;
-var fixtures = require('./fixtures');
 
 describe('BN.js/Reduction context', function() {
   function testMethod(name, fn) {

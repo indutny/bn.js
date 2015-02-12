@@ -1,6 +1,6 @@
 var assert = require('assert');
 var BN = require('../').BN;
-var fixtures = require('./fixtures');
+var fixtures = require('./fixtures/dhGroups');
 
 describe('BN.js/Arithmetic', function() {
   describe('.add()', function() {
