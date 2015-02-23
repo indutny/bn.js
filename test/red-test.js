@@ -89,6 +89,14 @@ describe('BN.js/Reduction context', function() {
         assert.equal(a.toRed(m).redIMul(b.toRed(m)).fromRed().toString(16),
                      c.toString(16));
       });
+
+      it('should pow(base, 0) == 1', function(){
+        var base = new BN(256).toRed( BN.red('k256'));
+        var exponent = new BN(0);
+        var result = base.redPow(exponent);
+        assert.equal(result.toString(), '1');
+      
+      });
     });
   }
 

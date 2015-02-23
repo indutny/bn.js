@@ -4,6 +4,7 @@ var bn = require('../');
 var bignum = require('bignum');
 var sjcl = require('eccjs').sjcl.bn;
 var bigi = require('bigi');
+var crunch = require('number-crunch');
 var BigInteger = require('js-big-integer').BigInteger;
 var SilentMattBigInteger = require('biginteger').BigInteger;
 var benchmarks = [];
@@ -74,12 +75,16 @@ var b6 = new BigInteger('213509123601923760129376102397651203958123402314875', 1
 var a8 = SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 10);
 var b8 = SilentMattBigInteger.parse('213509123601923760129376102397651203958123402314875', 10);
 
+var a9 = crunch.parse('012345678901234567890123456789012345678901234567890');
+var b9 = crunch.parse('213509123601923760129376102397651203958123402314875');
+
 var as1 = a1.mul(a1).iaddn(0x2adbeef);
 var as2 = a2.mul(a2).add(0x2adbeef);
 var as4 = a4.multiply(a4).add(bigi.valueOf(0x2adbeef));
 var as5 = a5.mul(a5).add(0x2adbeef);
 var as6 = a6.multiply(a6).add(new BigInteger('2adbeef', 16));
 var as8 = a8.multiply(a8).add(SilentMattBigInteger.parse('2adbeef', 16));
+var as9 = crunch.add( crunch.mul(a9, a9), crunch.parse('44941039'));
 
 add('create-10', {
   'bn.js': function() {
@@ -96,6 +101,9 @@ add('create-10', {
   },
   'silentmatt-biginteger': function() {
     SilentMattBigInteger.parse('012345678901234567890123456789012345678901234567890', 10);
+  },
+  'crunch': function() {
+    crunch.parse('012345678901234567890123456789012345678901234567890');
   }
 });
 
@@ -135,6 +143,9 @@ add('toString-10', {
   },
   'silentmatt-biginteger': function() {
     a8.toString(10);
+  },
+  'crunch': function() {
+    crunch.stringify(a9);
   }
 });
 
@@ -149,10 +160,10 @@ add('toString-hex', {
     a4.toString(16);
   },
   'sjcl': function() {
-    a5.toString(16)
+    a5.toString(16);
   },
   'yaffle': function() {
-    a6.toString(16)
+    a6.toString(16);
   },
   'silentmatt-biginteger': function() {
     a8.toString(16);
@@ -177,6 +188,9 @@ add('add', {
   },
   'silentmatt-biginteger': function() {
     a8.add(a8);
+  },
+  'crunch': function() {
+    crunch.add(a9, a9);
   }
 });
 
@@ -198,6 +212,9 @@ add('sub', {
   },
   'silentmatt-biginteger': function() {
     b8.subtract(a8);
+  },
+  'crunch': function() {
+    crunch.sub(b9, a9);
   }
 });
 
@@ -219,6 +236,9 @@ add('mul', {
   },
   'silentmatt-biginteger': function() {
     a8.multiply(b8);
+  },
+  'crunch': function() {
+    crunch.mul(a9, b9);
   }
 });
 
@@ -240,6 +260,9 @@ add('sqr', {
   },
   'silentmatt-biginteger': function() {
     a8.multiply(a8);
+  },
+  'crunch': function() {
+    crunch.sqr(a9);
   }
 });
 
@@ -258,6 +281,9 @@ add('div', {
   },
   'silentmatt-biginteger': function() {
     as8.divide(a8);
+  },
+  'crunch': function() {
+    crunch.div(as9, a9);
   }
 });
 
@@ -282,11 +308,15 @@ add('mod', {
     return remainder.compare(BigInteger.ZERO) < 0 ?
         remainder.add(a8) :
         remainder;
+  },
+  'crunch': function(){
+    crunch.mod(as9, a9);
   }
 });
 
 var am1 = a1.toRed(bn.red('k256'));
 var am5 = new sjcl.prime.p256k(a5);
+var am9 = crunch.parse('12345678901234567890123456789012345678901234567890');
 
 add('mul-mod k256', {
   'bn.js': function() {
@@ -307,12 +337,18 @@ var prime4 = new bigi(
 var prime5 = new sjcl(
   'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f');
 
+var prime9 = crunch.parse('115792089237316195423570985008687907853269984665640\
+                          564039457584007908834671663');
+
 add('pow k256', {
   'bn.js': function() {
     am1.redPow(pow1);
   },
   'bignum': function() {
     a2.powm(a2, prime1);
+  },
+  'crunch': function(){
+    crunch.exp(a9, a9, prime9);
   }
 });
 
@@ -322,6 +358,9 @@ add('invm k256', {
   },
   'sjcl': function() {
     am5.inverseMod(prime5);
+  },
+  'crunch': function(){
+    crunch.inv(am9, prime9);
   }
 });
 
@@ -331,7 +370,7 @@ add('gcd', {
   },
   'bigi': function() {
     a4.gcd(b4);
-  },
+  }
 });
 
 add('egcd', {
