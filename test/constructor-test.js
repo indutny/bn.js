@@ -65,6 +65,10 @@ describe('BN.js/Constructor', function() {
   });
 
   describe('with Array input', function() {
+    it('should not fail on empty array', function() {
+      assert.equal(new BN([ ]).toString(16), '0');
+    });
+
     it('should import/export big endian', function() {
       assert.equal(new BN([ 1, 2, 3 ]).toString(16), '10203');
       assert.equal(new BN([ 1, 2, 3, 4 ]).toString(16), '1020304');
