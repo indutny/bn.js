@@ -325,6 +325,15 @@ describe('BN.js/Arithmetic', function() {
         a.mod(p).toString(16),
         '0');
     });
+
+    it('should properly carry the sign inside division', function() {
+      var a = new BN('945304eb96065b2a98b57a48a06ae28d285a71b5', 'hex');
+      var b = new BN(
+        'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe',
+        'hex');
+
+      assert.equal(a.mul(b).mod(a).cmpn(0), 0);
+    });
   });
 
   describe('.modn()', function() {
