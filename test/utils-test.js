@@ -11,6 +11,12 @@ describe('BN.js/Utils', function() {
         assert.equal(bi.toString(), f.dec);
       });
 
+      it('should return ' + f.dec + ' when initialized with ' + f.hex, function() {
+        var bi = new BN(f.hex, 16);
+
+        assert.equal(bi.toString(), f.dec);
+      });
+
       it('should return big-endian twos complement hex for ' + f.dec, function() {
         var bi = new BN(f.dec);
 
