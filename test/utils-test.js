@@ -57,7 +57,8 @@ describe('BN.js/Utils', function() {
 
   describe('.toArray()', function() {
     fixtures.valid.forEach(function(f) {
-      it('should return a big-endian twos complement integer for ' + f.dec, function() {
+      it('should return a big-endian ' +
+         'twos complement integer for ' + f.dec, function() {
         var bi = new BN(f.dec);
         var ba = new Buffer(bi.toArray());
 
