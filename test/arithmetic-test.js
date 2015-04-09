@@ -1,6 +1,6 @@
 var assert = require('assert');
 var BN = require('../').BN;
-var fixtures = require('./fixtures/dhGroups');
+var fixtures = require('./fixtures/dh-groups');
 
 describe('BN.js/Arithmetic', function() {
   describe('.add()', function() {
@@ -183,8 +183,8 @@ describe('BN.js/Arithmetic', function() {
     });
 
     it('should regress mul big numbers', function() {
-      var q = fixtures.dhGroups.p17.q;
-      var qs = fixtures.dhGroups.p17.qs;
+      var q = fixtures.p17.q;
+      var qs = fixtures.p17.qs;
 
       var q = new BN(q, 16);
       assert.equal(q.sqr().toString(16), qs);

@@ -1,10 +1,8 @@
 var assert = require('assert');
 var BN = require('../../').BN;
-var fixtures = require('../fixtures/dhGroups');
+var groups = require('../fixtures/dh-groups');
 
 describe('BN.js/Slow DH test', function() {
-  var groups = fixtures.dhGroups;
-
   Object.keys(groups).forEach(function(name) {
     it('should match public key for ' + name + ' group', function() {
       var group = groups[name];
