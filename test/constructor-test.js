@@ -12,8 +12,8 @@ describe('BN.js/Constructor', function() {
       assert.equal(new BN(0x4123456).toString(16), '4123456');
     });
 
-    it('should accept 50000000 * 1e8', function() {
-      var num = 50000000 * 1e8;
+    it('should accept 52 bits of precision', function() {
+      var num = Math.pow(2, 52);
       assert.equal(new BN(num, 10).toString(10), num.toString(10));
     });
 
