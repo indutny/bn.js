@@ -22,6 +22,11 @@ describe('BN.js/Constructor', function() {
       assert.equal(new BN(num, 10).toString(10), num.toString(10));
     });
 
+    it('should not accept an unsafe integer', function() {
+      var num = Math.pow(2, 53);
+      assert.throws(function() { new BN(num, 10); });
+    });
+
   });
 
   describe('with String input', function() {
