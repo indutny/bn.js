@@ -11,6 +11,12 @@ describe('BN.js/Constructor', function() {
     it('should accept two-limb number', function() {
       assert.equal(new BN(0x4123456).toString(16), '4123456');
     });
+
+    it('should accept 50000000 * 1e8', function() {
+      var num = 50000000 * 1e8;
+      assert.equal(new BN(num, 10).toString(10), num.toString(10));
+    });
+
   });
 
   describe('with String input', function() {
