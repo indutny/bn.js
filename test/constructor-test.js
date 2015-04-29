@@ -11,6 +11,22 @@ describe('BN.js/Constructor', function() {
     it('should accept two-limb number', function() {
       assert.equal(new BN(0x4123456).toString(16), '4123456');
     });
+
+    it('should accept 52 bits of precision', function() {
+      var num = Math.pow(2, 52);
+      assert.equal(new BN(num, 10).toString(10), num.toString(10));
+    });
+
+    it('should accept max safe integer', function() {
+      var num = Math.pow(2, 53) - 1;
+      assert.equal(new BN(num, 10).toString(10), num.toString(10));
+    });
+
+    it('should not accept an unsafe integer', function() {
+      var num = Math.pow(2, 53);
+      assert.throws(function() { new BN(num, 10); });
+    });
+
   });
 
   describe('with String input', function() {
