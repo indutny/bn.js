@@ -96,6 +96,17 @@ describe('BN.js/Reduction context', function() {
         var result = base.redPow(exponent);
         assert.equal(result.toString(), '1');
       });
+
+      it('should reduce when converting to red', function() {
+        var p = new BN(257);
+        var m = fn(p);
+        var a = new BN(5).toRed(m);
+
+        assert.doesNotThrow(function() {
+          var b = a.redISub(new BN(512).toRed(m));
+          b.redISub(new BN(512).toRed(m));
+        });
+      });
     });
   }
 
