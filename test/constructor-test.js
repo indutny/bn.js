@@ -27,6 +27,9 @@ describe('BN.js/Constructor', function() {
       assert.throws(function() { new BN(num, 10); });
     });
 
+    it('should accept two-limb LE number', function() {
+      assert.equal(new BN(0x4123456, null, 'le').toString(16), '56341204');
+    });
   });
 
   describe('with String input', function() {
@@ -77,6 +80,11 @@ describe('BN.js/Constructor', function() {
       var num = '65820182292848241686198767302293' +
                 '20890292528855852623664389292032';
       assert(new BN(num).words[0] < 0x4000000);
+    });
+
+    it('should accept base-16 LE integer', function() {
+      assert.equal(new BN('1A6B765D8CDF', 16, 'le').toString(16),
+                   'df8c5d766b1a');
     });
   });
 
