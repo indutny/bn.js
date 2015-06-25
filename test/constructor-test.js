@@ -103,6 +103,9 @@ describe('BN.js/Constructor', function() {
                    '504030201');
       assert.equal(new BN([ 1, 2, 3, 4, 5, 6, 7, 8 ], 'le').toString(16),
                    '807060504030201');
+      assert.equal(new BN([ 1, 2, 3, 4 ]).toArray('le').join(','), '4,3,2,1');
+      assert.equal(new BN([ 1, 2, 3, 4, 5, 6, 7, 8 ]).toArray('le').join(','),
+                   '8,7,6,5,4,3,2,1');
     });
 
     it('should import big endian with implicit base', function() {
