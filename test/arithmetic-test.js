@@ -216,6 +216,16 @@ describe('BN.js/Arithmetic', function() {
     });
   });
 
+  describe('.muln()', function() {
+    it('should multiply number by small number', function() {
+      var a = new BN('abcdef01234567890abcd', 16);
+      var b = new BN('dead', 16);
+      var c = a.mul(b);
+
+      assert.equal(a.muln(0xdead).toString(16), c.toString(16));
+    });
+  });
+
   describe('.div()', function() {
     it('should divide numbers', function() {
       assert.equal(new BN('10').div(new BN(256)).toString(16),
