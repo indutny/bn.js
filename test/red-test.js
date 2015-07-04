@@ -72,8 +72,21 @@ describe('BN.js/Reduction context', function() {
         var p = new BN(257);
         var m = fn(p);
         var a = new BN(3).toRed(m);
-        var b = a.redInvm(p);
+        var b = a.redInvm();
         assert.equal(a.redMul(b).fromRed().toString(16), '1');
+      });
+
+      it('should invm numbers (regression)', function() {
+        var p = new BN(
+            'ffffffff00000001000000000000000000000000ffffffffffffffffffffffff',
+            16);
+        var a = new BN(
+            'e1d969b8192fbac73ea5b7921896d6a2263d4d4077bb8e5055361d1f7f8163f3',
+            16);
+
+        var m = fn(p);
+        var a = a.toRed(m);
+        assert.equal(a.redInvm().fromRed().sign, false);
       });
 
       it('should imul numbers', function() {

@@ -321,8 +321,27 @@ describe('BN.js/Arithmetic', function() {
                    'a');
       assert.equal(new BN('69527932928').mod(new BN('16974594')).toString(16),
                    '102f302');
-      assert.equal(new BN('-69527932928').mod(new BN('16974594')).toString(16),
-                   '1000');
+
+      // -178 = 10 * (-17) + (-8)
+      assert.equal(new BN('-178').div(new BN('10')).toString(10), '-17');
+      assert.equal(new BN('-178').mod(new BN('10')).toString(10), '-8');
+
+      // -178 = -10 * (17) + (-8)
+      assert.equal(new BN('-178').div(new BN('-10')).toString(10), '17');
+      assert.equal(new BN('-178').mod(new BN('-10')).toString(10), '-8');
+
+      // 178 = -10 * (-17) + 8
+      assert.equal(new BN('178').div(new BN('-10')).toString(10), '-17');
+      assert.equal(new BN('178').mod(new BN('-10')).toString(10), '8');
+
+      // -4 = 1 * (-3) + -1
+      assert.equal(new BN('-4').div(new BN('-3')).toString(10), '1');
+      assert.equal(new BN('-4').mod(new BN('-3')).toString(10), '-1');
+
+      // -4 = -1 * (3) + -1
+      assert.equal(new BN('-4').mod(new BN('3')).toString(10), '-1');
+      // -4 = 1 * (-3) + (-1 + 3)
+      assert.equal(new BN('-4').umod(new BN('-3')).toString(10), '2');
 
       var p = new BN(
         'ffffffff00000001000000000000000000000000ffffffffffffffffffffffff',
@@ -400,6 +419,14 @@ describe('BN.js/Arithmetic', function() {
       assert.equal(new BN(3).gcd(new BN(2)).toString(16), '1');
       assert.equal(new BN(18).gcd(new BN(12)).toString(16), '6');
       assert.equal(new BN(-18).gcd(new BN(12)).toString(16), '6');
+    });
+  });
+
+  describe('.egcd()', function() {
+    it('should return EGCD', function() {
+      assert.equal(new BN(3).egcd(new BN(2)).gcd.toString(16), '1');
+      assert.equal(new BN(18).egcd(new BN(12)).gcd.toString(16), '6');
+      assert.equal(new BN(-18).egcd(new BN(12)).gcd.toString(16), '6');
     });
   });
 });
