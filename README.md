@@ -7,99 +7,168 @@
 ## Install
 `npm install --save bn.js`
 
-## API
+## Usage
 
 ```js
 const BN = require('bn.js');
 
-// Numbers
-new BN(12345);     // <BN: 3039>
-new BN(0x4123456); // <BN: 4123456>
+var a = new BN('dead', 16);
+var b = new BN('101010', 2);
 
-// Strings
-new BN('FF', 16); // <BN: 255>
-new BN('1A6B765D8CDF', 16); // <BN: 29048849665247>
-
-// Big endian
-new BN([1,2,3,4]); // <BN: 1020304>
-new BN([1,2,3,4]).toArray().join(','); // <BN: 1,2,3,4>
-
-// Little endian
-new BN([1,2,3], 10, 'le'); // <BN: 30201>
-new BN([1,2,3,4], 10, 'le'); // <BN: 4030201>
-
-// bitLength
-new BN(0x123456).bitLength(); // <BN: 21>
-new BN('123456789', 16).bitLength(); // <BN: 33>
-
-// zeroBits
-new BN('11000', 2).zeroBits(); // 3
-
-// iaddn
-new BN(-100).sign;  // true
-new BN(100).sign;   // false
-
-// isubn
-new BN(-100).isubn(200) // <BN: -300>
-
-// add
-new BN(14).add(new BN(26)); // <BN: 28>
-
-// mul
-new BN(0x1001).mul(new BN(0x1234)); // <BN: 1235234>
-
-// div
-new BN('-69527932928').div(new BN('16974594')); // <BN: -fff>
-
-// mod
-new BN('10').mod(new BN(256)); // <BN: a>
-
-// divRound
-new BN(9).divRound(new BN(20)).toString(10); // <BN: 0>
-
-// abs
-new BN(0x1001).abs(); // <BN: 4097>
-
-// modn
-new BN('10', 16).modn(256); // <BN: 10>
-
-// idivn
-new BN('10', 16).idivn(3); // <BN: 5>
-
-// shl
-new BN('69527932928').shln(13); // <BN: 2060602000000>
-
-// shrn
-new BN('69527932928').shrn(13); // <BN: 818180>
-
-// bincn
-new BN(0xffffff).bincn(1);  // <BN: 1000001>
-
-// imaskn
-new BN('123456789', 16).imaskn(4); // <BN: 9>
-
-// gcd
-new BN(-18).gcd(new BN(12)); // <BN: 6>
-
-// iand
-(new BN('1', 2)
-.iand(new BN('1000000000000000000000000000000000000001', 2))
-.toString(2); // '1'
-
-// ior
-new BN('1', 2)
-.ior(new BN('1000000000000000000000000000000000000000', 2));
-// <BN: 1000000000000000000000000000000000000001>
-
-// ixor
-new BN('1', 2)
-.ixor(new BN('11001100110011001100110011001100', 2));
-// <BN: '11001100110011001100110011001101'>
-
-// setn
-new BN(0).setn(2, true); // <BN: 100>
-
+var res = a.add(b);
+console.log(res.toString(10));  // 57047
 ```
+
+## Notation
+
+### Prefixes
+
+There are several prefixes to instructions that affect the way the work. Here
+is the list of them in the order of appearance in the function name:
+
+* `i` - perform operation in-place, storing the result in the host object (on
+  which the method was invoked). Might be used to avoid number allocation costs
+* `u` - unsigned, ignore the sign of operands when performing operation, or
+  always return positive value. Second case applies to reduction operations
+  like `mod()`. In such cases if the result will be negative - modulo will be
+  added to the result to make it positive
+
+### Postfixes
+
+The only available postfix at the moment is:
+
+* `n` - which means that the argument of the function must be a plain JavaScript
+  number
+
+### Examples
+
+* `a.iadd(b)` - perform addition on `a` and `b`, storing the result in `a`
+* `a.pmod(b)` - reduce `a` modulo `b`, returning positive value
+* `a.iushln(13)` - shift bits of `a` left by 13
+
+## Instructions
+
+Prefixes/postfixes are put in parens at the of the line. `endian` - could be
+either `le` (little-endian) or `be` (big-endian).
+
+### Utilities
+
+* `a.clone()` - clone number
+* `a.toArray(endian)` - convert to byte array
+* `a.toString(base, padding)` - convert to base-string and pad with zeroes
+* `a.bitLength()` - get number of bits occupied
+* `a.zeroBits()` - return number of less-significant consequent zero bits
+  (example: `1010000` has 4 zero bits)
+* `a.byteLength()` - return number of bytes occupied
+* `a.isEven()` - no comments
+* `a.isOdd()` - no comments
+* `a.cmp(b)` - compare numbers and return `-1` (`<`), `0` (`==`), or `1` (`>`)
+  depending on the comparison result (`ucmp`, `cmpn`)
+
+### Arithmetics
+
+* `a.neg()` - negate sign (`i`)
+* `a.abs()` - absolute value (`i`)
+* `a.add(b)` - addition (`i`, `n`)
+* `a.sub(b)` - subtraction (`i`, `n`)
+* `a.mul(b)` - multiply (`i`, `n`)
+* `a.sqr()` - square (`i`)
+* `a.div(b)` - divide (`divn`, `idivn`)
+* `a.mod(b)` - reduct (`u`, `n`)
+* `a.divRound(b)` - rounded division
+
+### Bit operations
+
+* `a.or(b)` - or (`i`, `u`)
+* `a.and(b)` - and (`i`, `u`, `andln`) (NOTE: `andln` is going to be replaced
+  with `andn` in future)
+* `a.xor(b)` - xor (`i`, `u`)
+* `a.setn(b)` - set specified bit to `1`
+* `a.shln(b)` - shift left (`i`, `u`)
+* `a.shrn(b)` - shift right (`i`, `u`)
+* `a.testn(b)` - test if specified bit is set
+* `a.maskn(b)` - clear bits with indexes higher or equal to `b` (`i`)
+* `a.bincn(b)` - add `1 << b` to the number
+
+### Reduction
+
+* `a.gcd(b)` - GCD
+* `a.egcd(b)` - Extended GCD results (`{ a: ..., b: ..., gcd: ... }`)
+* `a.invm(b)` - inverse `a` modulo `b`
+
+## Fast reduction
+
+When doing lots of reductions using the same modulo, it might be beneficial to
+use some tricks: like [Montgomery multiplication][0], or using special algorithm
+for [Mersenne Prime][1].
+
+### Reduction context
+
+To enable this tricks one should create a reduction context:
+
+```js
+var red = BN.red(num);
+```
+where `num` is just a BN instance.
+
+Or:
+
+```js
+var red = BN.red(primeName);
+```
+
+Where `primeName` is either of these [Mersenne Primes][1]:
+
+* `'k256'`
+* `'p224'`
+* `'p192'`
+* `'p25519'`
+
+Or:
+
+```js
+var red = BN.mont(num);
+```
+
+To reduce numbers with [Montgomery trick][1]. `.mont()` is generally faster than
+`.red(num)`, but slower than `BN.red(primeName)`.
+
+### Converting numbers
+
+Before performing anything in reduction context - numbers should be converted
+to it. Usually, this means that one should:
+
+* Convert inputs to reducted ones
+* Operate on them in reduction context
+* Convert outputs back from the reduction context
+
+Here is how one may convert numbers to `red`:
+
+```js
+var redA = a.toRed(red);
+```
+Where `red` is a reduction context created using instructions above
+
+Here is how to convert them back:
+
+```js
+var a = redA.fromRed();
+```
+
+### Red instructions
+
+Most of the instructions from the very start of this readme have their
+counterparts in red context:
+
+* `a.redAdd(b)`, `a.redIAdd(b)`
+* `a.redSub(b)`, `a.redISub(b)`
+* `a.redShl(num)`
+* `a.redMul(b)`, `a.redIMul(b)`
+* `a.redSqr()`, `a.redISqr()`
+* `a.redSqrt()` - square root modulo reduction context's prime
+* `a.redInvm()` - modular inverse of the number
+* `a.redNeg()`
+* `a.redPow(b)` - modular exponentiation
 
 ## LICENSE
 
@@ -125,3 +194,6 @@ NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[0]: https://en.wikipedia.org/wiki/Montgomery_modular_multiplication
+[1]: https://en.wikipedia.org/wiki/Mersenne_prime
