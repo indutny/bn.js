@@ -5,20 +5,38 @@ var fixtures = require('./fixtures');
 describe('BN.js/Binary', function() {
   describe('.shl()', function() {
     it('should shl numbers', function() {
+      // TODO(indutny): add negative numbers when the time will come
       assert.equal(new BN('69527932928').shln(13).toString(16),
                    '2060602000000');
       assert.equal(new BN('69527932928').shln(45).toString(16),
+                   '206060200000000000000');
+    });
+
+    it('should ushl numbers', function() {
+      assert.equal(new BN('69527932928').ushln(13).toString(16),
+                   '2060602000000');
+      assert.equal(new BN('69527932928').ushln(45).toString(16),
                    '206060200000000000000');
     });
   });
 
   describe('.shr()', function() {
     it('should shr numbers', function() {
+      // TODO(indutny): add negative numbers when the time will come
       assert.equal(new BN('69527932928').shrn(13).toString(16),
                    '818180');
       assert.equal(new BN('69527932928').shrn(17).toString(16),
                    '81818');
       assert.equal(new BN('69527932928').shrn(256).toString(16),
+                   '0');
+    });
+
+    it('should ushr numbers', function() {
+      assert.equal(new BN('69527932928').ushrn(13).toString(16),
+                   '818180');
+      assert.equal(new BN('69527932928').ushrn(17).toString(16),
+                   '81818');
+      assert.equal(new BN('69527932928').ushrn(256).toString(16),
                    '0');
     });
   });
