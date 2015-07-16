@@ -57,6 +57,14 @@ describe('BN.js/Utils', function() {
     });
   });
 
+  describe('.toArray()', function() {
+    it('should zero pad to desired lengths', function() {
+      var n = new BN(0x123456);
+      assert.deepEqual(n.toArray('be', 5), [ 0x00, 0x00, 0x12, 0x34, 0x56 ]);
+      assert.deepEqual(n.toArray('le', 5), [ 0x56, 0x34, 0x12, 0x00, 0x00 ]);
+    });
+  });
+
   describe('.zeroBits()', function() {
     it('should return proper zeroBits', function() {
       assert.equal(new BN(0).zeroBits(), 0);
