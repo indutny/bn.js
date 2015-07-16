@@ -63,6 +63,13 @@ describe('BN.js/Utils', function() {
       assert.deepEqual(n.toArray('be', 5), [ 0x00, 0x00, 0x12, 0x34, 0x56 ]);
       assert.deepEqual(n.toArray('le', 5), [ 0x56, 0x34, 0x12, 0x00, 0x00 ]);
     });
+
+    it('should throw when naturally larger than desired length', function() {
+      var n = new BN(0x123456);
+      assert.throws(function() {
+        n.toArray('be', 2);
+      });
+    });
   });
 
   describe('.zeroBits()', function() {
