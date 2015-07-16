@@ -54,7 +54,8 @@ either `le` (little-endian) or `be` (big-endian).
 ### Utilities
 
 * `a.clone()` - clone number
-* `a.toArray(endian)` - convert to byte array
+* `a.toArray(endian, padTo)` - convert to byte array, and optionally zero 
+  `padTo` (length)
 * `a.toString(base, padding)` - convert to base-string and pad with zeroes
 * `a.bitLength()` - get number of bits occupied
 * `a.zeroBits()` - return number of less-significant consequent zero bits
