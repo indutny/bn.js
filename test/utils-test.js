@@ -4,6 +4,12 @@ var fixtures = require('./fixtures');
 
 describe('BN.js/Utils', function() {
   describe('.toString()', function() {
+    describe('binary padding', function() {
+      it('should have a length of 256', function() {
+        var a = new BN(0);
+        assert.equal(a.toString(2, 256).length, 256);
+      });
+    });
     describe('hex padding', function() {
       it('should have length of 8 from leading 15', function() {
         var a = new BN('ffb9602', 16);
