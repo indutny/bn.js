@@ -7,7 +7,7 @@ node_js:
   - "5"
 env:
   matrix:
-    - TEST_SUITE=test
+    - TEST_SUITE=unit
 matrix:
   include:
     - node_js: "4"
