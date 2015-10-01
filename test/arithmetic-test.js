@@ -429,4 +429,20 @@ describe('BN.js/Arithmetic', function() {
       assert.equal(new BN(-18).egcd(new BN(12)).gcd.toString(16), '6');
     });
   });
+
+  describe('BN.max(a, b)', function() {
+    it('should return maximum', function() {
+      assert.equal(BN.max(new BN(3), new BN(2)).toString(16), '3');
+      assert.equal(BN.max(new BN(2), new BN(3)).toString(16), '3');
+      assert.equal(BN.max(new BN(2), new BN(2)).toString(16), '2');
+    });
+  });
+
+  describe('BN.min(a, b)', function() {
+    it('should return minimum', function() {
+      assert.equal(BN.min(new BN(3), new BN(2)).toString(16), '2');
+      assert.equal(BN.min(new BN(2), new BN(3)).toString(16), '2');
+      assert.equal(BN.min(new BN(2), new BN(2)).toString(16), '2');
+    });
+  });
 });
