@@ -226,6 +226,16 @@ describe('BN.js/Arithmetic', function() {
     });
   });
 
+  describe('.pow()', function() {
+    it('should raise number to the power', function() {
+      var a = new BN('ab', 16);
+      var b = new BN('13', 10);
+      var c = a.pow(b);
+
+      assert.equal(c.toString(16), '15963da06977df51909c9ba5b');
+    });
+  });
+
   describe('.div()', function() {
     it('should divide numbers', function() {
       assert.equal(new BN('10').div(new BN(256)).toString(16),

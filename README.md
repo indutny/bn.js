@@ -74,6 +74,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.sub(b)` - subtraction (`i`, `n`)
 * `a.mul(b)` - multiply (`i`, `n`)
 * `a.sqr()` - square (`i`)
+* `a.pow(b)` - raise `a` to the power of `b`
 * `a.div(b)` - divide (`divn`, `idivn`)
 * `a.mod(b)` - reduct (`u`, `n`)
 * `a.divRound(b)` - rounded division
