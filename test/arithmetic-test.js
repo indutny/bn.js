@@ -38,17 +38,17 @@ describe('BN.js/Arithmetic', function() {
   describe('.iaddn()', function() {
     it('should allow a sign change', function() {
       var a = new BN(-100);
-      assert.equal(a.sign, true);
+      assert.equal(a.negative, 1);
 
       a.iaddn(200);
 
-      assert.equal(a.sign, false);
+      assert.equal(a.negative, 0);
       assert.equal(a.toString(), '100');
     });
 
     it('should add negative number', function() {
       var a = new BN(-100);
-      assert.equal(a.sign, true);
+      assert.equal(a.negative, 1);
 
       a.iaddn(-200);
 
@@ -57,7 +57,7 @@ describe('BN.js/Arithmetic', function() {
 
     it('should allow neg + pos with big number', function() {
       var a = new BN('-1000000000', 10);
-      assert.equal(a.sign, true);
+      assert.equal(a.negative, 1);
 
       a.iaddn(200);
 
@@ -121,19 +121,19 @@ describe('BN.js/Arithmetic', function() {
 
     it('should work for positive numbers', function() {
       var a = new BN(-100);
-      assert.equal(a.sign, true);
+      assert.equal(a.negative, 1);
 
       a.isubn(200);
-      assert.equal(a.sign, true);
+      assert.equal(a.negative, 1);
       assert.equal(a.toString(), '-300');
     });
 
     it('should not allow a sign change', function() {
       var a = new BN(-100);
-      assert.equal(a.sign, true);
+      assert.equal(a.negative, 1);
 
       a.isubn(-200);
-      assert.equal(a.sign, false);
+      assert.equal(a.negative, 0);
       assert.equal(a.toString(), '100');
     });
   });
