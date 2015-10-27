@@ -40,6 +40,10 @@ describe('BN.js/Reduction context', function() {
                                 .cmp(a.sqr().sqr().sqr().mul(a)), 0);
         assert.equal(a.toRed(m).redPow(new BN(17)).fromRed()
                                 .cmp(a.sqr().sqr().sqr().sqr().mul(a)), 0);
+        assert.equal(
+            a.toRed(m).redPow(new BN('deadbeefabbadead', 16)).fromRed()
+             .toString(16),
+            '3aa0e7e304e320b68ef61592bcb00341866d6fa66e11a4d6');
       });
 
       it('should sqrtm numbers', function() {
