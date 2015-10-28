@@ -90,7 +90,7 @@ describe('BN.js/Reduction context', function() {
 
         var m = fn(p);
         var a = a.toRed(m);
-        assert.equal(a.redInvm().fromRed().sign, false);
+        assert.equal(a.redInvm().fromRed().negative, 0);
       });
 
       it('should imul numbers', function() {
