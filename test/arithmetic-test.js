@@ -138,58 +138,68 @@ describe('BN.js/Arithmetic', function() {
     });
   });
 
-  describe('.mul()', function() {
-    it('should multiply numbers of different signs', function() {
-      assert.equal(new BN(0x1001).mul(new BN(0x1234)).toString(16),
-                   '1235234');
-      assert.equal(new BN(-0x1001).mul(new BN(0x1234)).toString(16),
-                   '-1235234');
-      assert.equal(new BN(-0x1001).mul(new BN(-0x1234)).toString(16),
-                   '1235234');
-    });
+  function testMethod(name, mul) {
+    describe(name, function() {
+      it('should multiply numbers of different signs', function () {
+        assert.equal(mul(new BN(0x1001), new BN(0x1234)).toString(16),
+          '1235234');
+        assert.equal(mul(new BN(-0x1001), new BN(0x1234)).toString(16),
+          '-1235234');
+        assert.equal(mul(new BN(-0x1001), new BN(-0x1234)).toString(16),
+          '1235234');
+      });
 
-    it('should multiply with carry', function() {
-      var n = new BN(0x1001);
-      var r = n;
-      for (var i = 0; i < 4; i++)
-        r = r.mul(n);
-      assert.equal(r.toString(16),
-                   '100500a00a005001');
-    });
+      it('should multiply with carry', function () {
+        var n = new BN(0x1001);
+        var r = n;
+        for (var i = 0; i < 4; i++)
+          r = mul(r, n);
+        assert.equal(r.toString(16),
+          '100500a00a005001');
+      });
 
-    it('should correctly multiply big numbers', function() {
-      var n = new BN(
-        '79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798',
-        16
-      );
-      assert.equal(
-        n.mul(n).toString(16),
-        '39e58a8055b6fb264b75ec8c646509784204ac15a8c24e05babc9729ab9' +
-            'b055c3a9458e4ce3289560a38e08ba8175a9446ce14e608245ab3a9' +
-            '978a8bd8acaa40');
-      assert.equal(
-        n.mul(n).mul(n).toString(16),
-        '1b888e01a06e974017a28a5b4da436169761c9730b7aeedf75fc60f687b' +
-            '46e0cf2cb11667f795d5569482640fe5f628939467a01a612b02350' +
-            '0d0161e9730279a7561043af6197798e41b7432458463e64fa81158' +
-            '907322dc330562697d0d600');
-    });
+      it('should correctly multiply big numbers', function () {
+        var n = new BN(
+          '79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798',
+          16
+        );
+        assert.equal(
+          mul(n, n).toString(16),
+          '39e58a8055b6fb264b75ec8c646509784204ac15a8c24e05babc9729ab9' +
+          'b055c3a9458e4ce3289560a38e08ba8175a9446ce14e608245ab3a9' +
+          '978a8bd8acaa40');
+        assert.equal(
+          mul(mul(n, n), n).toString(16),
+          '1b888e01a06e974017a28a5b4da436169761c9730b7aeedf75fc60f687b' +
+          '46e0cf2cb11667f795d5569482640fe5f628939467a01a612b02350' +
+          '0d0161e9730279a7561043af6197798e41b7432458463e64fa81158' +
+          '907322dc330562697d0d600');
+      });
 
-    it('should multiply neg number on 0', function() {
-      assert.equal(
-        new BN('-100000000000').mul(new BN('3').div(new BN('4'))).toString(16),
-        '0'
-      );
-    });
+      it('should multiply neg number on 0', function () {
+        assert.equal(
+          mul(new BN('-100000000000'), new BN('3').div(new BN('4')))
+                                                  .toString(16),
+          '0'
+        );
+      });
 
-    it('should regress mul big numbers', function() {
-      var q = fixtures.dhGroups.p17.q;
-      var qs = fixtures.dhGroups.p17.qs;
+      it('should regress mul big numbers', function () {
+        var q = fixtures.dhGroups.p17.q;
+        var qs = fixtures.dhGroups.p17.qs;
 
-      var q = new BN(q, 16);
-      assert.equal(q.sqr().toString(16), qs);
-      assert.equal(q.isqr().toString(16), qs);
+        var q = new BN(q, 16);
+        assert.equal(mul(q, q).toString(16), qs);
+      });
     });
+  }
+
+  testMethod('.mul()', function (x, y) {
+    return BN.prototype.mul.apply(x, [ y ]);
+  });
+
+  testMethod('.mulf()', function (x, y) {
+    return BN.prototype.mulf.apply(x, [ y ]);
   });
 
   describe('.imul()', function() {
@@ -213,6 +223,16 @@ describe('BN.js/Arithmetic', function() {
       var c = a.mul(b);
 
       assert.equal(a.imul(b).toString(16), c.toString(16));
+    });
+
+    it('should regress mul big numbers in-place', function () {
+      var q = fixtures.dhGroups.p17.q;
+      var qs = fixtures.dhGroups.p17.qs;
+
+      var q = new BN(q, 16);
+
+
+      assert.equal(q.isqr().toString(16), qs);
     });
   });
 
