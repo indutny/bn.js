@@ -4,7 +4,7 @@
   "description": "Big number implementation in pure javascript",
   "main": "lib/bn.js",
   "scripts": {
-    "test": "jscs lib/*.js test/*.js && jshint lib/*.js && mocha --reporter=spec test/*-test.js"
+    "test": "mocha --reporter=spec test/*-test.js && jscs lib/*.js test/*.js && jshint lib/*.js"
   },
   "repository": {
     "type": "git",
