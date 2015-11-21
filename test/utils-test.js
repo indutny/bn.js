@@ -47,6 +47,15 @@ describe('BN.js/Utils', function() {
     });
   });
 
+  describe('.isNeg()', function() {
+    it('should return true for negative numbers', function() {
+      assert.equal(new BN(-1).isNeg(), true);
+      assert.equal(new BN(1).isNeg(), false);
+      assert.equal(new BN(0).isNeg(), false);
+      assert.equal(new BN('-0', 10).isNeg(), false);
+    });
+  });
+
   describe('.bitLength()', function() {
     it('should return proper bitLength', function() {
       assert.equal(new BN(0).bitLength(), 0);
