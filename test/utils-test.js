@@ -125,6 +125,20 @@ describe('BN.js/Utils', function() {
     });
   });
 
+  describe('.toNumber()', function() {
+    it('should return proper Number if below the limit', function() {
+      var n = new BN(0x123456);
+      assert.deepEqual(n.toNumber(), 0x123456);
+    });
+
+    it('should throw when number exceeds 53 bits', function() {
+      var n = new BN(1).iushln(54);
+      assert.throws(function() {
+        n.toNumber();
+      });
+    });
+  });
+
   describe('.zeroBits()', function() {
     it('should return proper zeroBits', function() {
       assert.equal(new BN(0).zeroBits(), 0);
