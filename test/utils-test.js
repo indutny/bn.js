@@ -78,6 +78,28 @@ describe('BN.js/Utils', function() {
     });
   });
 
+  describe('.isOdd()', function() {
+    it('should return true for odd numbers', function() {
+      assert.equal(new BN(0).isOdd(), false);
+      assert.equal(new BN(1).isOdd(), true);
+      assert.equal(new BN(2).isOdd(), false);
+      assert.equal(new BN('-0', 10).isOdd(), false);
+      assert.equal(new BN('-1', 10).isOdd(), true);
+      assert.equal(new BN('-2', 10).isOdd(), false);
+    });
+  });
+
+  describe('.isEven()', function() {
+    it('should return true for even numbers', function() {
+      assert.equal(new BN(0).isEven(), true);
+      assert.equal(new BN(1).isEven(), false);
+      assert.equal(new BN(2).isEven(), true);
+      assert.equal(new BN('-0', 10).isEven(), true);
+      assert.equal(new BN('-1', 10).isEven(), false);
+      assert.equal(new BN('-2', 10).isEven(), true);
+    });
+  });
+
   describe('.bitLength()', function() {
     it('should return proper bitLength', function() {
       assert.equal(new BN(0).bitLength(), 0);
@@ -91,6 +113,22 @@ describe('BN.js/Utils', function() {
       assert.equal(new BN(0x123456).bitLength(), 21);
       assert.equal(new BN('123456789', 16).bitLength(), 33);
       assert.equal(new BN('8023456789', 16).bitLength(), 40);
+    });
+  });
+
+  describe('.byteLength()', function() {
+    it('should return proper byteLength', function() {
+      assert.equal(new BN(0).byteLength(), 0);
+      assert.equal(new BN(0x1).byteLength(), 1);
+      assert.equal(new BN(0x2).byteLength(), 1);
+      assert.equal(new BN(0x3).byteLength(), 1);
+      assert.equal(new BN(0x4).byteLength(), 1);
+      assert.equal(new BN(0x8).byteLength(), 1);
+      assert.equal(new BN(0x10).byteLength(), 1);
+      assert.equal(new BN(0x100).byteLength(), 2);
+      assert.equal(new BN(0x123456).byteLength(), 3);
+      assert.equal(new BN('123456789', 16).byteLength(), 5);
+      assert.equal(new BN('8023456789', 16).byteLength(), 5);
     });
   });
 
