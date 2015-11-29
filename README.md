@@ -75,6 +75,8 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.gt(b)` - `a` greater than `b` (`n`)
 * `a.gte(b)` - `a` greater than or equals `b` (`n`)
 * `a.eq(b)` - `a` equals `b` (`n`)
+* `a.toTwos(width)` - convert to two's complement representation, where `width` is bit width
+* `a.fromTwos(width)` - convert from two's complement representation, where `width` is the bit width
 
 ### Arithmetics
 
