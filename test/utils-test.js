@@ -260,4 +260,40 @@ describe('BN.js/Utils', function () {
       assert.equal(new BN(3).eq(new BN(4)), false);
     });
   });
+
+  describe('.fromTwos', function () {
+    it('should convert from two\'s complement to negative number', function () {
+      assert.equal(new BN('00000000', 16).fromTwos(32).toNumber(), 0);
+      assert.equal(new BN('00000001', 16).fromTwos(32).toNumber(), 1);
+      assert.equal(new BN('7fffffff', 16).fromTwos(32).toNumber(), 2147483647);
+      assert.equal(new BN('80000000', 16).fromTwos(32).toNumber(), -2147483648);
+      assert.equal(new BN('f0000000', 16).fromTwos(32).toNumber(), -268435456);
+      assert.equal(new BN('f1234567', 16).fromTwos(32).toNumber(), -249346713);
+      assert.equal(new BN('ffffffff', 16).fromTwos(32).toNumber(), -1);
+      assert.equal(new BN('fffffffe', 16).fromTwos(32).toNumber(), -2);
+      assert.equal(new BN('fffffffffffffffffffffffffffffffe', 16).fromTwos(128).toNumber(), -2);
+      assert.equal(new BN('fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe', 16).fromTwos(256).toNumber(), -2);
+      assert.equal(new BN('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 16).fromTwos(256).toNumber(), -1);
+      assert.equal(new BN('7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 16).fromTwos(256).toString(10), new BN('57896044618658097711785492504343953926634992332820282019728792003956564819967', 10).toString(10));
+      assert.equal(new BN('8000000000000000000000000000000000000000000000000000000000000000', 16).fromTwos(256).toString(10), new BN('-57896044618658097711785492504343953926634992332820282019728792003956564819968', 10).toString(10));
+    });
+  });
+
+  describe('.toTwos', function () {
+    it('should convert from negative number to two\'s complement', function () {
+      assert.equal(new BN(0).toTwos(32).toString(16), '0');
+      assert.equal(new BN(1).toTwos(32).toString(16), '1');
+      assert.equal(new BN(2147483647).toTwos(32).toString(16), '7fffffff');
+      assert.equal(new BN('-2147483648', 10).toTwos(32).toString(16), '80000000');
+      assert.equal(new BN('-268435456', 10).toTwos(32).toString(16), 'f0000000');
+      assert.equal(new BN('-249346713', 10).toTwos(32).toString(16), 'f1234567');
+      assert.equal(new BN('-1', 10).toTwos(32).toString(16), 'ffffffff');
+      assert.equal(new BN('-2', 10).toTwos(32).toString(16), 'fffffffe');
+      assert.equal(new BN('-2', 10).toTwos(128).toString(16), 'fffffffffffffffffffffffffffffffe');
+      assert.equal(new BN('-2', 10).toTwos(256).toString(16), 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe');
+      assert.equal(new BN('-1', 10).toTwos(256).toString(16), 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+      assert.equal(new BN('57896044618658097711785492504343953926634992332820282019728792003956564819967', 10).toTwos(256).toString(16), '7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+      assert.equal(new BN('-57896044618658097711785492504343953926634992332820282019728792003956564819968', 10).toTwos(256).toString(16), '8000000000000000000000000000000000000000000000000000000000000000');
+    });
+  });
 });
