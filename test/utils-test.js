@@ -141,6 +141,14 @@ describe('BN.js/Utils', function () {
     });
   });
 
+  describe('.toBuffer', function () {
+    it('should return proper Buffer', function () {
+      var n = new BN(0x123456);
+      assert.deepEqual(n.toBuffer('be', 5).toString('hex'), '0000123456');
+      assert.deepEqual(n.toBuffer('le', 5).toString('hex'), '5634120000');
+    });
+  });
+
   describe('.toNumber()', function () {
     it('should return proper Number if below the limit', function () {
       assert.deepEqual(new BN(0x123456).toNumber(), 0x123456);
