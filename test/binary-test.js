@@ -197,4 +197,28 @@ describe('BN.js/Binary', function() {
       assert.equal(new BN('101', 2).setn(2, false).toString(2), '1');
     });
   });
+
+  describe('.notn()', function() {
+    it('should allow bitwise negation', function () {
+      assert.equal(new BN('111000111', 2).notn(9).toString(2),
+                   '111000');
+      assert.equal(new BN('000111000', 2).notn(9).toString(2),
+                   '111000111');
+      assert.equal(new BN('111000111', 2).notn(9).toString(2),
+                   '111000');
+      assert.equal(new BN('000111000', 2).notn(9).toString(2),
+                   '111000111');
+      assert.equal(new BN('111000111', 2).notn(32).toString(2),
+                   '11111111111111111111111000111000');
+      assert.equal(new BN('000111000', 2).notn(32).toString(2),
+                   '11111111111111111111111111000111');
+      assert.equal(new BN('111000111', 2).notn(68).toString(2),
+                   '11111111111111111111111111111111' +
+                   '111111111111111111111111111000111000');
+      assert.equal(new BN('000111000', 2).notn(68).toString(2),
+                   '11111111111111111111111111111111' +
+                   '111111111111111111111111111111000111');
+    });
+  });
+
 });
