@@ -94,6 +94,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.testn(b)` - test if specified bit is set
 * `a.maskn(b)` - clear bits with indexes higher or equal to `b` (`i`)
 * `a.bincn(b)` - add `1 << b` to the number
+* `a.notn(w)` - not (for the width specified by `w`) (`i`)
 
 ### Reduction
 
