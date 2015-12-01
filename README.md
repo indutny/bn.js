@@ -65,6 +65,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.isNeg()` - true if the number is negative
 * `a.isEven()` - no comments
 * `a.isOdd()` - no comments
+* `a.isZero()` - no comments
 * `a.cmp(b)` - compare numbers and return `-1` (`<`), `0` (`==`), or `1` (`>`)
   depending on the comparison result (`ucmp`, `cmpn`)
 
