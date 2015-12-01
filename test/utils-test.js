@@ -78,6 +78,14 @@ describe('BN.js/Utils', function() {
     });
   });
 
+  describe('.isZero()', function() {
+    it('should return true for zero', function() {
+      assert.equal(new BN(0).isZero(), true);
+      assert.equal(new BN(1).isZero(), false);
+      assert.equal(new BN(0xffffffff).isZero(), false);
+    });
+  });
+
   describe('.bitLength()', function() {
     it('should return proper bitLength', function() {
       assert.equal(new BN(0).bitLength(), 0);
