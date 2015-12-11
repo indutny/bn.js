@@ -136,6 +136,16 @@ describe('BN.js/Arithmetic', function() {
       assert.equal(a.negative, 0);
       assert.equal(a.toString(), '100');
     });
+
+    it('should change sign on small numbers at 0', function() {
+      var a = new BN(0).subn(2)
+      assert.equal(a.toString(), '-2');
+    });
+
+    it('should change sign on small numbers at 1', function() {
+      var a = new BN(1).subn(2)
+      assert.equal(a.toString(), '-1');
+    });
   });
 
   function testMethod(name, mul) {
