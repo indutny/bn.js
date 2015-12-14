@@ -66,7 +66,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.isEven()` - no comments
 * `a.isOdd()` - no comments
 * `a.isZero()` - no comments
-* `a.cmp(b)` - compare numbers and return `-1` (`<`), `0` (`==`), or `1` (`>`)
+* `a.cmp(b)` - compare numbers and return `-1` (a `<` b), `0` (a `==` b), or `1` (a `>` b)
   depending on the comparison result (`ucmp`, `cmpn`)
 
 ### Arithmetics
