@@ -167,4 +167,33 @@ describe('BN.js/Utils', function() {
       assert.equal(new BN(0x123).toJSON(), '123');
     });
   });
+
+  describe('.cmpn', function() {
+    it('should return -1, 0, 1 correctly', function() {
+      assert.equal(new BN(42).cmpn(42), 0);
+      assert.equal(new BN(42).cmpn(43), -1);
+      assert.equal(new BN(42).cmpn(41), 1);
+      assert.equal(new BN(0x3fffffe).cmpn(0x3fffffe), 0);
+      assert.equal(new BN(0x3fffffe).cmpn(0x3ffffff), -1);
+      assert.equal(new BN(0x3fffffe).cmpn(0x3fffffd), 1);
+      assert.equal(new BN(42).cmpn(-42), 1);
+      assert.equal(new BN(-42).cmpn(42), -1);
+      assert.equal(new BN(-42).cmpn(-42), 0);
+    });
+  });
+
+  describe('.cmp', function() {
+    it('should return -1, 0, 1 correctly', function() {
+      assert.equal(new BN(42).cmp(new BN(42)), 0);
+      assert.equal(new BN(42).cmp(new BN(43)), -1);
+      assert.equal(new BN(42).cmp(new BN(41)), 1);
+      assert.equal(new BN(0x3fffffe).cmp(new BN(0x3fffffe)), 0);
+      assert.equal(new BN(0x3fffffe).cmp(new BN(0x3ffffff)), -1);
+      assert.equal(new BN(0x3fffffe).cmp(new BN(0x3fffffd)), 1);
+      assert.equal(new BN(0x3fffffe).cmp(new BN(0x4000000)), -1);
+      assert.equal(new BN(42).cmp(new BN(-42)), 1);
+      assert.equal(new BN(-42).cmp(new BN(42)), -1);
+      assert.equal(new BN(-42).cmp(new BN(-42)), 0);
+    });
+  });
 });
