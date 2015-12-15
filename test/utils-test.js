@@ -176,6 +176,9 @@ describe('BN.js/Utils', function() {
       assert.equal(new BN(0x3fffffe).cmpn(0x3fffffe), 0);
       assert.equal(new BN(0x3fffffe).cmpn(0x3ffffff), -1);
       assert.equal(new BN(0x3fffffe).cmpn(0x3fffffd), 1);
+      assert.throws(function() {
+        new BN(0x3fffffe).cmpn(0x4000000);
+      });
       assert.equal(new BN(42).cmpn(-42), 1);
       assert.equal(new BN(-42).cmpn(42), -1);
       assert.equal(new BN(-42).cmpn(-42), 0);
