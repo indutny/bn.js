@@ -73,24 +73,24 @@ either `le` (little-endian) or `be` (big-endian).
 
 * `a.neg()` - negate sign (`i`)
 * `a.abs()` - absolute value (`i`)
-* `a.add(b)` - addition (`i`, `n`)
-* `a.sub(b)` - subtraction (`i`, `n`)
-* `a.mul(b)` - multiply (`i`, `n`)
+* `a.add(b)` - addition (`i`, `n`, `in`)
+* `a.sub(b)` - subtraction (`i`, `n`, `in`)
+* `a.mul(b)` - multiply (`i`, `n`, `in`)
 * `a.sqr()` - square (`i`)
 * `a.pow(b)` - raise `a` to the power of `b`
 * `a.div(b)` - divide (`divn`, `idivn`)
-* `a.mod(b)` - reduct (`u`, `n`)
+* `a.mod(b)` - reduct (`u`, `n`) (but no `umodn`)
 * `a.divRound(b)` - rounded division
 
 ### Bit operations
 
-* `a.or(b)` - or (`i`, `u`)
-* `a.and(b)` - and (`i`, `u`, `andln`) (NOTE: `andln` is going to be replaced
+* `a.or(b)` - or (`i`, `u`, `iu`)
+* `a.and(b)` - and (`i`, `u`, `iu`, `andln`) (NOTE: `andln` is going to be replaced
   with `andn` in future)
-* `a.xor(b)` - xor (`i`, `u`)
+* `a.xor(b)` - xor (`i`, `u`, `iu`)
 * `a.setn(b)` - set specified bit to `1`
-* `a.shln(b)` - shift left (`i`, `u`)
-* `a.shrn(b)` - shift right (`i`, `u`)
+* `a.shln(b)` - shift left (`i`, `u`, `iu`)
+* `a.shrn(b)` - shift right (`i`, `u`, `iu`)
 * `a.testn(b)` - test if specified bit is set
 * `a.maskn(b)` - clear bits with indexes higher or equal to `b` (`i`)
 * `a.bincn(b)` - add `1 << b` to the number
