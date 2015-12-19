@@ -96,6 +96,15 @@ describe('BN.js/Constructor', function () {
         return new BN('01FF');
       }, /^Error: Invalid character$/);
     });
+
+    it('should not accept decimal', function () {
+      assert.throws(function () {
+        BN('10.00', 10);
+      });
+      assert.throws(function () {
+        BN('16.00', 16);
+      });
+    });
   });
 
   describe('with Array input', function () {
