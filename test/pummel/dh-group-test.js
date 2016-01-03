@@ -1,3 +1,5 @@
+/* global describe, it */
+
 var assert = require('assert');
 var BN = require('../../').BN;
 var fixtures = require('../fixtures');
