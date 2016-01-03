@@ -2,10 +2,10 @@ var assert = require('assert');
 var BN = require('../../').BN;
 var fixtures = require('../fixtures');
 
-describe('BN.js/Slow DH test', function() {
+describe('BN.js/Slow DH test', function () {
   var groups = fixtures.dhGroups;
-  Object.keys(groups).forEach(function(name) {
-    it('should match public key for ' + name + ' group', function() {
+  Object.keys(groups).forEach(function (name) {
+    it('should match public key for ' + name + ' group', function () {
       var group = groups[name];
 
       this.timeout(3600 * 1000);
