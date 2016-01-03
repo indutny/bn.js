@@ -2,7 +2,6 @@
 
 var assert = require('assert');
 var BN = require('../').BN;
-var fixtures = require('./fixtures');
 
 describe('BN.js/Reduction context', function () {
   function testMethod (name, fn) {
@@ -52,25 +51,29 @@ describe('BN.js/Reduction context', function () {
         var p = new BN(263);
         var m = fn(p);
         var q = new BN(11).toRed(m);
+
         var qr = q.redSqrt(true, p);
-        assert.equal(qr.redSqr().cmp(q), 0);
-        var qr = q.redSqrt(false, p);
         assert.equal(qr.redSqr().cmp(q), 0);
 
-        var p = new BN(
+        qr = q.redSqrt(false, p);
+        assert.equal(qr.redSqr().cmp(q), 0);
+
+        p = new BN(
           'fffffffffffffffffffffffffffffffeffffffffffffffff',
           16);
-        var m = fn(p);
-        var q = new BN(13).toRed(m);
-        var qr = q.redSqrt(true, p);
+        m = fn(p);
+
+        q = new BN(13).toRed(m);
+        qr = q.redSqrt(true, p);
         assert.equal(qr.redSqr().cmp(q), 0);
-        var qr = q.redSqrt(false, p);
+
+        qr = q.redSqrt(false, p);
         assert.equal(qr.redSqr().cmp(q), 0);
 
         // Tonelli-shanks
-        var p = new BN(13);
-        var m = fn(p);
-        var q = new BN(10).toRed(m);
+        p = new BN(13);
+        m = fn(p);
+        q = new BN(10).toRed(m);
         assert.equal(q.redSqrt().fromRed().toString(10), '7');
       });
 
@@ -91,7 +94,8 @@ describe('BN.js/Reduction context', function () {
           16);
 
         var m = fn(p);
-        var a = a.toRed(m);
+        a = a.toRed(m);
+
         assert.equal(a.redInvm().fromRed().negative, 0);
       });
 
@@ -150,7 +154,8 @@ describe('BN.js/Reduction context', function () {
       '335dfb29ef07a4d835d22aa3b6797760' +
       '70a8b8f59ba73d56d01a79af9',
         16);
-      var exp = regr.mod(p.p).toString(16);
+      exp = regr.mod(p.p).toString(16);
+
       assert.equal(p.ireduce(regr).toString(16), exp);
     });
 

@@ -2,7 +2,6 @@
 
 var assert = require('assert');
 var BN = require('../').BN;
-var fixtures = require('./fixtures');
 
 describe('BN.js/Binary', function () {
   describe('.shl()', function () {
@@ -222,5 +221,4 @@ describe('BN.js/Binary', function () {
         '111111111111111111111111111111000111');
     });
   });
-
 });

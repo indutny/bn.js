@@ -2,7 +2,6 @@
 
 var assert = require('assert');
 var BN = require('../').BN;
-var fixtures = require('./fixtures');
 
 describe('BN.js/Constructor', function () {
   describe('with Smi input', function () {
@@ -26,7 +25,10 @@ describe('BN.js/Constructor', function () {
 
     it('should not accept an unsafe integer', function () {
       var num = Math.pow(2, 53);
-      assert.throws(function () { new BN(num, 10); });
+
+      assert.throws(function () {
+        BN(num, 10);
+      });
     });
 
     it('should accept two-limb LE number', function () {

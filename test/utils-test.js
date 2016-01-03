@@ -2,32 +2,32 @@
 
 var assert = require('assert');
 var BN = require('../').BN;
-var fixtures = require('./fixtures');
 
 describe('BN.js/Utils', function () {
   describe('.toString()', function () {
     describe('binary padding', function () {
       it('should have a length of 256', function () {
         var a = new BN(0);
+
         assert.equal(a.toString(2, 256).length, 256);
       });
     });
     describe('hex padding', function () {
       it('should have length of 8 from leading 15', function () {
         var a = new BN('ffb9602', 16);
-        var b = new Buffer(a.toString('hex', 2), 'hex');
+
         assert.equal(a.toString('hex', 2).length, 8);
       });
 
       it('should have length of 8 from leading zero', function () {
         var a = new BN('fb9604', 16);
-        var b = new Buffer(a.toString('hex', 8), 'hex');
+
         assert.equal(a.toString('hex', 8).length, 8);
       });
 
       it('should have length of 8 from leading zeros', function () {
         var a = new BN(0);
-        var b = new Buffer(a.toString('hex', 8), 'hex');
+
         assert.equal(a.toString('hex', 8).length, 8);
       });
 
@@ -35,7 +35,7 @@ describe('BN.js/Utils', function () {
         var a = new BN(
           'ffb96ff654e61130ba8422f0debca77a0ea74ae5ea8bca9b54ab64aabf01003',
           16);
-        var b = new Buffer(a.toString('hex', 2), 'hex');
+
         assert.equal(a.toString('hex', 2).length, 64);
       });
 
@@ -43,7 +43,7 @@ describe('BN.js/Utils', function () {
         var a = new BN(
           'fb96ff654e61130ba8422f0debca77a0ea74ae5ea8bca9b54ab64aabf01003',
           16);
-        var b = new Buffer(a.toString('hex', 64), 'hex');
+
         assert.equal(a.toString('hex', 64).length, 64);
       });
     });

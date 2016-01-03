@@ -10,16 +10,22 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(new BN(14).add(new BN(26)).toString(16), '28');
       var k = new BN(0x1234);
       var r = k;
-      for (var i = 0; i < 257; i++)
+
+      for (var i = 0; i < 257; i++) {
         r = r.add(k);
+      }
+
       assert.equal(r.toString(16), '125868');
     });
 
     it('should handle carry properly (in-place)', function () {
       var k = new BN('abcdefabcdefabcdef', 16);
       var r = new BN('deadbeef', 16);
-      for (var i = 0; i < 257; i++)
+
+      for (var i = 0; i < 257; i++) {
         r.iadd(k);
+      }
+
       assert.equal(r.toString(16), 'ac79bd9b79be7a277bde');
     });
 
@@ -29,8 +35,8 @@ describe('BN.js/Arithmetic', function () {
 
       assert.equal(a.iadd(b).toString(16), '-1');
 
-      var a = new BN('abcd', 16);
-      var b = new BN('-abce', 16);
+      a = new BN('abcd', 16);
+      b = new BN('-abce', 16);
 
       assert.equal(a.add(b).toString(16), '-1');
       assert.equal(b.add(a).toString(16), '-1');
@@ -107,8 +113,8 @@ describe('BN.js/Arithmetic', function () {
       var b = new BN('1000000000000', 16);
       assert.equal(a.isub(b).toString(16), '-fffffffedcbb');
 
-      var a = new BN('12345', 16);
-      var b = new BN('1000000000000', 16);
+      a = new BN('12345', 16);
+      b = new BN('1000000000000', 16);
       assert.equal(b.isub(a).toString(16), 'fffffffedcbb');
     });
   });
@@ -164,10 +170,12 @@ describe('BN.js/Arithmetic', function () {
       it('should multiply with carry', function () {
         var n = new BN(0x1001);
         var r = n;
-        for (var i = 0; i < 4; i++)
+
+        for (var i = 0; i < 4; i++) {
           r = mul(r, n);
-        assert.equal(r.toString(16),
-          '100500a00a005001');
+        }
+
+        assert.equal(r.toString(16), '100500a00a005001');
       });
 
       it('should correctly multiply big numbers', function () {
@@ -200,7 +208,7 @@ describe('BN.js/Arithmetic', function () {
         var q = fixtures.dhGroups.p17.q;
         var qs = fixtures.dhGroups.p17.qs;
 
-        var q = new BN(q, 16);
+        q = new BN(q, 16);
         assert.equal(mul(q, q).toString(16), qs);
       });
     });
@@ -222,9 +230,9 @@ describe('BN.js/Arithmetic', function () {
 
       assert.equal(a.imul(b).toString(16), c.toString(16));
 
-      var a = new BN('abcdef01234567890abcd214a25123f512361e6d236', 16);
-      var b = new BN('deadbeefa551edebabba8121234fd21bac0341324dd', 16);
-      var c = a.mul(b);
+      a = new BN('abcdef01234567890abcd214a25123f512361e6d236', 16);
+      b = new BN('deadbeefa551edebabba8121234fd21bac0341324dd', 16);
+      c = a.mul(b);
 
       assert.equal(a.imul(b).toString(16), c.toString(16));
     });
@@ -241,7 +249,7 @@ describe('BN.js/Arithmetic', function () {
       var q = fixtures.dhGroups.p17.q;
       var qs = fixtures.dhGroups.p17.qs;
 
-      var q = new BN(q, 16);
+      q = new BN(q, 16);
 
       assert.equal(q.isqr().toString(16), qs);
     });
@@ -303,10 +311,10 @@ describe('BN.js/Arithmetic', function () {
         as.div(p).toString(16),
         '39e58a8055b6fb264b75ec8c646509784204ac15a8c24e05babc9729e58090b9');
 
-      var p = new BN(
+      p = new BN(
         'ffffffff00000001000000000000000000000000ffffffffffffffffffffffff',
         16);
-      var a = new BN(
+      a = new BN(
         'fffffffe00000003fffffffd0000000200000001fffffffe00000002ffffffff' +
         'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
         16);
@@ -437,8 +445,8 @@ describe('BN.js/Arithmetic', function () {
       var p192 = new BN(
         'fffffffffffffffffffffffffffffffeffffffffffffffff',
         16);
-      var a = new BN('deadbeef', 16);
-      var b = a.invm(p192);
+      a = new BN('deadbeef', 16);
+      b = a.invm(p192);
       assert.equal(a.mul(b).mod(p192).toString(16), '1');
 
       // Even base
@@ -448,8 +456,8 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(e.mul(d).mod(phi).toString(16), '1');
 
       // Even base (take #2)
-      var a = new BN('5');
-      var b = new BN('6');
+      a = new BN('5');
+      b = new BN('6');
       var r = a.invm(b);
       assert.equal(r.mul(a).mod(b).toString(16), '1');
     });
