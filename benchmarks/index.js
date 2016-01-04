@@ -1,4 +1,5 @@
-var assert = require('assert');
+ /* eslint-disable new-cap, no-new */
+
 var benchmark = require('benchmark');
 var bn = require('../');
 var bignum = require('bignum');
@@ -14,13 +15,14 @@ function add (op, obj) {
   benchmarks.push({
     name: op,
     start: function start () {
-      var suite = new benchmark.Suite;
+      var suite = new benchmark.Suite();
 
       console.log('Benchmarking: ' + op);
 
       Object.keys(obj).forEach(function (name) {
-        if (!selfOnly || name === 'bn.js')
+        if (!selfOnly || name === 'bn.js') {
           suite.add(name + '#' + op, obj[name]);
+        }
       });
 
       suite
@@ -173,7 +175,7 @@ var b8j = SilentMattBigInteger.parse(aj, 16);
 var as1 = a1.mul(a1).iaddn(0x2adbeef);
 var as2 = a2.mul(a2).add(0x2adbeef);
 var as4 = a4.multiply(a4).add(bigi.valueOf(0x2adbeef));
-var as5 = a5.mul(a5).add(0x2adbeef);
+// var as5 = a5.mul(a5).add(0x2adbeef);
 var as6 = a6.multiply(a6).add(new BigInteger('2adbeef', 16));
 var as8 = a8.multiply(a8).add(SilentMattBigInteger.parse('2adbeef', 16));
 
@@ -396,15 +398,15 @@ add('mod', {
   },
   'yaffle': function () {
     var remainder = as6.remainder(a6);
-    return remainder.compareTo(BigInteger.ZERO) < 0 ?
-      remainder.add(a6) :
-      remainder;
+    return remainder.compareTo(BigInteger.ZERO) < 0
+      ? remainder.add(a6)
+      : remainder;
   },
   'silentmatt-biginteger': function () {
     var remainder = as8.remainder(a8);
-    return remainder.compare(BigInteger.ZERO) < 0 ?
-      remainder.add(a8) :
-      remainder;
+    return remainder.compare(BigInteger.ZERO) < 0
+      ? remainder.add(a8)
+      : remainder;
   }
 });
 
@@ -424,9 +426,9 @@ var pow1 = am1.fromRed();
 var prime1 = new bignum(
   'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
   16);
-var prime4 = new bigi(
-  'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
-  16);
+// var prime4 = new bigi(
+//   'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
+//   16);
 var prime5 = new sjcl(
   'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f');
 
@@ -454,7 +456,7 @@ add('gcd', {
   },
   'bigi': function () {
     a4.gcd(b4);
-  },
+  }
 });
 
 add('egcd', {
