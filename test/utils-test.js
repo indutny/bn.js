@@ -121,6 +121,12 @@ describe('BN.js/Utils', function () {
   });
 
   describe('.toArray()', function () {
+    it('should return [ 0 ] for `0`', function () {
+      var n = new BN(0);
+      assert.deepEqual(n.toArray('be'), [ 0 ]);
+      assert.deepEqual(n.toArray('le'), [ 0 ]);
+    });
+
     it('should zero pad to desired lengths', function () {
       var n = new BN(0x123456);
       assert.deepEqual(n.toArray('be', 5), [ 0x00, 0x00, 0x12, 0x34, 0x56 ]);
