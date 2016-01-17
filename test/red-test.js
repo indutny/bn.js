@@ -130,6 +130,11 @@ describe('BN.js/Reduction context', function () {
           b.redISub(new BN(512).toRed(m));
         });
       });
+
+      it('redNeg and zero value', function () {
+        var a = new BN(0).toRed(BN.red('k256')).redNeg();
+        assert.equal(a.isZero(), true);
+      });
     });
   }
 
