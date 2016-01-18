@@ -371,26 +371,34 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(new BN('69527932928').mod(new BN('16974594')).toString(16),
         '102f302');
 
-      // -178 = 10 * (-17) + (-8)
-      assert.equal(new BN('-178').div(new BN('10')).toString(10), '-17');
-      assert.equal(new BN('-178').mod(new BN('10')).toString(10), '-8');
+      // 178 = 10 * 17 + 8
+      assert.equal(new BN(178).div(new BN(10)).toNumber(), 17);
+      assert.equal(new BN(178).mod(new BN(10)).toNumber(), 8);
+      assert.equal(new BN(178).umod(new BN(10)).toNumber(), 8);
 
-      // -178 = -10 * (17) + (-8)
-      assert.equal(new BN('-178').div(new BN('-10')).toString(10), '17');
-      assert.equal(new BN('-178').mod(new BN('-10')).toString(10), '-8');
+      // -178 = 10 * (-17) + (-8)
+      assert.equal(new BN(-178).div(new BN(10)).toNumber(), -17);
+      assert.equal(new BN(-178).mod(new BN(10)).toNumber(), -8);
+      assert.equal(new BN(-178).umod(new BN(10)).toNumber(), 2);
 
       // 178 = -10 * (-17) + 8
-      assert.equal(new BN('178').div(new BN('-10')).toString(10), '-17');
-      assert.equal(new BN('178').mod(new BN('-10')).toString(10), '8');
+      assert.equal(new BN(178).div(new BN(-10)).toNumber(), -17);
+      assert.equal(new BN(178).mod(new BN(-10)).toNumber(), 8);
+      assert.equal(new BN(178).umod(new BN(-10)).toNumber(), 8);
+
+      // -178 = -10 * (17) + (-8)
+      assert.equal(new BN(-178).div(new BN(-10)).toNumber(), 17);
+      assert.equal(new BN(-178).mod(new BN(-10)).toNumber(), -8);
+      assert.equal(new BN(-178).umod(new BN(-10)).toNumber(), 2);
 
       // -4 = 1 * (-3) + -1
-      assert.equal(new BN('-4').div(new BN('-3')).toString(10), '1');
-      assert.equal(new BN('-4').mod(new BN('-3')).toString(10), '-1');
+      assert.equal(new BN(-4).div(new BN(-3)).toNumber(), 1);
+      assert.equal(new BN(-4).mod(new BN(-3)).toNumber(), -1);
 
       // -4 = -1 * (3) + -1
-      assert.equal(new BN('-4').mod(new BN('3')).toString(10), '-1');
+      assert.equal(new BN(-4).mod(new BN(3)).toNumber(), -1);
       // -4 = 1 * (-3) + (-1 + 3)
-      assert.equal(new BN('-4').umod(new BN('-3')).toString(10), '2');
+      assert.equal(new BN(-4).umod(new BN(-3)).toNumber(), 2);
 
       var p = new BN(
         'ffffffff00000001000000000000000000000000ffffffffffffffffffffffff',
@@ -492,6 +500,12 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(BN.min(new BN(3), new BN(2)).toString(16), '2');
       assert.equal(BN.min(new BN(2), new BN(3)).toString(16), '2');
       assert.equal(BN.min(new BN(2), new BN(2)).toString(16), '2');
+    });
+  });
+
+  describe('BN.ineg', function () {
+    it('shouldn\'t change sign for zero', function () {
+      assert.equal(new BN(0).ineg().toString(10), '0');
     });
   });
 });
