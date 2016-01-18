@@ -23,6 +23,7 @@ function genCombMulTo (alen, blen) {
     src.push('var bh' + i + ' = b' + i + ' >>> 13;');
   }
   src.push('');
+  src.push('out.negative = self.negative ^ num.negative;');
   src.push('out.length = ' + len + ';');
 
   for (var k = 0; k < len; k++) {
