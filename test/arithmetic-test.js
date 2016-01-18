@@ -159,12 +159,21 @@ describe('BN.js/Arithmetic', function () {
   function testMethod (name, mul) {
     describe(name, function () {
       it('should multiply numbers of different signs', function () {
-        assert.equal(mul(new BN(0x1001), new BN(0x1234)).toString(16),
-          '1235234');
-        assert.equal(mul(new BN(-0x1001), new BN(0x1234)).toString(16),
-          '-1235234');
-        assert.equal(mul(new BN(-0x1001), new BN(-0x1234)).toString(16),
-          '1235234');
+        var offsets = [
+          1, // smallMulTo
+          250, // comb10MulTo
+          1000, // bigMulTo
+          15000 // jumboMulTo
+        ];
+
+        for (var i = 0; i < offsets.length; ++i) {
+          var x = new BN(1).ishln(offsets[i]);
+
+          assert.equal(mul(x, x).isNeg(), false);
+          assert.equal(mul(x, x.neg()).isNeg(), true);
+          assert.equal(mul(x.neg(), x).isNeg(), true);
+          assert.equal(mul(x.neg(), x.neg()).isNeg(), false);
+        }
       });
 
       it('should multiply with carry', function () {
