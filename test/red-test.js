@@ -178,6 +178,12 @@ describe('BN.js/Reduction context', function () {
 
       assert.equal(actual.toString(16), expected.toString(16));
     });
+
+    it('redISqr should return right result', function () {
+      var n = new BN('30f28939', 16);
+      var actual = n.toRed(BN.red('k256')).redISqr().fromRed();
+      assert.equal(actual.toString(16), '95bd93d19520eb1');
+    });
   });
 
   it('should avoid 4.1.0 regresion', function () {
