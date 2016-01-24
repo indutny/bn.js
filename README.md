@@ -19,6 +19,8 @@ var res = a.add(b);
 console.log(res.toString(10));  // 57047
 ```
 
+**Note**: decimals are not supported in this library.
+
 ## Notation
 
 ### Prefixes
