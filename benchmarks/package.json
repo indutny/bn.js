@@ -14,6 +14,7 @@
     "eccjs": "^0.3.1",
     "bigi": "*",
     "biginteger": "*",
-    "js-big-integer": "*"
+    "js-big-integer": "*",
+    "bignumber.js": "^2.1.3"
   }
 }

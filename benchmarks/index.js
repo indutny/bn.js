@@ -9,6 +9,7 @@ var sjcl = require('eccjs').sjcl.bn;
 var bigi = require('bigi');
 var BigInteger = require('js-big-integer').BigInteger;
 var SilentMattBigInteger = require('biginteger').BigInteger;
+var BigNumber = require('bignumber.js');
 var benchmarks = [];
 
 var selfOnly = process.env.SELF_ONLY;
@@ -129,6 +130,12 @@ while (fixtures.length < 25) {
   fixture.a8j = SilentMattBigInteger.parse(aj, 16);
   fixture.b8j = SilentMattBigInteger.parse(aj, 16);
 
+  // BigNumber.js
+  fixture.a9 = new BigNumber(a, 16);
+  fixture.b9 = new BigNumber(a, 16);
+  fixture.a9j = new BigNumber(aj, 16);
+  fixture.b9j = new BigNumber(aj, 16);
+
   //
   fixture.as1 = fixture.a1.mul(fixture.a1).iaddn(0x2adbeef);
   fixture.as2 = fixture.a2.mul(fixture.a2).add(0x2adbeef);
@@ -138,6 +145,7 @@ while (fixtures.length < 25) {
       new BigInteger('2adbeef', 16));
   fixture.as8 = fixture.a8.multiply(fixture.a8).add(
       SilentMattBigInteger.parse('2adbeef', 16));
+  fixture.as9 = fixture.a9.mul(fixture.a9).add(0x2adbeef);
 
   fixture.am1 = fixture.a1.toRed(bn.red('k256'));
   fixture.am5 = new sjcl.prime.p256k(fixture.a5);
@@ -163,6 +171,9 @@ add('create-10', {
   },
   'silentmatt-biginteger': function (fixture) {
     SilentMattBigInteger.parse(fixture.a10base, 10);
+  },
+  'bignumber': function (fixture) {
+    new BigNumber(fixture.a10base, 10);
   }
 });
 
@@ -184,6 +195,9 @@ add('create-hex', {
   },
   'silentmatt-biginteger': function (fixture) {
     SilentMattBigInteger.parse(fixture.a16base, 16);
+  },
+  'bignumber': function (fixture) {
+    new BigNumber(fixture.a16base, 16);
   }
 });
 
@@ -202,6 +216,9 @@ add('toString-10', {
   },
   'silentmatt-biginteger': function (fixture) {
     fixture.a8.toString(10);
+  },
+  'bignumber': function (fixture) {
+    fixture.a9.toString(10);
   }
 });
 
@@ -223,6 +240,9 @@ add('toString-hex', {
   },
   'silentmatt-biginteger': function (fixture) {
     fixture.a8.toString(16);
+  },
+  'bignumber': function (fixture) {
+    fixture.a9.toString(16);
   }
 });
 
@@ -244,6 +264,9 @@ add('add', {
   },
   'silentmatt-biginteger': function (fixture) {
     fixture.a8.add(fixture.a8);
+  },
+  'bignumber': function (fixture) {
+    fixture.a9.add(fixture.a9);
   }
 });
 
@@ -265,6 +288,9 @@ add('sub', {
   },
   'silentmatt-biginteger': function (fixture) {
     fixture.b8.subtract(fixture.a8);
+  },
+  'bignumber': function (fixture) {
+    fixture.b9.sub(fixture.a9);
   }
 });
 
@@ -289,6 +315,9 @@ add('mul', {
   },
   'silentmatt-biginteger': function (fixture) {
     fixture.a8.multiply(fixture.b8);
+  },
+  'bignumber': function (fixture) {
+    fixture.a9.mul(fixture.b9);
   }
 });
 
@@ -313,6 +342,9 @@ add('mul-jumbo', {
   },
   'silentmatt-biginteger': function (fixture) {
     fixture.a8j.multiply(fixture.b8j);
+  },
+  'bignumber': function (fixture) {
+    fixture.a9j.mul(fixture.b9j);
   }
 });
 
@@ -334,6 +366,9 @@ add('sqr', {
   },
   'silentmatt-biginteger': function (fixture) {
     fixture.a8.multiply(fixture.a8);
+  },
+  'bignumber': function (fixture) {
+    fixture.a9.mul(fixture.a9);
   }
 });
 
@@ -352,6 +387,9 @@ add('div', {
   },
   'silentmatt-biginteger': function (fixture) {
     fixture.as8.divide(fixture.a8);
+  },
+  'bignumber': function (fixture) {
+    fixture.as9.div(fixture.a9);
   }
 });
 
@@ -376,6 +414,9 @@ add('mod', {
     return remainder.compare(BigInteger.ZERO) < 0
       ? remainder.add(fixture.a8)
       : remainder;
+  },
+  'bignumber': function (fixture) {
+    fixture.as9.mod(fixture.a9);
   }
 });
 
