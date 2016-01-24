@@ -68,6 +68,11 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.isZero()` - no comments
 * `a.cmp(b)` - compare numbers and return `-1` (a `<` b), `0` (a `==` b), or `1` (a `>` b)
   depending on the comparison result (`ucmp`, `cmpn`)
+* `a.lt(b)` - `a` less than `b` (`n`)
+* `a.lte(b)` - `a` less than or equals `b` (`n`)
+* `a.gt(b)` - `a` greater than `b` (`n`)
+* `a.gte(b)` - `a` greater than or equals `b` (`n`)
+* `a.eq(b)` - `a` equals `b` (`n`)
 
 ### Arithmetics
 
