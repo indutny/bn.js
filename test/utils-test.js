@@ -207,4 +207,57 @@ describe('BN.js/Utils', function () {
       assert.equal(new BN(-42).cmp(new BN(-42)), 0);
     });
   });
+
+  describe('comparison shorthands', function () {
+    it('.gtn greater than', function () {
+      assert.equal(new BN(3).gtn(2), true);
+      assert.equal(new BN(3).gtn(3), false);
+      assert.equal(new BN(3).gtn(4), false);
+    });
+    it('.gt greater than', function () {
+      assert.equal(new BN(3).gt(new BN(2)), true);
+      assert.equal(new BN(3).gt(new BN(3)), false);
+      assert.equal(new BN(3).gt(new BN(4)), false);
+    });
+    it('.gten greater than or equal', function () {
+      assert.equal(new BN(3).gten(3), true);
+      assert.equal(new BN(3).gten(2), true);
+      assert.equal(new BN(3).gten(4), false);
+    });
+    it('.gte greater than or equal', function () {
+      assert.equal(new BN(3).gte(new BN(3)), true);
+      assert.equal(new BN(3).gte(new BN(2)), true);
+      assert.equal(new BN(3).gte(new BN(4)), false);
+    });
+    it('.ltn less than', function () {
+      assert.equal(new BN(2).ltn(3), true);
+      assert.equal(new BN(2).ltn(2), false);
+      assert.equal(new BN(2).ltn(1), false);
+    });
+    it('.lt less than', function () {
+      assert.equal(new BN(2).lt(new BN(3)), true);
+      assert.equal(new BN(2).lt(new BN(2)), false);
+      assert.equal(new BN(2).lt(new BN(1)), false);
+    });
+    it('.lten less than or equal', function () {
+      assert.equal(new BN(3).lten(3), true);
+      assert.equal(new BN(3).lten(2), false);
+      assert.equal(new BN(3).lten(4), true);
+    });
+    it('.lte less than or equal', function () {
+      assert.equal(new BN(3).lte(new BN(3)), true);
+      assert.equal(new BN(3).lte(new BN(2)), false);
+      assert.equal(new BN(3).lte(new BN(4)), true);
+    });
+    it('.eqn equal', function () {
+      assert.equal(new BN(3).eqn(3), true);
+      assert.equal(new BN(3).eqn(2), false);
+      assert.equal(new BN(3).eqn(4), false);
+    });
+    it('.eq equal', function () {
+      assert.equal(new BN(3).eq(new BN(3)), true);
+      assert.equal(new BN(3).eq(new BN(2)), false);
+      assert.equal(new BN(3).eq(new BN(4)), false);
+    });
+  });
 });
