@@ -56,12 +56,14 @@ either `le` (little-endian) or `be` (big-endian).
 ### Utilities
 
 * `a.clone()` - clone number
-* `a.toArray(endian, length)` - convert to byte array, and optionally zero
-  pad to length, throwing if already exceeding
-* `a.toString(base, padding)` - convert to base-string and pad with zeroes
+* `a.toString(base, length)` - convert to base-string and pad with zeroes
 * `a.toNumber()` - convert to Javascript Number (limited to 53 bits)
-* `a.toBuffer()` - convert to Node.js Buffer (if available)
-* `a.toArrayLike(type)` - convert to an instance of `type`, which must behave like an `Array`
+* `a.toJSON()` - convert to JSON compatible hex string (alias of `toString(16)`)
+* `a.toArray(endian, length)` - convert to byte `Array`, and optionally zero
+  pad to length, throwing if already exceeding
+* `a.toArrayLike(type, endian, length)` - convert to an instance of `type`,
+  which must behave like an `Array`
+* `a.toBuffer(endian, length)` - convert to Node.js Buffer (if available)
 * `a.bitLength()` - get number of bits occupied
 * `a.zeroBits()` - return number of less-significant consequent zero bits
   (example: `1010000` has 4 zero bits)
