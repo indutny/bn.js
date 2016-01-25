@@ -148,6 +148,11 @@ describe('BN.js/Utils', function () {
       assert.deepEqual(new BN(0x4000000).toNumber(), 0x4000000);
       assert.deepEqual(new BN(0x10000000000000).toNumber(), 0x10000000000000);
       assert.deepEqual(new BN(0x10040004004000).toNumber(), 0x10040004004000);
+      assert.deepEqual(new BN(-0x123456).toNumber(), -0x123456);
+      assert.deepEqual(new BN(-0x3ffffff).toNumber(), -0x3ffffff);
+      assert.deepEqual(new BN(-0x4000000).toNumber(), -0x4000000);
+      assert.deepEqual(new BN(-0x10000000000000).toNumber(), -0x10000000000000);
+      assert.deepEqual(new BN(-0x10040004004000).toNumber(), -0x10040004004000);
     });
 
     it('should throw when number exceeds 53 bits', function () {
