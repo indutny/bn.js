@@ -500,17 +500,34 @@ describe('BN.js/Arithmetic', function () {
 
   describe('.gcd()', function () {
     it('should return GCD', function () {
-      assert.equal(new BN(3).gcd(new BN(2)).toString(16), '1');
-      assert.equal(new BN(18).gcd(new BN(12)).toString(16), '6');
-      assert.equal(new BN(-18).gcd(new BN(12)).toString(16), '6');
+      assert.equal(new BN(3).gcd(new BN(2)).toString(10), '1');
+      assert.equal(new BN(18).gcd(new BN(12)).toString(10), '6');
+      assert.equal(new BN(-18).gcd(new BN(12)).toString(10), '6');
+      assert.equal(new BN(-18).gcd(new BN(-12)).toString(10), '6');
+      assert.equal(new BN(-18).gcd(new BN(0)).toString(10), '18');
+      assert.equal(new BN(0).gcd(new BN(-18)).toString(10), '18');
+      assert.equal(new BN(2).gcd(new BN(0)).toString(10), '2');
+      assert.equal(new BN(0).gcd(new BN(3)).toString(10), '3');
+      assert.equal(new BN(0).gcd(new BN(0)).toString(10), '0');
     });
   });
 
   describe('.egcd()', function () {
     it('should return EGCD', function () {
-      assert.equal(new BN(3).egcd(new BN(2)).gcd.toString(16), '1');
-      assert.equal(new BN(18).egcd(new BN(12)).gcd.toString(16), '6');
-      assert.equal(new BN(-18).egcd(new BN(12)).gcd.toString(16), '6');
+      assert.equal(new BN(3).egcd(new BN(2)).gcd.toString(10), '1');
+      assert.equal(new BN(18).egcd(new BN(12)).gcd.toString(10), '6');
+      assert.equal(new BN(-18).egcd(new BN(12)).gcd.toString(10), '6');
+      assert.equal(new BN(0).egcd(new BN(12)).gcd.toString(10), '12');
+    });
+    it('should not allow 0 input', function () {
+      assert.throws(function () {
+        BN(1).egcd(0);
+      });
+    });
+    it('should not allow negative input', function () {
+      assert.throws(function () {
+        BN(1).egcd(-1);
+      });
     });
   });
 
@@ -519,6 +536,7 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(BN.max(new BN(3), new BN(2)).toString(16), '3');
       assert.equal(BN.max(new BN(2), new BN(3)).toString(16), '3');
       assert.equal(BN.max(new BN(2), new BN(2)).toString(16), '2');
+      assert.equal(BN.max(new BN(2), new BN(-2)).toString(16), '2');
     });
   });
 
@@ -527,6 +545,7 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(BN.min(new BN(3), new BN(2)).toString(16), '2');
       assert.equal(BN.min(new BN(2), new BN(3)).toString(16), '2');
       assert.equal(BN.min(new BN(2), new BN(2)).toString(16), '2');
+      assert.equal(BN.min(new BN(2), new BN(-2)).toString(16), '-2');
     });
   });
 
