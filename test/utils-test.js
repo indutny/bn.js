@@ -330,4 +330,16 @@ describe('BN.js/Utils', function () {
         '8000000000000000000000000000000000000000000000000000000000000000');
     });
   });
+
+  describe('.isBN', function () {
+    it('should return true for BN', function () {
+      assert.equal(BN.isBN(new BN()), true);
+    });
+
+    it('should return false for everything else', function () {
+      assert.equal(BN.isBN(1), false);
+      assert.equal(BN.isBN([]), false);
+      assert.equal(BN.isBN({}), false);
+    });
+  });
 });
