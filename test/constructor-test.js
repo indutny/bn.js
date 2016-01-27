@@ -125,6 +125,21 @@ describe('BN.js/Constructor', function () {
     });
   });
 
+  // the Array code is able to handle Buffer
+  describe('with Buffer input', function () {
+    it('should not fail on empty Buffer', function () {
+      assert.equal(new BN(new Buffer(0)).toString(16), '0');
+    });
+
+    it('should import/export big endian', function () {
+      assert.equal(new BN(new Buffer('010203', 'hex')).toString(16), '10203');
+    });
+
+    it('should import little endian', function () {
+      assert.equal(new BN(new Buffer('010203', 'hex'), 'le').toString(16), '30201');
+    });
+  });
+
   describe('with BN input', function () {
     it('should clone BN', function () {
       var num = new BN(12345);
