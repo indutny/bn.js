@@ -61,6 +61,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.toString(base, padding)` - convert to base-string and pad with zeroes
 * `a.toNumber()` - convert to Javascript Number (limited to 53 bits)
 * `a.toBuffer()` - convert to Node.js Buffer (if available)
+* `a.toArrayLike(type)` - convert to an instance of `type`, which must behave like an `Array`
 * `a.bitLength()` - get number of bits occupied
 * `a.zeroBits()` - return number of less-significant consequent zero bits
   (example: `1010000` has 4 zero bits)
