@@ -1,6 +1,6 @@
 {
   "name": "bn.js",
-  "version": "4.8.1",
+  "version": "4.9.0",
   "description": "Big number implementation in pure javascript",
   "main": "lib/bn.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "mocha": "^2.1.0",
     "semistandard": "^7.0.4"
   },
-  "browser" : {
+  "browser": {
     "buffer": false
   }
 }
