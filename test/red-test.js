@@ -231,4 +231,13 @@ describe('BN.js/Reduction context', function () {
     var r = g.toRed(BN.mont(p)).redPow(k).fromRed().mod(q);
     assert.equal(r.toString(16), expectedR);
   });
+
+  it('K256.split for 512 bits number should return equal numbers', function () {
+    var red = BN.red('k256');
+    var input = new BN(1).iushln(512).subn(1);
+    assert.equal(input.bitLength(), 512);
+    var output = new BN(0);
+    red.prime.split(input, output);
+    assert.equal(input.cmp(output), 0);
+  });
 });
