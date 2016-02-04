@@ -294,6 +294,24 @@ describe('BN.js/Arithmetic', function () {
     it('0 power should equal to 1', function () {
       assert.equal(new BN(123).pown(0).toNumber(), 1);
     });
+    it('power of 0 should equal to 0', function () {
+      assert.equal(new BN(0).pown(123).toNumber(), 0);
+    });
+  });
+
+  describe('.ipown()', function () {
+    it('should raise number to the power', function () {
+      var a = new BN('ab', 16);
+      a.ipown(13);
+
+      assert.equal(a.toString(16), '15963da06977df51909c9ba5b');
+    });
+    it('0 power should equal to 1', function () {
+      assert.equal(new BN(123).ipown(0).toNumber(), 1);
+    });
+    it('power of 0 should equal to 0', function () {
+      assert.equal(new BN(0).ipown(123).toNumber(), 0);
+    });
   });
 
   describe('.div()', function () {
