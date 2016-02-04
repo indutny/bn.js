@@ -77,6 +77,12 @@ describe('BN.js/Arithmetic', function () {
 
       assert.equal(a.iaddn(1).toString(16), '4000000');
     });
+
+    it('should throw error with num eq 0x4000000', function () {
+      assert.throws(function () {
+        new BN(0).iaddn(0x4000000);
+      });
+    });
   });
 
   describe('.sub()', function () {
@@ -153,6 +159,12 @@ describe('BN.js/Arithmetic', function () {
     it('should change sign on small numbers at 1', function () {
       var a = new BN(1).subn(2);
       assert.equal(a.toString(), '-1');
+    });
+
+    it('should throw error with num eq 0x4000000', function () {
+      assert.throws(function () {
+        new BN(0).isubn(0x4000000);
+      });
     });
   });
 
@@ -271,6 +283,12 @@ describe('BN.js/Arithmetic', function () {
       var c = a.mul(b);
 
       assert.equal(a.muln(0xdead).toString(16), c.toString(16));
+    });
+
+    it('should throw error with num eq 0x4000000', function () {
+      assert.throws(function () {
+        new BN(0).imuln(0x4000000);
+      });
     });
   });
 
