@@ -2,19 +2,19 @@
 
 var benchmark = require('benchmark');
 var crypto = require('crypto');
-var PRNG = require('./prng');
 var bn = require('../');
 var bignum = require('bignum');
 var sjcl = require('eccjs').sjcl.bn;
 var bigi = require('bigi');
 var BigInteger = require('js-big-integer').BigInteger;
 var SilentMattBigInteger = require('biginteger').BigInteger;
+var XorShift128Plus = require('xorshift.js').XorShift128Plus;
 var benchmarks = [];
 
 var selfOnly = process.env.SELF_ONLY;
-var seed = process.env.SEED || crypto.randomBytes(32).toString('hex');
+var seed = process.env.SEED || crypto.randomBytes(16).toString('hex');
 console.log('Seed: ' + seed);
-var prng = new PRNG(seed);
+var prng = new XorShift128Plus(seed);
 
 var fixtures = [];
 var findex = 0;
@@ -87,10 +87,10 @@ while (fixtures.length < 25) {
   var fixture = {};
   fixtures.push(fixture);
 
-  var a = prng.getHexString(64);
-  var b = prng.getHexString(64);
-  var aj = prng.getHexString(1536);
-  var bj = prng.getHexString(1536);
+  var a = prng.randomBytes(32).toString('hex');
+  var b = prng.randomBytes(32).toString('hex');
+  var aj = prng.randomBytes(768).toString('hex');
+  var bj = prng.randomBytes(768).toString('hex');
 
   // BN
   fixture.a1 = new bn(a, 16);
