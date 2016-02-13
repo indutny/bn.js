@@ -303,9 +303,47 @@ describe('BN.js/Arithmetic', function () {
   });
 
   describe('.div()', function () {
-    it('should divide numbers', function () {
-      assert.equal(new BN('10').div(new BN(256)).toString(16),
+    it('should divide small numbers (<=26 bits)', function () {
+      assert.equal(new BN('256').div(new BN(10)).toString(10),
+        '25');
+      assert.equal(new BN('-256').div(new BN(10)).toString(10),
+        '-25');
+      assert.equal(new BN('256').div(new BN(-10)).toString(10),
+        '-25');
+      assert.equal(new BN('-256').div(new BN(-10)).toString(10),
+        '25');
+
+      assert.equal(new BN('10').div(new BN(256)).toString(10),
         '0');
+      assert.equal(new BN('-10').div(new BN(256)).toString(10),
+        '0');
+      assert.equal(new BN('10').div(new BN(-256)).toString(10),
+        '0');
+      assert.equal(new BN('-10').div(new BN(-256)).toString(10),
+        '0');
+    });
+
+    it('should divide large numbers (>53 bits)', function () {
+      assert.equal(new BN('1222222225255589').div(new BN('611111124969028'))
+        .toString(10), '1');
+      assert.equal(new BN('-1222222225255589').div(new BN('611111124969028'))
+        .toString(10), '-1');
+      assert.equal(new BN('1222222225255589').div(new BN('-611111124969028'))
+        .toString(10), '-1');
+      assert.equal(new BN('-1222222225255589').div(new BN('-611111124969028'))
+        .toString(10), '1');
+
+      assert.equal(new BN('611111124969028').div(new BN('1222222225255589'))
+        .toString(10), '0');
+      assert.equal(new BN('-611111124969028').div(new BN('1222222225255589'))
+        .toString(10), '0');
+      assert.equal(new BN('611111124969028').div(new BN('-1222222225255589'))
+        .toString(10), '0');
+      assert.equal(new BN('-611111124969028').div(new BN('-1222222225255589'))
+        .toString(10), '0');
+    });
+
+    it('should divide numbers', function () {
       assert.equal(new BN('69527932928').div(new BN('16974594')).toString(16),
         'fff');
       assert.equal(new BN('-69527932928').div(new BN('16974594')).toString(16),
@@ -392,6 +430,46 @@ describe('BN.js/Arithmetic', function () {
   });
 
   describe('.mod()', function () {
+    it('should modulo small numbers (<=26 bits)', function () {
+      assert.equal(new BN('256').mod(new BN(10)).toString(10),
+        '6');
+      assert.equal(new BN('-256').mod(new BN(10)).toString(10),
+        '-6');
+      assert.equal(new BN('256').mod(new BN(-10)).toString(10),
+        '6');
+      assert.equal(new BN('-256').mod(new BN(-10)).toString(10),
+        '-6');
+
+      assert.equal(new BN('10').mod(new BN(256)).toString(10),
+        '10');
+      assert.equal(new BN('-10').mod(new BN(256)).toString(10),
+        '-10');
+      assert.equal(new BN('10').mod(new BN(-256)).toString(10),
+        '10');
+      assert.equal(new BN('-10').mod(new BN(-256)).toString(10),
+        '-10');
+    });
+
+    it('should modulo large numbers (>53 bits)', function () {
+      assert.equal(new BN('1222222225255589').mod(new BN('611111124969028'))
+        .toString(10), '611111100286561');
+      assert.equal(new BN('-1222222225255589').mod(new BN('611111124969028'))
+        .toString(10), '-611111100286561');
+      assert.equal(new BN('1222222225255589').mod(new BN('-611111124969028'))
+        .toString(10), '611111100286561');
+      assert.equal(new BN('-1222222225255589').mod(new BN('-611111124969028'))
+        .toString(10), '-611111100286561');
+
+      assert.equal(new BN('611111124969028').mod(new BN('1222222225255589'))
+        .toString(10), '611111124969028');
+      assert.equal(new BN('-611111124969028').mod(new BN('1222222225255589'))
+        .toString(10), '-611111124969028');
+      assert.equal(new BN('611111124969028').mod(new BN('-1222222225255589'))
+        .toString(10), '611111124969028');
+      assert.equal(new BN('-611111124969028').mod(new BN('-1222222225255589'))
+        .toString(10), '-611111124969028');
+    });
+
     it('should mod numbers', function () {
       assert.equal(new BN('10').mod(new BN(256)).toString(16),
         'a');
