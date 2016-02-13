@@ -206,6 +206,7 @@ describe('BN.js/Utils', function () {
       assert.equal(new BN(42).cmpn(-42), 1);
       assert.equal(new BN(-42).cmpn(42), -1);
       assert.equal(new BN(-42).cmpn(-42), 0);
+      assert.equal(1 / new BN(-42).cmpn(-42), Infinity);
     });
   });
 
@@ -221,6 +222,7 @@ describe('BN.js/Utils', function () {
       assert.equal(new BN(42).cmp(new BN(-42)), 1);
       assert.equal(new BN(-42).cmp(new BN(42)), -1);
       assert.equal(new BN(-42).cmp(new BN(-42)), 0);
+      assert.equal(1 / new BN(-42).cmp(new BN(-42)), Infinity);
     });
   });
 
