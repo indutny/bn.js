@@ -49,6 +49,8 @@ describe('BN.js/Binary', function () {
       assert.equal(new BN(2).bincn(1).bincn(1).toString(16),
         new BN(2).bincn(2).toString(16));
       assert.equal(new BN(0xffffff).bincn(1).toString(16), '1000001');
+      assert.equal(new BN(2).bincn(63).toString(16),
+        '8000000000000002');
     });
   });
 
