@@ -81,7 +81,7 @@ describe('BN.js/Arithmetic', function () {
     it('should throw error with num eq 0x4000000', function () {
       assert.throws(function () {
         new BN(0).iaddn(0x4000000);
-      });
+      }, /^Error: Assertion failed$/);
     });
   });
 
@@ -164,7 +164,7 @@ describe('BN.js/Arithmetic', function () {
     it('should throw error with num eq 0x4000000', function () {
       assert.throws(function () {
         new BN(0).isubn(0x4000000);
-      });
+      }, /^Error: Assertion failed$/);
     });
   });
 
@@ -288,7 +288,7 @@ describe('BN.js/Arithmetic', function () {
     it('should throw error with num eq 0x4000000', function () {
       assert.throws(function () {
         new BN(0).imuln(0x4000000);
-      });
+      }, /^Error: Assertion failed$/);
     });
   });
 
@@ -600,12 +600,12 @@ describe('BN.js/Arithmetic', function () {
     it('should not allow 0 input', function () {
       assert.throws(function () {
         new BN(1).egcd(0);
-      });
+      }, /^Error: Assertion failed$/);
     });
     it('should not allow negative input', function () {
       assert.throws(function () {
         new BN(1).egcd(-1);
-      });
+      }, /^Error: Assertion failed$/);
     });
   });
 
