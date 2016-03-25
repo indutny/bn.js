@@ -113,11 +113,18 @@ describe('BN.js/Reduction context', function () {
           c.toString(16));
       });
 
-      it('should pow(base, 0) == 1', function () {
+      it('should pow(base, 0) == 1 when modulus > 1', function () {
         var base = new BN(256).toRed(BN.red('k256'));
         var exponent = new BN(0);
         var result = base.redPow(exponent);
         assert.equal(result.toString(), '1');
+      });
+
+      it('should pow(base, 0) == 0 when modulus == 1', function () {
+        var base = new BN(256).toRed(BN.red(new BN(1)));
+        var exponent = new BN(0);
+        var result = base.redPow(exponent);
+        assert.equal(result.toString(), '0');
       });
 
       it('should reduce when converting to red', function () {
