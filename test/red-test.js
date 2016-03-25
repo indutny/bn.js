@@ -141,6 +141,20 @@ describe('BN.js/Reduction context', function () {
         var a = new BN(0).toRed(BN.red('k256')).redNeg();
         assert.equal(a.isZero(), true);
       });
+
+      it('should not allow modulus <= 1', function () {
+        assert.throws(function () {
+          BN.red(new BN(0));
+        }, /^Error: modulus must be greater than 1$/);
+
+        assert.throws(function () {
+          BN.red(new BN(1));
+        }, /^Error: modulus must be greater than 1$/);
+
+        assert.doesNotThrow(function () {
+          BN.red(new BN(2));
+        });
+      });
     });
   }
 
