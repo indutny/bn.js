@@ -120,6 +120,12 @@ describe('BN.js/Reduction context', function () {
         assert.equal(result.toString(), '1');
       });
 
+      it('should shl numbers', function () {
+        var base = new BN(256).toRed(BN.red('k256'));
+        var result = base.redShl(1);
+        assert.equal(result.toString(), '512');
+      });
+
       it('should reduce when converting to red', function () {
         var p = new BN(257);
         var m = fn(p);
