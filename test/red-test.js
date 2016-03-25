@@ -52,10 +52,10 @@ describe('BN.js/Reduction context', function () {
         var m = fn(p);
         var q = new BN(11).toRed(m);
 
-        var qr = q.redSqrt(true, p);
+        var qr = q.redSqrt();
         assert.equal(qr.redSqr().cmp(q), 0);
 
-        qr = q.redSqrt(false, p);
+        qr = q.redSqrt();
         assert.equal(qr.redSqr().cmp(q), 0);
 
         p = new BN(
