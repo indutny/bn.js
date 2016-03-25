@@ -137,7 +137,7 @@ describe('BN.js/Utils', function () {
       var n = new BN(0x123456);
       assert.throws(function () {
         n.toArray('be', 2);
-      });
+      }, /^Error: byte array longer than desired length$/);
     });
   });
 
@@ -167,7 +167,7 @@ describe('BN.js/Utils', function () {
       var n = new BN(1).iushln(54);
       assert.throws(function () {
         n.toNumber();
-      });
+      }, /^Error: Number can only safely store up to 53 bits$/);
     });
   });
 
@@ -202,7 +202,7 @@ describe('BN.js/Utils', function () {
       assert.equal(new BN(0x3fffffe).cmpn(0x3fffffd), 1);
       assert.throws(function () {
         new BN(0x3fffffe).cmpn(0x4000000);
-      });
+      }, /^Error: Number is too big$/);
       assert.equal(new BN(42).cmpn(-42), 1);
       assert.equal(new BN(-42).cmpn(42), -1);
       assert.equal(new BN(-42).cmpn(-42), 0);

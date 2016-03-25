@@ -27,8 +27,8 @@ describe('BN.js/Constructor', function () {
       var num = Math.pow(2, 53);
 
       assert.throws(function () {
-        BN(num, 10);
-      });
+        return new BN(num, 10);
+      }, /^Error: Assertion failed$/);
     });
 
     it('should accept two-limb LE number', function () {
