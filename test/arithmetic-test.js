@@ -599,12 +599,12 @@ describe('BN.js/Arithmetic', function () {
     });
     it('should not allow 0 input', function () {
       assert.throws(function () {
-        BN(1).egcd(0);
+        new BN(1).egcd(0);
       });
     });
     it('should not allow negative input', function () {
       assert.throws(function () {
-        BN(1).egcd(-1);
+        new BN(1).egcd(-1);
       });
     });
   });

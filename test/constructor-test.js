@@ -27,7 +27,7 @@ describe('BN.js/Constructor', function () {
       var num = Math.pow(2, 53);
 
       assert.throws(function () {
-        BN(num, 10);
+        num = new BN(num, 10);
       });
     });
 
