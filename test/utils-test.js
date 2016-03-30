@@ -151,6 +151,7 @@ describe('BN.js/Utils', function () {
 
   describe('.toNumber()', function () {
     it('should return proper Number if below the limit', function () {
+      assert.deepEqual(new BN(0).toNumber(), 0);
       assert.deepEqual(new BN(0x123456).toNumber(), 0x123456);
       assert.deepEqual(new BN(0x3ffffff).toNumber(), 0x3ffffff);
       assert.deepEqual(new BN(0x4000000).toNumber(), 0x4000000);
@@ -168,6 +169,24 @@ describe('BN.js/Utils', function () {
       assert.throws(function () {
         n.toNumber();
       }, /^Error: Number can only safely store up to 53 bits$/);
+    });
+  });
+
+  describe('.toUnsafeNumber()', function () {
+    it('should return proper Number', function () {
+      assert.deepEqual(new BN(0).toUnsafeNumber(), 0);
+
+      var bnx1 = new BN(1);
+      for (var jsx1 = 1; jsx1 !== Infinity; jsx1 = jsx1 * 2, bnx1.imuln(2)) {
+        assert.equal(bnx1.toUnsafeNumber(), jsx1);
+      }
+      assert.equal(bnx1.muln(2).toUnsafeNumber(), Infinity);
+
+      var bnx2 = new BN(-1);
+      for (var jsx2 = -1; jsx2 !== -Infinity; jsx2 = jsx2 * 2, bnx2.imuln(2)) {
+        assert.equal(bnx2.toUnsafeNumber(), jsx2);
+      }
+      assert.equal(bnx2.muln(2).toUnsafeNumber(), -Infinity);
     });
   });
 
