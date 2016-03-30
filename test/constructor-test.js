@@ -90,6 +90,12 @@ describe('BN.js/Constructor', function () {
       assert.equal(new BN('1A6B765D8CDF', 16, 'le').toString(16),
         'df8c5d766b1a');
     });
+
+    it('should not accept wrong characters for base', function () {
+      assert.throws(function () {
+        return new BN('01FF');
+      }, /^Error: Invalid character$/);
+    });
   });
 
   describe('with Array input', function () {
