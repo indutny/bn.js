@@ -32,20 +32,21 @@ function genCombMulTo (alen, blen) {
     src.push('\/* k = ' + k + ' *\/');
     src.push('lo = Math.imul(al' + (k - minJ) + ', bl' + minJ + ');');
     src.push('mid = Math.imul(al' + (k - minJ) + ', bh' + minJ + ');');
-    src.push('mid += Math.imul(ah' + (k - minJ) + ', bl' + minJ + ');');
+    src.push(
+        'mid = (mid + Math.imul(ah' + (k - minJ) + ', bl' + minJ + ')) | 0;');
     src.push('hi = Math.imul(ah' + (k - minJ) + ', bh' + minJ + ');');
 
     for (var j = minJ + 1; j <= maxJ; j++) {
       i = k - j;
 
-      src.push('lo += Math.imul(al' + i + ', bl' + j + ');');
-      src.push('mid += Math.imul(al' + i + ', bh' + j + ');');
-      src.push('mid += Math.imul(ah' + i + ', bl' + j + ');');
-      src.push('hi += Math.imul(ah' + i + ', bh' + j + ');');
+      src.push('lo = (lo + Math.imul(al' + i + ', bl' + j + ')) | 0;');
+      src.push('mid = (mid + Math.imul(al' + i + ', bh' + j + ')) | 0;');
+      src.push('mid = (mid + Math.imul(ah' + i + ', bl' + j + ')) | 0;');
+      src.push('hi = (hi + Math.imul(ah' + i + ', bh' + j + ')) | 0;');
     }
 
-    src.push('var w' + k + ' = c + lo + ((mid & 0x1fff) << 13);');
-    src.push('c = hi + (mid >>> 13) + (w' + k + ' >>> 26);');
+    src.push('var w' + k + ' = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;');
+    src.push('c = (((hi + (mid >>> 13)) | 0) + (w' + k + ' >>> 26)) | 0;');
     src.push('w' + k + ' &= 0x3ffffff;');
   }
   // Store in separate step for better memory access
