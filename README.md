@@ -152,7 +152,7 @@ Or:
 var red = BN.mont(num);
 ```
 
-To reduce numbers with [Montgomery trick][1]. `.mont()` is generally faster than
+To reduce numbers with [Montgomery trick][0]. `.mont()` is generally faster than
 `.red(num)`, but slower than `BN.red(primeName)`.
 
 ### Converting numbers
