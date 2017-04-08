@@ -192,6 +192,11 @@ counterparts in red context:
 * `a.redNeg()`
 * `a.redPow(b)` - modular exponentiation
 
+
+### Number Size
+
+Optimized for elliptic curves that work with 256-bit numbers.  There is no limitation on the size of the numbers.
+
 ## LICENSE
 
 This software is licensed under the MIT License.
