@@ -40,7 +40,7 @@ is the list of them in the order of appearance in the function name:
 The only available postfix at the moment is:
 
 * `n` - which means that the argument of the function must be a plain JavaScript
-  number
+  Number. Decimals are not supported.
 
 ### Examples
 
