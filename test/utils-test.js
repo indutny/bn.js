@@ -188,7 +188,11 @@ describe('BN.js/Utils', function () {
 
   describe('.toJSON', function () {
     it('should return hex string', function () {
-      assert.equal(new BN(0x123).toJSON(), '123');
+      assert.equal(new BN(0x123).toJSON(), '0123');
+    });
+
+    it('should be padded to multiple of 2 bytes for interop', function () {
+      assert.equal(new BN(0x1).toJSON(), '01');
     });
   });
 
