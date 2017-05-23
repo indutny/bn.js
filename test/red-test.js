@@ -260,4 +260,25 @@ describe('BN.js/Reduction context', function () {
     red.prime.split(input, output);
     assert.equal(input.cmp(output), 0);
   });
+
+  it('red and mont should have same result', function () {
+    var m = new BN(
+      '86f5ca03dcfeb225063ff830a0c769b9dd9d6153ad91d7ce27f787c43278b447e' +
+      '6533b86b18bed6e8a48b784a14c252c5be0dbf60b86d6385bd2f12fb763ed8873' +
+      'abfd3f5ba2e0a8c0a59082eac056935e529daf7c610467899c77adedfc846c881' +
+      '870b7b19b2b58f9be0521a17002e3bdd6b86685ee90b3d9a1b02b782b1779', 16);
+    var a = new BN(
+       '1df472775692d84adc5f90d3edf4a86351d7d4477f155132902230a371a7ef9f' +
+       '592b417fa5c7ffd5cc5365b2cf418d3ebe37ae650470621c12988ce57648c96e' +
+       'e902bf3e0985cf9766641548e251862f9f32a6c66945a3362115bb74ddb4fd9a' +
+       'd0b2441f453f7f773d95a5d327002304c114496ef321c6e467a4beead8d09978', 16);
+    var num = new BN(
+      '562097c06782d60c3037ba7be104774344687649', 16);
+    var mont = BN.mont(m);
+    var red = BN.red(m);
+    var montRes = a.toRed(mont).redPow(num);
+    var redOut = a.toRed(red).redPow(num);
+    assert.equal(montRes.inspect(),
+      redOut.inspect());
+  });
 });
