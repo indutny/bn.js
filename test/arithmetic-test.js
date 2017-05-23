@@ -632,4 +632,10 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(new BN(0).ineg().toString(10), '0');
     });
   });
+
+  describe('BN.ineg', function () {
+    it('shouldn\'t change sign for zero', function () {
+      assert.equal(new BN(0).ineg().toString(10), '0');
+    });
+  });
 });
