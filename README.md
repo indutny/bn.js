@@ -45,7 +45,7 @@ The only available postfix at the moment is:
 ### Examples
 
 * `a.iadd(b)` - perform addition on `a` and `b`, storing the result in `a`
-* `a.pmod(b)` - reduce `a` modulo `b`, returning positive value
+* `a.umod(b)` - reduce `a` modulo `b`, returning positive value
 * `a.iushln(13)` - shift bits of `a` left by 13
 
 ## Instructions
