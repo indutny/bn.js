@@ -211,6 +211,14 @@ describe('BN.js/Reduction context', function () {
     });
   });
 
+  it('redSqrt for quadratic nonresidue', function () {
+    var red = BN.red('k256');
+    var n = new BN('16e5f9d306371e9b876f04025fb8c8ed10f8b8864119a149803357e77bcdd3b1', 'hex');
+    var actual = n.toRed(red).redSqrt().redSqr().fromRed();
+
+    assert.equal(actual.toString('hex'), n.toString('hex'));
+  });
+
   it('should avoid 4.1.0 regresion', function () {
     function bits2int (obits, q) {
       var bits = new BN(obits);
