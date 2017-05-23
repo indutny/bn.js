@@ -58,6 +58,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.clone()` - clone number
 * `a.toString(base, length)` - convert to base-string and pad with zeroes
 * `a.toNumber()` - convert to Javascript Number (limited to 53 bits)
+* `a.toUnsafeNumber()` - convert to Javascript Number in unsafe mode (lose accuracy)
 * `a.toJSON()` - convert to JSON compatible hex string (alias of `toString(16)`)
 * `a.toArray(endian, length)` - convert to byte `Array`, and optionally zero
   pad to length, throwing if already exceeding
