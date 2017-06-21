@@ -31,6 +31,8 @@ describe('BN.js/Reduction context', function () {
         var c = a.toRed(m).redMul(b.toRed(m)).fromRed();
         assert(c.cmp(a.mul(b).mod(p192)) === 0);
 
+        assert.equal(a.toRed(m).redPow(new BN(0)).fromRed()
+          .cmp(new BN(1)), 0);
         assert.equal(a.toRed(m).redPow(new BN(3)).fromRed()
           .cmp(a.sqr().mul(a)), 0);
         assert.equal(a.toRed(m).redPow(new BN(4)).fromRed()
