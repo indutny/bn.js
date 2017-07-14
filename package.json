@@ -25,6 +25,9 @@
     "url": "https://github.com/indutny/bn.js/issues"
   },
   "homepage": "https://github.com/indutny/bn.js",
+  "browser": {
+    "buffer": false
+  },
   "devDependencies": {
     "istanbul": "^0.3.5",
     "mocha": "^2.1.0",
