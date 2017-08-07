@@ -90,6 +90,15 @@ describe('BN.js/Constructor', function () {
       assert.equal(new BN('1A6B765D8CDF', 16, 'le').toString(16),
         'df8c5d766b1a');
     });
+
+    it('should not accept decimal', function () {
+      assert.throws(function () {
+        BN('10.00', 10);
+      });
+      assert.throws(function () {
+        BN('16.00', 16);
+      });
+    });
   });
 
   describe('with Array input', function () {
