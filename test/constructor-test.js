@@ -99,11 +99,14 @@ describe('BN.js/Constructor', function () {
 
     it('should not accept decimal', function () {
       assert.throws(function () {
-        BN('10.00', 10);
-      });
+        var res = new BN('10.00', 10);
+        res;
+      }, /Invalid character/);
+
       assert.throws(function () {
-        BN('16.00', 16);
-      });
+        var res = new BN('16.00', 16);
+        res;
+      }, /Invalid character/);
     });
   });
 
