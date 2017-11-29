@@ -2,6 +2,9 @@
   "name": "bn.js",
   "version": "4.11.8",
   "description": "Big number implementation in pure javascript",
+  "files": [
+    "lib"
+  ],
   "main": "lib/bn.js",
   "scripts": {
     "lint": "semistandard",
