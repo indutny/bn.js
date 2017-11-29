@@ -195,7 +195,8 @@ counterparts in red context:
 
 ### Number Size
 
-Optimized for elliptic curves that work with 256-bit numbers.  There is no limitation on the size of the numbers.
+Optimized for elliptic curves that work with 256-bit numbers.
+There is no limitation on the size of the numbers.
 
 ## LICENSE
 
