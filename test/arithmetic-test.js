@@ -527,15 +527,15 @@ describe('BN.js/Arithmetic', function () {
     });
   });
 
-  describe('.modn()', function () {
+  describe('.modrn()', function () {
     it('should act like .mod() on small numbers', function () {
-      assert.equal(new BN('10', 16).modn(256).toString(16), '10');
-      assert.equal(new BN('100', 16).modn(256).toString(16), '0');
-      assert.equal(new BN('1001', 16).modn(256).toString(16), '1');
-      assert.equal(new BN('100000000001', 16).modn(256).toString(16), '1');
-      assert.equal(new BN('100000000001', 16).modn(257).toString(16),
+      assert.equal(new BN('10', 16).modrn(256).toString(16), '10');
+      assert.equal(new BN('100', 16).modrn(256).toString(16), '0');
+      assert.equal(new BN('1001', 16).modrn(256).toString(16), '1');
+      assert.equal(new BN('100000000001', 16).modrn(256).toString(16), '1');
+      assert.equal(new BN('100000000001', 16).modrn(257).toString(16),
         new BN('100000000001', 16).mod(new BN(257)).toString(16));
-      assert.equal(new BN('123456789012', 16).modn(3).toString(16),
+      assert.equal(new BN('123456789012', 16).modrn(3).toString(16),
         new BN('123456789012', 16).mod(new BN(3)).toString(16));
     });
   });

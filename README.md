@@ -37,10 +37,10 @@ is the list of them in the order of appearance in the function name:
 
 ### Postfixes
 
-The only available postfix at the moment is:
-
-* `n` - which means that the argument of the function must be a plain JavaScript
+* `n` - the argument of the function must be a plain JavaScript
   Number. Decimals are not supported.
+* `rn` - both argument and return value of the function are plain JavaScript
+  Numbers. Decimals are not supported.
 
 ### Examples
 
