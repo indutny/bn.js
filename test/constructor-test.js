@@ -108,6 +108,22 @@ describe('BN.js/Constructor', function () {
         res;
       }, /Invalid character/);
     });
+
+    it('should not accept non-hex characters', function () {
+      [
+        '0000000z',
+        '000000gg',
+        '0000gg00',
+        'ffffggff',
+        'ffffggff',
+        'hexadecimal'
+      ].forEach(function (str) {
+        assert.throws(function () {
+          var res = new BN(str, 16);
+          res;
+        }, /Invalid character in /);
+      });
+    })
   });
 
   describe('with Array input', function () {
