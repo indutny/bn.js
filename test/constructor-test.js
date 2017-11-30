@@ -114,8 +114,10 @@ describe('BN.js/Constructor', function () {
         '0000000z',
         '000000gg',
         '0000gg00',
-        'ffffggff',
-        'ffffggff',
+        'fffggfff',
+        '/0000000',
+        '0-000000', // if -, is first, that is OK
+        'ff.fffff',
         'hexadecimal'
       ].forEach(function (str) {
         assert.throws(function () {
@@ -123,7 +125,7 @@ describe('BN.js/Constructor', function () {
           res;
         }, /Invalid character in /);
       });
-    })
+    });
   });
 
   describe('with Array input', function () {
