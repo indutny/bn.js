@@ -262,4 +262,13 @@ describe('BN.js/Reduction context', function () {
     red.prime.split(input, output);
     assert.equal(input.cmp(output), 0);
   });
+
+  it('imod should change host object', function () {
+    var red = BN.red(new BN(13));
+    var a = new BN(2).toRed(red);
+    var b = new BN(7).toRed(red);
+    var c = a.redIMul(b);
+    assert.equal(a.toNumber(), 1);
+    assert.equal(c.toNumber(), 1);
+  });
 });
