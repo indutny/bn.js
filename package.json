@@ -3,6 +3,7 @@
   "version": "4.11.8",
   "description": "Big number implementation in pure javascript",
   "main": "lib/bn.js",
+  "types": "lib/bn.d.ts",
   "scripts": {
     "lint": "semistandard",
     "unit": "mocha --reporter=spec test/*-test.js",
