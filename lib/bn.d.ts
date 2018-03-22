@@ -14,7 +14,7 @@ export declare class BN {
   static min(left: BN, right: BN): BN;
   static max(left: BN, right: BN): BN;
 
-  constructor(number: number | string | number[] | Buffer, base?: number, endian?: Endianness);
+  constructor(number: number | string | number[] | Buffer, base?: number | 'hex', endian?: Endianness);
   clone(): BN;
   copy(dest: BN): void;
   inspect(): string;
