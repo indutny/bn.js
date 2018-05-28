@@ -290,6 +290,16 @@ describe('BN.js/Arithmetic', function () {
         new BN(0).imuln(0x4000000);
       }, /^Error: Assertion failed$/);
     });
+
+    it('should negate number if number is negative', function () {
+      var a = new BN('dead', 16);
+      assert.equal(a.clone().imuln(-1).toString(16), a.clone().neg().toString(16));
+      assert.equal(a.clone().muln(-1).toString(16), a.clone().neg().toString(16));
+
+      var b = new BN('dead', 16);
+      assert.equal(b.clone().imuln(-42).toString(16), b.clone().neg().muln(42).toString(16));
+      assert.equal(b.clone().muln(-42).toString(16), b.clone().neg().muln(42).toString(16));
+    });
   });
 
   describe('.pow()', function () {
@@ -392,6 +402,7 @@ describe('BN.js/Arithmetic', function () {
   describe('.idivn()', function () {
     it('should divide numbers in-place', function () {
       assert.equal(new BN('10', 16).idivn(3).toString(16), '5');
+      assert.equal(new BN('10', 16).idivn(-3).toString(16), '-5');
       assert.equal(new BN('12', 16).idivn(3).toString(16), '6');
       assert.equal(new BN('10000000000000000').idivn(3).toString(10),
         '3333333333333333');
@@ -530,6 +541,7 @@ describe('BN.js/Arithmetic', function () {
   describe('.modrn()', function () {
     it('should act like .mod() on small numbers', function () {
       assert.equal(new BN('10', 16).modrn(256).toString(16), '10');
+      assert.equal(new BN('10', 16).modrn(-256).toString(16), '-10');
       assert.equal(new BN('100', 16).modrn(256).toString(16), '0');
       assert.equal(new BN('1001', 16).modrn(256).toString(16), '1');
       assert.equal(new BN('100000000001', 16).modrn(256).toString(16), '1');
