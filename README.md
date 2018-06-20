@@ -97,6 +97,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.div(b)` - divide (`divn`, `idivn`)
 * `a.mod(b)` - reduct (`u`, `n`) (but no `umodn`)
 * `a.divRound(b)` - rounded division
+* `a.divmod(b)` - quotient and modulus obtained by dividing (`divn`, `modn`)
 
 ### Bit operations
 
