@@ -40,6 +40,7 @@ console.log('\nTesting new BN()');
 console.log(new BN('1'));
 console.log(new BN(1));
 console.log(new BN([1, 2, 3]));
+console.log(new BN(new Uint8Array([0x22, 0x77, 0xcc])));
 console.log(new BN(new Buffer('1')));
 console.log(new BN(11, 16));
 console.log(new BN(11, 'hex'));
