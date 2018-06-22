@@ -8,7 +8,7 @@
     "lint": "semistandard",
     "unit": "mocha --reporter=spec test/*-test.js",
     "test": "npm run lint && npm run unit",
-    "test-ts-declarations": "ts-node test/typescript-test.ts"
+    "test-ts-declarations": "tsc test/typescript/types-test.ts && node test/typescript/types-test.js"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,6 @@
     "istanbul": "^0.3.5",
     "mocha": "^2.1.0",
     "semistandard": "^7.0.4",
-    "ts-node": "^5.0.1",
     "typescript": "^2.7.2"
   }
 }
