@@ -106,6 +106,14 @@ if(!(new BN(11).toArray() instanceof Array)) {
 console.log(new BN(4294967295).toArray());
 
 
+console.log('\nTesting BN.toArrayLike()');
+
+console.log(new BN(2048).toArrayLike(Uint8Array));
+if(!(new BN(2048).toArrayLike(Uint8Array) instanceof Uint8Array)) {
+    throw new Error('BN.BN.toArrayLike(Uint8Array) should return a Uint8Array');
+}
+
+
 console.log('\nTesting BN.toBuffer()');
 
 console.log(new BN(11).toBuffer());

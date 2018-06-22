@@ -25,6 +25,7 @@ declare class BN {
   toNumber(): number;
   toJSON(): string;
   toArray(endian?: Endianness, length?: number): number[];
+  toArrayLike(constructor: Uint8ArrayConstructor, endian?: Endianness, length?: number): Uint8Array;
   toBuffer(endian?: Endianness, length?: number): Buffer;
   bitLength(): number;
   zeroBits(): number;
