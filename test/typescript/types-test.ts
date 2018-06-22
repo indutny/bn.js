@@ -101,6 +101,8 @@ console.log(new BN(11).toArray());
 if(!(new BN(11).toArray() instanceof Array)) {
     throw new Error('BN.toArray() should return an Array');
 }
+// uint32 max value
+console.log(new BN(4294967295).toArray());
 
 
 console.log('\nTesting BN.toBuffer()');
