@@ -7,9 +7,9 @@
  */
 
 
-export declare type Endianness = 'le' | 'be'
+declare type Endianness = 'le' | 'be'
 
-export declare class BN {
+declare class BN {
   static isBN(b: any): boolean;
   static min(left: BN, right: BN): BN;
   static max(left: BN, right: BN): BN;
@@ -63,3 +63,5 @@ export declare class BN {
   egcd(b: BN): { a: BN, b: BN, gcd: BN };
   invm(b: BN): BN;
 }
+
+export = BN;

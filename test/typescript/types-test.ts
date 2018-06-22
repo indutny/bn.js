@@ -1,4 +1,4 @@
-import { BN } from '../../';
+import BN = require('../../');
 
 let bn1: BN, bn2: BN;
 
