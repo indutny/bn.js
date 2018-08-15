@@ -18,6 +18,8 @@ declare class BN {
     number: number | string | number[] | Buffer | Uint8Array,
     base?: number | 'hex',
     endian?: Endianness);
+
+  // Utilities
   clone(): BN;
   copy(dest: BN): void;
   inspect(): string;
@@ -34,12 +36,19 @@ declare class BN {
   isEven(): boolean;
   isOdd(): boolean;
   isZero(): boolean;
-  cmp(b: BN): number;
+  cmp(b: BN): -1 | 0 | 1;
+  ucmp(b: BN): -1 | 0 | 1;
+  cmpn(b: number): -1 | 0 | 1;
   lt(b: BN): boolean;
+  ltn(b: number): boolean;
   lte(b: BN): boolean;
+  lten(b: number): boolean;
   gt(b: BN): boolean;
+  gtn(b: number): boolean;
   gte(b: BN): boolean;
+  gten(b: number): boolean;
   eq(b: BN): boolean;
+  eqn(b: number): boolean;
 
   neg(): BN;
   abs(): BN;
