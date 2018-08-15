@@ -50,15 +50,36 @@ declare class BN {
   eq(b: BN): boolean;
   eqn(b: number): boolean;
 
+  // Arithmetics
   neg(): BN;
+  ineg(): BN;
   abs(): BN;
+  iabs(): BN;
   add(b: BN): BN;
+  iadd(b: BN): BN;
+  addn(b: number): BN;
+  iaddn(b: number): BN;
   sub(b: BN): BN;
+  isub(b: BN): BN;
+  sub(b: number): BN;
+  isubn(b: number): BN;
   mul(b: BN): BN;
+  imul(b: BN): BN;
+  muln(b: number): BN;
+  imuln(b: number): BN;
   sqr(): BN;
+  isqr(): BN;
   pow(b: BN): BN;
   div(b: BN): BN;
+  divn(b: number): BN;
+  idivn(b: number): BN;
   mod(b: BN): BN;
+  umod(b: BN): BN;
+  /**
+   * @deprecated use modrn.
+   */
+  modn(b: number): number;
+  modrn(b: number): number;
   divRound(b: BN): BN;
 
   // Bitwise operations
