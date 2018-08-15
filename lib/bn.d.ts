@@ -112,6 +112,7 @@ declare class BN {
   notn(w: number): BN;
   inotn(w: number): BN;
 
+  // Reduction
   gcd(b: BN): BN;
   egcd(b: BN): { a: BN, b: BN, gcd: BN };
   invm(b: BN): BN;
