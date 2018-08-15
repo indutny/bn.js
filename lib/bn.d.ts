@@ -10,7 +10,7 @@
 declare type Endianness = 'le' | 'be'
 
 declare class BN {
-  static isBN(b: any): boolean;
+  static isBN(b: any): b is BN;
   static min(left: BN, right: BN): BN;
   static max(left: BN, right: BN): BN;
 
