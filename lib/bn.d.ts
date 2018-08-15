@@ -52,16 +52,35 @@ declare class BN {
   mod(b: BN): BN;
   divRound(b: BN): BN;
 
+  // Bitwise operations
   or(b: BN): BN;
+  ior(b: BN): BN;
+  uor(b: BN): BN;
+  iuor(b: BN): BN;
   and(b: BN): BN;
+  iand(b: BN): BN;
+  uand(b: BN): BN;
+  iuand(b: BN): BN;
+  andln(b: BN): BN;
   xor(b: BN): BN;
+  ixor(b: BN): BN;
+  uxor(b: BN): BN;
+  iuxor(b: BN): BN;
   setn(b: number): BN;
   shln(b: number): BN;
+  ishln(b: number): BN;
+  ushln(b: number): BN;
+  iushln(b: number): BN;
   shrn(b: number): BN;
+  ishrn(b: number): BN;
+  ushrn(b: number): BN;
+  iushrn(b: number): BN;
   testn(b: number): boolean;
   maskn(b: number): BN;
+  imaskn(b: number): BN;
   bincn(b: number): BN;
   notn(w: number): BN;
+  inotn(w: number): BN;
 
   gcd(b: BN): BN;
   egcd(b: BN): { a: BN, b: BN, gcd: BN };
