@@ -222,7 +222,7 @@ describe('BN.js/Reduction context', function () {
       }
       return bits;
     }
-    var t = new Buffer('aff1651e4cd6036d57aa8b2a05ccf1a9d5a40166340ecbbdc55' +
+    var t = Buffer.from('aff1651e4cd6036d57aa8b2a05ccf1a9d5a40166340ecbbdc55' +
       'be10b568aa0aa3d05ce9a2fcec9df8ed018e29683c6051cb83e' +
       '46ce31ba4edb045356a8d0d80b', 'hex');
     var g = new BN('5c7ff6b06f8f143fe8288433493e4769c4d988ace5be25a0e24809670' +
