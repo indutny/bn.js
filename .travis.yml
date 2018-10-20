@@ -4,6 +4,7 @@ node_js:
   - "lts/*"
   - "8"
   - "10"
+  - "node"
 env:
   matrix:
     - TEST_SUITE=unit
