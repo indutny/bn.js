@@ -295,6 +295,28 @@ describe('BN.js/Arithmetic', function () {
       }, /^Error: Argument num must be a number$/);
     });
 
+    it('should throw error with num eq 1.5, -1.5 and NaN', function () {
+      assert.throws(function () {
+        new BN(0).imuln(1.5);
+      }, /^Error: Argument must be an integer$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(-1.5);
+      }, /^Error: Argument must be an integer$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(Infinity);
+      }, /^Error: Argument must be an integer$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(-Infinity);
+      }, /^Error: Argument must be an integer$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(NaN);
+      }, /^Error: Argument must be an integer$/);
+    });
+
     it('should throw error with num eq 0x4000000', function () {
       assert.throws(function () {
         new BN(0).imuln(0x4000000);
