@@ -285,6 +285,16 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(a.muln(0xdead).toString(16), c.toString(16));
     });
 
+    it('should throw error with num of type other than number', function () {
+      assert.throws(function () {
+        new BN(0).imuln('1');
+      }, /^Error: Argument num must be a number$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(new BN(1));
+      }, /^Error: Argument num must be a number$/);
+    });
+
     it('should throw error with num eq 0x4000000', function () {
       assert.throws(function () {
         new BN(0).imuln(0x4000000);
