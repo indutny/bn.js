@@ -288,7 +288,7 @@ describe('BN.js/Arithmetic', function () {
     it('should throw error with num eq 0x4000000', function () {
       assert.throws(function () {
         new BN(0).imuln(0x4000000);
-      }, /^Error: Assertion failed$/);
+      }, /^Error: Argument not in supported range -0x4000000 < num < 0x4000000$/);
     });
 
     it('should negate number if number is negative', function () {
