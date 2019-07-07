@@ -83,6 +83,11 @@ describe('BN.js/Arithmetic', function () {
         new BN(0).iaddn(0x4000000);
       }, /^Error: Assertion failed$/);
     });
+
+    it('should reset sign if value equal to value in instance', function () {
+      var a = new BN(-1);
+      assert.equal(a.addn(1).toString(), '0');
+    });
   });
 
   describe('.sub()', function () {
