@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var assert = require('assert');
+var assert = require('assert').strict;
 var BN = require('../').BN;
 
 describe('BN.js/Constructor', function () {
@@ -99,13 +99,11 @@ describe('BN.js/Constructor', function () {
 
     it('should not accept decimal', function () {
       assert.throws(function () {
-        var res = new BN('10.00', 10);
-        res;
+        new BN('10.00', 10); // eslint-disable-line no-new
       }, /Invalid character/);
 
       assert.throws(function () {
-        var res = new BN('16.00', 16);
-        res;
+        new BN('16.00', 16); // eslint-disable-line no-new
       }, /Invalid character/);
     });
 
@@ -121,8 +119,7 @@ describe('BN.js/Constructor', function () {
         'hexadecimal'
       ].forEach(function (str) {
         assert.throws(function () {
-          var res = new BN(str, 16);
-          res;
+          new BN(str, 16); // eslint-disable-line no-new
         }, /Invalid character in /);
       });
     });

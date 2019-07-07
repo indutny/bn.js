@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var assert = require('assert');
+var assert = require('assert').strict;
 var BN = require('../').BN;
 
 describe('BN.js/Utils', function () {
@@ -299,14 +299,16 @@ describe('BN.js/Utils', function () {
         'fffffffffffffffffffffffffffffffe', 16).fromTwos(256).toNumber(), -2);
       assert.equal(new BN('ffffffffffffffffffffffffffffffff' +
         'ffffffffffffffffffffffffffffffff', 16).fromTwos(256).toNumber(), -1);
-      assert.equal(new BN('7fffffffffffffffffffffffffffffff' +
+      assert.equal(
+        new BN('7fffffffffffffffffffffffffffffff' +
         'ffffffffffffffffffffffffffffffff', 16).fromTwos(256).toString(10),
         new BN('5789604461865809771178549250434395392663499' +
-          '2332820282019728792003956564819967', 10).toString(10));
-      assert.equal(new BN('80000000000000000000000000000000' +
+        '2332820282019728792003956564819967', 10).toString(10));
+      assert.equal(
+        new BN('80000000000000000000000000000000' +
         '00000000000000000000000000000000', 16).fromTwos(256).toString(10),
         new BN('-578960446186580977117854925043439539266349' +
-          '92332820282019728792003956564819968', 10).toString(10));
+        '92332820282019728792003956564819968', 10).toString(10));
     });
   });
 
@@ -326,10 +328,12 @@ describe('BN.js/Utils', function () {
         'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe');
       assert.equal(new BN('-1', 10).toTwos(256).toString(16),
         'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
-      assert.equal(new BN('5789604461865809771178549250434395392663' +
+      assert.equal(
+        new BN('5789604461865809771178549250434395392663' +
         '4992332820282019728792003956564819967', 10).toTwos(256).toString(16),
         '7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
-      assert.equal(new BN('-578960446186580977117854925043439539266' +
+      assert.equal(
+        new BN('-578960446186580977117854925043439539266' +
         '34992332820282019728792003956564819968', 10).toTwos(256).toString(16),
         '8000000000000000000000000000000000000000000000000000000000000000');
     });

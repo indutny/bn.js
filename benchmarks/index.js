@@ -1,4 +1,4 @@
- /* eslint-disable new-cap, no-new */
+/* eslint-disable new-cap, no-new */
 
 var benchmark = require('benchmark');
 var crypto = require('crypto');
@@ -135,9 +135,9 @@ while (fixtures.length < 25) {
   fixture.as4 = fixture.a4.multiply(fixture.a4).add(bigi.valueOf(0x2adbeef));
   // fixture.as5 = fixture.a5.mul(fixture.a5).add(0x2adbeef);
   fixture.as6 = fixture.a6.multiply(fixture.a6).add(
-      new BigInteger('2adbeef', 16));
+    new BigInteger('2adbeef', 16));
   fixture.as8 = fixture.a8.multiply(fixture.a8).add(
-      SilentMattBigInteger.parse('2adbeef', 16));
+    SilentMattBigInteger.parse('2adbeef', 16));
 
   fixture.am1 = fixture.a1.toRed(bn.red('k256'));
   fixture.am5 = new sjcl.prime.p256k(fixture.a5);
