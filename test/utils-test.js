@@ -144,8 +144,16 @@ describe('BN.js/Utils', function () {
   describe('.toBuffer', function () {
     it('should return proper Buffer', function () {
       var n = new BN(0x123456);
-      assert.deepEqual(n.toBuffer('be', 5).toString('hex'), '0000123456');
+      assert.equal(n.toBuffer('be', 5).toString('hex'), '0000123456');
       assert.deepEqual(n.toBuffer('le', 5).toString('hex'), '5634120000');
+
+      var s = '211e1566be78319bb949470577c2d4ac7e800a90d5104379478d8039451a8efe';
+      for (var i = 1; i <= s.length; i++) {
+        var slice = (i % 2 === 0 ? '' : '0') + s.slice(0, i);
+        var bn = new BN(slice, 16);
+        assert.equal(bn.toBuffer('be').toString('hex'), slice);
+        assert.equal(bn.toBuffer('le').toString('hex'), Buffer.from(slice, 'hex').reverse().toString('hex'));
+      }
     });
   });
 
