@@ -241,11 +241,11 @@ describe('BN.js/Arithmetic', function () {
   }
 
   testMethod('.mul()', function (x, y) {
-    return BN.prototype.mul.apply(x, [ y ]);
+    return BN.prototype.mul.apply(x, [y]);
   });
 
   testMethod('.mulf()', function (x, y) {
-    return BN.prototype.mulf.apply(x, [ y ]);
+    return BN.prototype.mulf.apply(x, [y]);
   });
 
   describe('.imul()', function () {

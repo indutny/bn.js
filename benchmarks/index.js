@@ -152,13 +152,13 @@ add('create-10', {
   'bn.js': function (fixture) {
     new bn(fixture.a10base, 10);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     new bignum(fixture.a10base, 10);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     new bigi(fixture.a10base, 10);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     new BigInteger(fixture.a10base, 10);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -170,16 +170,16 @@ add('create-hex', {
   'bn.js': function (fixture) {
     new bn(fixture.a16base, 16);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     new bignum(fixture.a16base, 16);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     new bigi(fixture.a16base, 16);
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     new sjcl(fixture.a16base);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     new BigInteger(fixture.a16base, 16);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -191,13 +191,13 @@ add('toString-10', {
   'bn.js': function (fixture) {
     fixture.a1.toString(10);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.a2.toString(10);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.a4.toString(10);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     fixture.a6.toString(10);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -209,16 +209,16 @@ add('toString-hex', {
   'bn.js': function (fixture) {
     fixture.a1.toString(16);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.a2.toString(16);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.a4.toString(16);
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     fixture.a5.toString(16);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     fixture.a6.toString(16);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -230,16 +230,16 @@ add('add', {
   'bn.js': function (fixture) {
     fixture.a1.add(fixture.b1);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.a2.add(fixture.b2);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.a4.add(fixture.b4);
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     fixture.a5.add(fixture.b5);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     fixture.a6.add(fixture.b6);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -251,16 +251,16 @@ add('sub', {
   'bn.js': function (fixture) {
     fixture.b1.sub(fixture.a1);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.b2.sub(fixture.a2);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.b4.subtract(fixture.a4);
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     fixture.b5.sub(fixture.a5);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     fixture.b6.subtract(fixture.a6);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -275,16 +275,16 @@ add('mul', {
   'bn.js[FFT]': function (fixture) {
     fixture.a1.mulf(fixture.b1);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.a2.mul(fixture.b2);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.a4.multiply(fixture.b4);
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     fixture.a5.mul(fixture.b5);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     fixture.a6.multiply(fixture.b6);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -299,16 +299,16 @@ add('mul-jumbo', {
   'bn.js[FFT]': function (fixture) {
     fixture.a1j.mulf(fixture.b1j);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.a2j.mul(fixture.b2j);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.a4j.multiply(fixture.b4j);
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     fixture.a5j.mul(fixture.b5j);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     fixture.a6j.multiply(fixture.b6j);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -320,16 +320,16 @@ add('sqr', {
   'bn.js': function (fixture) {
     fixture.a1.mul(fixture.a1);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.a2.mul(fixture.a2);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.a4.square();
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     fixture.a5.mul(fixture.a5);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     fixture.a6.multiply(fixture.a6);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -341,13 +341,13 @@ add('div', {
   'bn.js': function (fixture) {
     fixture.as1.div(fixture.a1);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.as2.div(fixture.a2);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.as4.divide(fixture.a4);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     fixture.as6.divide(fixture.a6);
   },
   'silentmatt-biginteger': function (fixture) {
@@ -359,13 +359,13 @@ add('mod', {
   'bn.js': function (fixture) {
     fixture.as1.mod(fixture.a1);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.as2.mod(fixture.a2);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.as4.mod(fixture.a4);
   },
-  'yaffle': function (fixture) {
+  yaffle: function (fixture) {
     var remainder = fixture.as6.remainder(fixture.a6);
     return remainder.compareTo(BigInteger.ZERO) < 0
       ? remainder.add(fixture.a6)
@@ -383,7 +383,7 @@ add('mul-mod k256', {
   'bn.js': function (fixture) {
     fixture.am1.redSqr();
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     fixture.am5.square().fullReduce();
   }
 });
@@ -401,7 +401,7 @@ add('pow k256', {
   'bn.js': function (fixture) {
     fixture.am1.redPow(fixture.pow1);
   },
-  'bignum': function (fixture) {
+  bignum: function (fixture) {
     fixture.a2.powm(fixture.a2, prime1);
   }
 });
@@ -410,7 +410,7 @@ add('invm k256', {
   'bn.js': function (fixture) {
     fixture.am1.redInvm();
   },
-  'sjcl': function (fixture) {
+  sjcl: function (fixture) {
     fixture.am5.inverseMod(prime5);
   }
 });
@@ -419,7 +419,7 @@ add('gcd', {
   'bn.js': function (fixture) {
     fixture.a1.gcd(fixture.b1);
   },
-  'bigi': function (fixture) {
+  bigi: function (fixture) {
     fixture.a4.gcd(fixture.b4);
   }
 });
