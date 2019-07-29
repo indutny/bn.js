@@ -3,7 +3,12 @@
 var benchmark = require('benchmark');
 var crypto = require('crypto');
 var bn = require('../');
-var bignum = require('bignum');
+var bignum;
+try {
+  bignum = require('bignum');
+} catch (err) {
+  console.log('Load bignum error: ' + err.message.split('\n')[0]);
+}
 var sjcl = require('eccjs').sjcl.bn;
 var bigi = require('bigi');
 var BigInteger = require('js-big-integer').BigInteger;
@@ -31,6 +36,10 @@ function add (op, obj) {
       console.log('Benchmarking: ' + op);
 
       Object.keys(obj).forEach(function (name) {
+        if (name === 'bignum' && bignum === undefined) {
+          return;
+        }
+
         if (!selfOnly || name === 'bn.js') {
           var testFn = obj[name];
           suite.add(name + '#' + op, function () {
@@ -99,10 +108,12 @@ while (fixtures.length < 25) {
   fixture.b1j = new bn(bj, 16);
 
   // bignum
-  fixture.a2 = new bignum(a, 16);
-  fixture.b2 = new bignum(b, 16);
-  fixture.a2j = new bignum(aj, 16);
-  fixture.b2j = new bignum(bj, 16);
+  if (bignum) {
+    fixture.a2 = new bignum(a, 16);
+    fixture.b2 = new bignum(b, 16);
+    fixture.a2j = new bignum(aj, 16);
+    fixture.b2j = new bignum(bj, 16);
+  }
 
   // bigi
   fixture.a4 = new bigi(a, 16);
@@ -131,7 +142,9 @@ while (fixtures.length < 25) {
 
   //
   fixture.as1 = fixture.a1.mul(fixture.a1).iaddn(0x2adbeef);
-  fixture.as2 = fixture.a2.mul(fixture.a2).add(0x2adbeef);
+  if (bignum) {
+    fixture.as2 = fixture.a2.mul(fixture.a2).add(0x2adbeef);
+  }
   fixture.as4 = fixture.a4.multiply(fixture.a4).add(bigi.valueOf(0x2adbeef));
   // fixture.as5 = fixture.a5.mul(fixture.a5).add(0x2adbeef);
   fixture.as6 = fixture.a6.multiply(fixture.a6).add(
@@ -388,9 +401,12 @@ add('mul-mod k256', {
   }
 });
 
-var prime1 = new bignum(
-  'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
-  16);
+var prime1;
+if (bignum) {
+  prime1 = new bignum(
+    'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
+    16);
+}
 // var prime4 = new bigi(
 //   'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
 //   16);
