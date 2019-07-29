@@ -32,11 +32,25 @@
     "buffer": false
   },
   "devDependencies": {
+    "eslint-plugin-es5": "^1.4.1",
     "mocha": "^6.1.4",
     "standardx": "^4.0.0"
   },
   "eslintConfig": {
+    "plugins": [
+      "es5"
+    ],
+    "extends": [
+      "plugin:es5/no-es2015"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2015
+    },
+    "env": {
+      "es6": false
+    },
     "rules": {
+      "es5/no-es6-static-methods": ["error", { "exceptMethods": ["Math.imul"] }],
       "semi": [
         2,
         "always"

@@ -344,6 +344,11 @@ eslint-module-utils@^2.4.0:
     debug "^2.6.8"
     pkg-dir "^2.0.0"
 
+eslint-plugin-es5@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-es5/-/eslint-plugin-es5-1.4.1.tgz#258fe89bc5f72fbd9f5f7936c840151766821f1e"
+  integrity sha512-kktkmkF2O7pnSZYgrMiYMbt3wCKRIiXePwILv8USDG95YgP0PzhIxSIROLLKmiQQ/Z6LuhDGWTHK04gnbXBvkg==
+
 eslint-plugin-es@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-es/-/eslint-plugin-es-1.4.0.tgz#475f65bb20c993fc10e8c8fe77d1d60068072da6"
