@@ -12,9 +12,11 @@
     "benchmark": "^1.0.0",
     "bigi": "*",
     "biginteger": "*",
-    "bignum": "^0.11.0",
     "eccjs": "^0.3.1",
-    "js-big-integer": "*",
+    "js-big-integer": "1.0.2",
     "xorshift.js": "^1.0.0"
+  },
+  "optionalDependencies": {
+    "bignum": "^0.13.0"
   }
 }

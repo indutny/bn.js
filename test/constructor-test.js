@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var assert = require('assert');
+var assert = require('assert').strict;
 var BN = require('../').BN;
 
 describe('BN.js/Constructor', function () {
@@ -99,13 +99,11 @@ describe('BN.js/Constructor', function () {
 
     it('should not accept decimal', function () {
       assert.throws(function () {
-        var res = new BN('10.00', 10);
-        res;
+        new BN('10.00', 10); // eslint-disable-line no-new
       }, /Invalid character/);
 
       assert.throws(function () {
-        var res = new BN('16.00', 16);
-        res;
+        new BN('16.00', 16); // eslint-disable-line no-new
       }, /Invalid character/);
     });
 
@@ -121,8 +119,7 @@ describe('BN.js/Constructor', function () {
         'hexadecimal'
       ].forEach(function (str) {
         assert.throws(function () {
-          var res = new BN(str, 16);
-          res;
+          new BN(str, 16); // eslint-disable-line no-new
         }, /Invalid character in /);
       });
     });
@@ -134,30 +131,30 @@ describe('BN.js/Constructor', function () {
     });
 
     it('should import/export big endian', function () {
-      assert.equal(new BN([ 1, 2, 3 ]).toString(16), '10203');
-      assert.equal(new BN([ 1, 2, 3, 4 ]).toString(16), '1020304');
-      assert.equal(new BN([ 1, 2, 3, 4, 5 ]).toString(16), '102030405');
-      assert.equal(new BN([ 1, 2, 3, 4, 5, 6, 7, 8 ]).toString(16),
+      assert.equal(new BN([1, 2, 3]).toString(16), '10203');
+      assert.equal(new BN([1, 2, 3, 4]).toString(16), '1020304');
+      assert.equal(new BN([1, 2, 3, 4, 5]).toString(16), '102030405');
+      assert.equal(new BN([1, 2, 3, 4, 5, 6, 7, 8]).toString(16),
         '102030405060708');
-      assert.equal(new BN([ 1, 2, 3, 4 ]).toArray().join(','), '1,2,3,4');
-      assert.equal(new BN([ 1, 2, 3, 4, 5, 6, 7, 8 ]).toArray().join(','),
+      assert.equal(new BN([1, 2, 3, 4]).toArray().join(','), '1,2,3,4');
+      assert.equal(new BN([1, 2, 3, 4, 5, 6, 7, 8]).toArray().join(','),
         '1,2,3,4,5,6,7,8');
     });
 
     it('should import little endian', function () {
-      assert.equal(new BN([ 1, 2, 3 ], 10, 'le').toString(16), '30201');
-      assert.equal(new BN([ 1, 2, 3, 4 ], 10, 'le').toString(16), '4030201');
-      assert.equal(new BN([ 1, 2, 3, 4, 5 ], 10, 'le').toString(16),
+      assert.equal(new BN([1, 2, 3], 10, 'le').toString(16), '30201');
+      assert.equal(new BN([1, 2, 3, 4], 10, 'le').toString(16), '4030201');
+      assert.equal(new BN([1, 2, 3, 4, 5], 10, 'le').toString(16),
         '504030201');
-      assert.equal(new BN([ 1, 2, 3, 4, 5, 6, 7, 8 ], 'le').toString(16),
+      assert.equal(new BN([1, 2, 3, 4, 5, 6, 7, 8], 'le').toString(16),
         '807060504030201');
-      assert.equal(new BN([ 1, 2, 3, 4 ]).toArray('le').join(','), '4,3,2,1');
-      assert.equal(new BN([ 1, 2, 3, 4, 5, 6, 7, 8 ]).toArray('le').join(','),
+      assert.equal(new BN([1, 2, 3, 4]).toArray('le').join(','), '4,3,2,1');
+      assert.equal(new BN([1, 2, 3, 4, 5, 6, 7, 8]).toArray('le').join(','),
         '8,7,6,5,4,3,2,1');
     });
 
     it('should import big endian with implicit base', function () {
-      assert.equal(new BN([ 1, 2, 3, 4, 5 ], 'le').toString(16), '504030201');
+      assert.equal(new BN([1, 2, 3, 4, 5], 'le').toString(16), '504030201');
     });
   });
 

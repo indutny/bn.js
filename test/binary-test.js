@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var assert = require('assert');
+var assert = require('assert').strict;
 var BN = require('../').BN;
 
 describe('BN.js/Binary', function () {

@@ -29,11 +29,10 @@ function genCombMulTo (alen, blen) {
     var minJ = Math.max(0, k - alen + 1);
     var maxJ = Math.min(k, blen - 1);
 
-    src.push('\/* k = ' + k + ' *\/');
+    src.push('/* k = ' + k + ' */');
     src.push('lo = Math.imul(al' + (k - minJ) + ', bl' + minJ + ');');
     src.push('mid = Math.imul(al' + (k - minJ) + ', bh' + minJ + ');');
-    src.push(
-        'mid = (mid + Math.imul(ah' + (k - minJ) + ', bl' + minJ + ')) | 0;');
+    src.push('mid = (mid + Math.imul(ah' + (k - minJ) + ', bl' + minJ + ')) | 0;');
     src.push('hi = Math.imul(ah' + (k - minJ) + ', bh' + minJ + ');');
 
     for (var j = minJ + 1; j <= maxJ; j++) {
@@ -53,11 +52,11 @@ function genCombMulTo (alen, blen) {
   for (k = 0; k < len; k++) {
     src.push('o[' + k + '] = w' + k + ';');
   }
-  src.push('if (c !== 0) {',
-           '  o[' + k + '] = c;',
-           '  out.length++;',
-           '}',
-           'return out;');
+  src.push('if (c !== 0) {');
+  src.push('  o[' + k + '] = c;');
+  src.push('  out.length++;');
+  src.push('}');
+  src.push('return out;');
 
   return src.join('\n');
 }

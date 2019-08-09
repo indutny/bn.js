@@ -4,7 +4,7 @@
   "description": "Big number implementation in pure javascript",
   "main": "lib/bn.js",
   "scripts": {
-    "lint": "semistandard",
+    "lint": "standardx",
     "unit": "mocha --reporter=spec test/*-test.js",
     "test": "npm run lint && npm run unit"
   },
@@ -32,8 +32,16 @@
     "buffer": false
   },
   "devDependencies": {
-    "istanbul": "^0.3.5",
-    "mocha": "^2.1.0",
-    "semistandard": "^7.0.4"
+    "mocha": "^6.1.4",
+    "standardx": "^4.0.0"
+  },
+  "eslintConfig": {
+    "rules": {
+      "semi": [
+        2,
+        "always"
+      ],
+      "no-extra-semi": 2
+    }
   }
 }
