@@ -134,11 +134,11 @@ while (fixtures.length < 25) {
   fixture.b6j = new BigInteger(bj, 16);
 
   // SilentMattBigInteger
-  fixture.a8 = SilentMattBigInteger.parse(a, 16);
-  fixture.b8 = SilentMattBigInteger.parse(b, 16);
+  fixture.a7 = SilentMattBigInteger.parse(a, 16);
+  fixture.b7 = SilentMattBigInteger.parse(b, 16);
 
-  fixture.a8j = SilentMattBigInteger.parse(aj, 16);
-  fixture.b8j = SilentMattBigInteger.parse(aj, 16);
+  fixture.a7j = SilentMattBigInteger.parse(aj, 16);
+  fixture.b7j = SilentMattBigInteger.parse(aj, 16);
 
   //
   fixture.as1 = fixture.a1.mul(fixture.a1).iaddn(0x2adbeef);
@@ -149,7 +149,7 @@ while (fixtures.length < 25) {
   // fixture.as5 = fixture.a5.mul(fixture.a5).add(0x2adbeef);
   fixture.as6 = fixture.a6.multiply(fixture.a6).add(
     new BigInteger('2adbeef', 16));
-  fixture.as8 = fixture.a8.multiply(fixture.a8).add(
+  fixture.as7 = fixture.a7.multiply(fixture.a7).add(
     SilentMattBigInteger.parse('2adbeef', 16));
 
   fixture.am1 = fixture.a1.toRed(bn.red('k256'));
@@ -214,7 +214,7 @@ add('toString-10', {
     fixture.a6.toString(10);
   },
   'silentmatt-biginteger': function (fixture) {
-    fixture.a8.toString(10);
+    fixture.a7.toString(10);
   }
 });
 
@@ -235,7 +235,7 @@ add('toString-hex', {
     fixture.a6.toString(16);
   },
   'silentmatt-biginteger': function (fixture) {
-    fixture.a8.toString(16);
+    fixture.a7.toString(16);
   }
 });
 
@@ -256,7 +256,7 @@ add('add', {
     fixture.a6.add(fixture.b6);
   },
   'silentmatt-biginteger': function (fixture) {
-    fixture.a8.add(fixture.a8);
+    fixture.a7.add(fixture.a7);
   }
 });
 
@@ -277,7 +277,7 @@ add('sub', {
     fixture.b6.subtract(fixture.a6);
   },
   'silentmatt-biginteger': function (fixture) {
-    fixture.b8.subtract(fixture.a8);
+    fixture.b7.subtract(fixture.a7);
   }
 });
 
@@ -301,7 +301,7 @@ add('mul', {
     fixture.a6.multiply(fixture.b6);
   },
   'silentmatt-biginteger': function (fixture) {
-    fixture.a8.multiply(fixture.b8);
+    fixture.a7.multiply(fixture.b7);
   }
 });
 
@@ -325,7 +325,7 @@ add('mul-jumbo', {
     fixture.a6j.multiply(fixture.b6j);
   },
   'silentmatt-biginteger': function (fixture) {
-    fixture.a8j.multiply(fixture.b8j);
+    fixture.a7j.multiply(fixture.b7j);
   }
 });
 
@@ -346,7 +346,7 @@ add('sqr', {
     fixture.a6.multiply(fixture.a6);
   },
   'silentmatt-biginteger': function (fixture) {
-    fixture.a8.multiply(fixture.a8);
+    fixture.a7.multiply(fixture.a7);
   }
 });
 
@@ -364,7 +364,7 @@ add('div', {
     fixture.as6.divide(fixture.a6);
   },
   'silentmatt-biginteger': function (fixture) {
-    fixture.as8.divide(fixture.a8);
+    fixture.as7.divide(fixture.a7);
   }
 });
 
@@ -385,9 +385,9 @@ add('mod', {
       : remainder;
   },
   'silentmatt-biginteger': function (fixture) {
-    var remainder = fixture.as8.remainder(fixture.a8);
+    var remainder = fixture.as7.remainder(fixture.a7);
     return remainder.compare(BigInteger.ZERO) < 0
-      ? remainder.add(fixture.a8)
+      ? remainder.add(fixture.a7)
       : remainder;
   }
 });
