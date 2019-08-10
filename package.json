@@ -32,8 +32,12 @@
     "buffer": false
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.2",
     "mocha": "^6.1.4",
     "standardx": "^4.0.0"
+  },
+  "standardx": {
+    "parser": "babel-eslint"
   },
   "eslintConfig": {
     "rules": {
