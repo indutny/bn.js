@@ -101,11 +101,17 @@ while (fixtures.length < 25) {
   var aj = prng.randomBytes(768).toString('hex');
   var bj = prng.randomBytes(768).toString('hex');
 
+  fixture.a10base = new bn(a, 16).toString(10);
+  fixture.a16base = new bn(a, 16).toString(16);
+
   // BN
   fixture.a1 = new bn(a, 16);
   fixture.b1 = new bn(b, 16);
   fixture.a1j = new bn(aj, 16);
   fixture.b1j = new bn(bj, 16);
+  fixture.as1 = fixture.a1.mul(fixture.a1).iaddn(0x2adbeef);
+  fixture.am1 = fixture.a1.toRed(bn.red('k256'));
+  fixture.pow1 = fixture.am1.fromRed();
 
   // bignum
   if (bignum) {
@@ -113,6 +119,7 @@ while (fixtures.length < 25) {
     fixture.b2 = new bignum(b, 16);
     fixture.a2j = new bignum(aj, 16);
     fixture.b2j = new bignum(bj, 16);
+    fixture.as2 = fixture.a2.mul(fixture.a2).add(0x2adbeef);
   }
 
   // bigi
@@ -120,45 +127,31 @@ while (fixtures.length < 25) {
   fixture.b4 = new bigi(b, 16);
   fixture.a4j = new bigi(aj, 16);
   fixture.b4j = new bigi(bj, 16);
+  fixture.as4 = fixture.a4.multiply(fixture.a4).add(bigi.valueOf(0x2adbeef));
 
   // sjcl
   fixture.a5 = new sjcl(a, 16);
   fixture.b5 = new sjcl(b, 16);
   fixture.a5j = new sjcl(aj, 16);
   fixture.b5j = new sjcl(bj, 16);
+  // fixture.as5 = fixture.a5.mul(fixture.a5).add(0x2adbeef);
+  fixture.am5 = new sjcl.prime.p256k(fixture.a5);
 
   // BigInteger
   fixture.a6 = new BigInteger(a, 16);
   fixture.b6 = new BigInteger(b, 16);
   fixture.a6j = new BigInteger(aj, 16);
   fixture.b6j = new BigInteger(bj, 16);
+  fixture.as6 = fixture.a6.multiply(fixture.a6).add(
+    new BigInteger('2adbeef', 16));
 
   // SilentMattBigInteger
   fixture.a7 = SilentMattBigInteger.parse(a, 16);
   fixture.b7 = SilentMattBigInteger.parse(b, 16);
-
   fixture.a7j = SilentMattBigInteger.parse(aj, 16);
   fixture.b7j = SilentMattBigInteger.parse(aj, 16);
-
-  //
-  fixture.as1 = fixture.a1.mul(fixture.a1).iaddn(0x2adbeef);
-  if (bignum) {
-    fixture.as2 = fixture.a2.mul(fixture.a2).add(0x2adbeef);
-  }
-  fixture.as4 = fixture.a4.multiply(fixture.a4).add(bigi.valueOf(0x2adbeef));
-  // fixture.as5 = fixture.a5.mul(fixture.a5).add(0x2adbeef);
-  fixture.as6 = fixture.a6.multiply(fixture.a6).add(
-    new BigInteger('2adbeef', 16));
   fixture.as7 = fixture.a7.multiply(fixture.a7).add(
     SilentMattBigInteger.parse('2adbeef', 16));
-
-  fixture.am1 = fixture.a1.toRed(bn.red('k256'));
-  fixture.am5 = new sjcl.prime.p256k(fixture.a5);
-
-  fixture.pow1 = fixture.am1.fromRed();
-
-  fixture.a10base = fixture.a1.toString(10);
-  fixture.a16base = a;
 }
 
 add('create-10', {
