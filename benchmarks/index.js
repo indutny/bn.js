@@ -1,4 +1,5 @@
-/* eslint-disable new-cap, no-new */
+/* global BigInt */
+/* eslint-disable new-cap, no-new, no-unused-expressions */
 
 var benchmark = require('benchmark');
 var crypto = require('crypto');
@@ -36,6 +37,10 @@ function add (op, obj) {
       console.log('Benchmarking: ' + op);
 
       Object.keys(obj).forEach(function (name) {
+        if (name === 'BigInt' && typeof BigInt === 'undefined') {
+          return;
+        }
+
         if (name === 'bignum' && bignum === undefined) {
           return;
         }
@@ -113,6 +118,13 @@ while (fixtures.length < 25) {
   fixture.am1 = fixture.a1.toRed(bn.red('k256'));
   fixture.pow1 = fixture.am1.fromRed();
 
+  // BigInt
+  fixture.a2 = BigInt(fixture.a1.toString(10));
+  fixture.b2 = BigInt(fixture.b1.toString(10));
+  fixture.a2j = BigInt(fixture.a1j.toString(10));
+  fixture.b2j = BigInt(fixture.b1j.toString(10));
+  fixture.as2 = fixture.a2 * fixture.a2 + 0x2adbeefn;
+
   // bignum
   if (bignum) {
     fixture.a3 = new bignum(a, 16);
@@ -158,6 +170,9 @@ add('create-10', {
   'bn.js': function (fixture) {
     new bn(fixture.a10base, 10);
   },
+  BigInt: function (fixture) {
+    BigInt(fixture.a10base);
+  },
   bignum: function (fixture) {
     new bignum(fixture.a10base, 10);
   },
@@ -197,6 +212,9 @@ add('toString-10', {
   'bn.js': function (fixture) {
     fixture.a1.toString(10);
   },
+  BigInt: function (fixture) {
+    fixture.a2.toString(10);
+  },
   bignum: function (fixture) {
     fixture.a3.toString(10);
   },
@@ -214,6 +232,9 @@ add('toString-10', {
 add('toString-hex', {
   'bn.js': function (fixture) {
     fixture.a1.toString(16);
+  },
+  BigInt: function (fixture) {
+    fixture.a2.toString(16);
   },
   bignum: function (fixture) {
     fixture.a3.toString(16);
@@ -236,6 +257,9 @@ add('add', {
   'bn.js': function (fixture) {
     fixture.a1.add(fixture.b1);
   },
+  BigInt: function (fixture) {
+    fixture.a2 + fixture.b2;
+  },
   bignum: function (fixture) {
     fixture.a3.add(fixture.b3);
   },
@@ -256,6 +280,9 @@ add('add', {
 add('sub', {
   'bn.js': function (fixture) {
     fixture.b1.sub(fixture.a1);
+  },
+  BigInt: function (fixture) {
+    fixture.a2 - fixture.b2;
   },
   bignum: function (fixture) {
     fixture.b3.sub(fixture.a3);
@@ -281,6 +308,9 @@ add('mul', {
   'bn.js[FFT]': function (fixture) {
     fixture.a1.mulf(fixture.b1);
   },
+  BigInt: function (fixture) {
+    fixture.a2 * fixture.b2;
+  },
   bignum: function (fixture) {
     fixture.a3.mul(fixture.b3);
   },
@@ -305,6 +335,9 @@ add('mul-jumbo', {
   'bn.js[FFT]': function (fixture) {
     fixture.a1j.mulf(fixture.b1j);
   },
+  BigInt: function (fixture) {
+    fixture.a2j * fixture.b2j;
+  },
   bignum: function (fixture) {
     fixture.a3j.mul(fixture.b3j);
   },
@@ -325,6 +358,9 @@ add('mul-jumbo', {
 add('sqr', {
   'bn.js': function (fixture) {
     fixture.a1.mul(fixture.a1);
+  },
+  BigInt: function (fixture) {
+    fixture.a2 * fixture.a2;
   },
   bignum: function (fixture) {
     fixture.a3.mul(fixture.a3);
@@ -347,6 +383,9 @@ add('div', {
   'bn.js': function (fixture) {
     fixture.as1.div(fixture.a1);
   },
+  BigInt: function (fixture) {
+    fixture.as2 / fixture.a2;
+  },
   bignum: function (fixture) {
     fixture.as3.div(fixture.a3);
   },
@@ -364,6 +403,9 @@ add('div', {
 add('mod', {
   'bn.js': function (fixture) {
     fixture.as1.mod(fixture.a1);
+  },
+  BigInt: function (fixture) {
+    fixture.as2 / fixture.a2;
   },
   bignum: function (fixture) {
     fixture.as3.mod(fixture.a3);
