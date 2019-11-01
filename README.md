@@ -84,6 +84,8 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.toTwos(width)` - convert to two's complement representation, where `width` is bit width
 * `a.fromTwos(width)` - convert from two's complement representation, where `width` is the bit width
 * `BN.isBN(object)` - returns true if the supplied `object` is a BN.js instance
+* `BN.max(a, b)` - return `a` if `a` bigger than `b`
+* `BN.min(a, b)` - return `a` if `a` less than `b`
 
 ### Arithmetics
 
