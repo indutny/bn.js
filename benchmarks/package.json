@@ -17,6 +17,6 @@
     "xorshift.js": "^1.0.0"
   },
   "optionalDependencies": {
-    "bignum": "^0.13.0"
+    "bignum": "^0.13.1"
   }
 }
