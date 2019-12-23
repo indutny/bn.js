@@ -1,3 +1,14 @@
+5.1.0 / 2019-12-23
+------------------
+
+- Benchmark for BigInt (#226)
+- Add documentation for max/min (#232)
+- Update BN#inspect for Symbols (#225)
+- Improve performance of toArrayLike (#222)
+- temporary disable jumboMulTo in BN#mulTo (#221)
+- optimize toBitArray function (#212)
+- fix iaddn sign issue (#216)
+
 5.0.0 / 2019-07-04
 ------------------
 
