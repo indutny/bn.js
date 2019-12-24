@@ -1,3 +1,9 @@
+5.1.1 / 2019-12-24
+------------------
+
+- Temporary workaround for BN#_move (#236)
+- Add eslintrc instead config in package.json (#237)
+
 5.1.0 / 2019-12-23
 ------------------
 
