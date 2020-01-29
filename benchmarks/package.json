@@ -10,13 +10,13 @@
   "license": "MIT",
   "dependencies": {
     "benchmark": "^1.0.0",
-    "bigi": "*",
-    "biginteger": "*",
-    "eccjs": "^0.3.1",
+    "bigi": "1.4.2",
+    "biginteger": "1.0.3",
+    "eccjs": "0.3.1",
     "js-big-integer": "1.0.2",
-    "xorshift.js": "^1.0.0"
+    "xorshift.js": "^1.0.3"
   },
   "optionalDependencies": {
-    "bignum": "^0.13.1"
+    "bignum": "0.13.1"
   }
 }
