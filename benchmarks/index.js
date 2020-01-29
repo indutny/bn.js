@@ -67,7 +67,7 @@ function add (op, obj) {
         })
         .on('complete', function () {
           console.log('------------------------');
-          console.log('Fastest is ' + this.filter('fastest').pluck('name'));
+          console.log('Fastest is ' + this.filter('fastest')[0].name);
         })
         .run();
 
