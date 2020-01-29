@@ -2,12 +2,12 @@
   "name": "bn.js-benchmark",
   "version": "0.0.0",
   "description": "",
+  "license": "MIT",
+  "author": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "benchmark": "^1.0.0",
     "bigi": "1.4.2",
