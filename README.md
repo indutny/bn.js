@@ -106,7 +106,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.and(b)` - and (`i`, `u`, `iu`, `andln`) (NOTE: `andln` is going to be replaced
   with `andn` in future)
 * `a.xor(b)` - xor (`i`, `u`, `iu`)
-* `a.setn(b)` - set specified bit to `1`
+* `a.setn(b, value)` - set specified bit to `value`
 * `a.shln(b)` - shift left (`i`, `u`, `iu`)
 * `a.shrn(b)` - shift right (`i`, `u`, `iu`)
 * `a.testn(b)` - test if specified bit is set
