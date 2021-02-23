@@ -1,3 +1,9 @@
+5.2.0 / 2021-02-23
+------------------
+
+- fix: Buffer not using global in browser (#260)
+- Fix LE constructor for HEX (#265)
+
 5.1.3 / 2020-08-14
 ------------------
 
