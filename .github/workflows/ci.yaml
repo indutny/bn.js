@@ -9,22 +9,11 @@ jobs:
   test:
     name: Run tests
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node:
-          - 8
-          - 10
-          - 12
     steps:
       - name: Fetch code
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
-
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
 
       - name: Restore node_modules cache
         uses: actions/cache@v1
