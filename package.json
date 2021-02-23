@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
-    "mocha": "^7.0.1",
+    "mocha": "^8.3.0",
     "standardx": "^5.0.0"
   },
   "standardx": {
