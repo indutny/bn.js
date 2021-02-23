@@ -1,6 +1,15 @@
 ---
+plugins:
+  - es5
+extends:
+  - plugin:es5/no-es2015
 rules:
+  es5/no-es6-static-methods:
+    - error
+    - exceptMethods:
+      - Math.imul
   semi:
     - 2
     - always
   no-extra-semi: 2
+  no-var: 0
