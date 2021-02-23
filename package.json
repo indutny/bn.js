@@ -32,11 +32,8 @@
     "unit": "mocha --reporter=spec test/*-test.js"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
+    "eslint-plugin-es5": "^1.5.0",
     "mocha": "^8.3.0",
-    "standardx": "^5.0.0"
-  },
-  "standardx": {
-    "parser": "babel-eslint"
+    "standardx": "^7.0.0"
   }
 }
