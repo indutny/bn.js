@@ -98,6 +98,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.pow(b)` - raise `a` to the power of `b`
 * `a.div(b)` - divide (`divn`, `idivn`)
 * `a.mod(b)` - reduct (`u`, `n`) (but no `umodn`)
+* `a.divmod(b)` - quotient and modulus obtained by dividing
 * `a.divRound(b)` - rounded division
 
 ### Bit operations
