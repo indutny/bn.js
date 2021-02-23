@@ -91,6 +91,12 @@ describe('BN.js/Constructor', function () {
         'df8c5d766b1a');
     });
 
+    it('should accept base-16 LE integer with leading zeros', function () {
+      assert.equal(new BN('0010', 16, 'le').toNumber(), 4096);
+      assert.equal(new BN('-010', 16, 'le').toNumber(), -4096);
+      assert.equal(new BN('010', 16, 'le').toNumber(), 4096);
+    });
+
     it('should not accept wrong characters for base', function () {
       assert.throws(function () {
         return new BN('01FF');
@@ -131,6 +137,7 @@ describe('BN.js/Constructor', function () {
     });
 
     it('should import/export big endian', function () {
+      assert.equal(new BN([0, 1], 16).toString(16), '1');
       assert.equal(new BN([1, 2, 3]).toString(16), '10203');
       assert.equal(new BN([1, 2, 3, 4]).toString(16), '1020304');
       assert.equal(new BN([1, 2, 3, 4, 5]).toString(16), '102030405');
@@ -142,9 +149,10 @@ describe('BN.js/Constructor', function () {
     });
 
     it('should import little endian', function () {
-      assert.equal(new BN([1, 2, 3], 10, 'le').toString(16), '30201');
-      assert.equal(new BN([1, 2, 3, 4], 10, 'le').toString(16), '4030201');
-      assert.equal(new BN([1, 2, 3, 4, 5], 10, 'le').toString(16),
+      assert.equal(new BN([0, 1], 16, 'le').toString(16), '100');
+      assert.equal(new BN([1, 2, 3], 16, 'le').toString(16), '30201');
+      assert.equal(new BN([1, 2, 3, 4], 16, 'le').toString(16), '4030201');
+      assert.equal(new BN([1, 2, 3, 4, 5], 16, 'le').toString(16),
         '504030201');
       assert.equal(new BN([1, 2, 3, 4, 5, 6, 7, 8], 'le').toString(16),
         '807060504030201');
