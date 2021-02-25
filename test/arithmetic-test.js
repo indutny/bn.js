@@ -428,12 +428,20 @@ describe('BN.js/Arithmetic', function () {
         '0');
       assert.equal(new BN(10).divRound(new BN(20)).toString(10),
         '1');
+      assert.equal(new BN(-10).divRound(new BN(20)).toString(10),
+        '0');
       assert.equal(new BN(150).divRound(new BN(20)).toString(10),
         '8');
+      assert.equal(new BN(-150).divRound(new BN(20)).toString(10),
+        '-8');
       assert.equal(new BN(149).divRound(new BN(20)).toString(10),
         '7');
+      assert.equal(new BN(-149).divRound(new BN(20)).toString(10),
+        '-7');
       assert.equal(new BN(149).divRound(new BN(17)).toString(10),
         '9');
+      assert.equal(new BN(-149).divRound(new BN(17)).toString(10),
+        '-9');
       assert.equal(new BN(144).divRound(new BN(17)).toString(10),
         '8');
       assert.equal(new BN(-144).divRound(new BN(17)).toString(10),
