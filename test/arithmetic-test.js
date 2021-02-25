@@ -290,10 +290,42 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(a.muln(0xdead).toString(16), c.toString(16));
     });
 
+    it('should throw error with num of type other than number', function () {
+      assert.throws(function () {
+        new BN(0).imuln('1');
+      }, /^Error: Argument num must be a number$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(new BN(1));
+      }, /^Error: Argument num must be a number$/);
+    });
+
+    it('should throw error with num eq 1.5, -1.5 and NaN', function () {
+      assert.throws(function () {
+        new BN(0).imuln(1.5);
+      }, /^Error: Argument must be an integer$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(-1.5);
+      }, /^Error: Argument must be an integer$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(Infinity);
+      }, /^Error: Argument must be an integer$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(-Infinity);
+      }, /^Error: Argument must be an integer$/);
+
+      assert.throws(function () {
+        new BN(0).imuln(NaN);
+      }, /^Error: Argument must be an integer$/);
+    });
+
     it('should throw error with num eq 0x4000000', function () {
       assert.throws(function () {
         new BN(0).imuln(0x4000000);
-      }, /^Error: Assertion failed$/);
+      }, /^Error: Argument not in supported range -0x4000000 < num < 0x4000000$/);
     });
 
     it('should negate number if number is negative', function () {
