@@ -21,6 +21,12 @@ console.log(res.toString(10));  // 57047
 
 **Note**: decimals are not supported in this library.
 
+## Sponsors
+
+[![Scout APM](./sponsors/scout-apm.png)](https://scoutapm.com/)
+My Open Source work is supported by [Scout APM](https://scoutapm.com/) and
+[other sponsors](https://github.com/sponsors/indutny).
+
 ## Notation
 
 ### Prefixes
