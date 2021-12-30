@@ -31,7 +31,7 @@ My Open Source work is supported by [Scout APM](https://scoutapm.com/) and
 
 ### Prefixes
 
-There are several prefixes to instructions that affect the way the work. Here
+There are several prefixes to instructions that affect the way they work. Here
 is the list of them in the order of appearance in the function name:
 
 * `i` - perform operation in-place, storing the result in the host object (on
@@ -56,7 +56,7 @@ is the list of them in the order of appearance in the function name:
 
 ## Instructions
 
-Prefixes/postfixes are put in parens at the of the line. `endian` - could be
+Prefixes/postfixes are put in parens at the end of the line. `endian` - could be
 either `le` (little-endian) or `be` (big-endian).
 
 ### Utilities
@@ -135,7 +135,7 @@ for [Mersenne Prime][1].
 
 ### Reduction context
 
-To enable this tricks one should create a reduction context:
+To enable this trick one should create a reduction context:
 
 ```js
 var red = BN.red(num);
