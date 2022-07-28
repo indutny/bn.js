@@ -69,7 +69,7 @@ either `le` (little-endian) or `be` (big-endian).
   pad to length, throwing if already exceeding
 * `a.toArrayLike(type, endian, length)` - convert to an instance of `type`,
   which must behave like an `Array`
-* `a.toBuffer(endian, length)` - convert to Node.js Buffer (if available). For
+* `a.toBuffer(endian, length)` - convert to Node.js Buffer (if available). `length` in bytes. For
   compatibility with browserify and similar tools, use this instead:
   `a.toArrayLike(Buffer, endian, length)`
 * `a.bitLength()` - get number of bits occupied
