@@ -26,6 +26,7 @@
   "browser": {
     "buffer": false
   },
+  "sideEffects": false,
   "scripts": {
     "lint": "standardx",
     "test": "npm run lint && npm run unit",
