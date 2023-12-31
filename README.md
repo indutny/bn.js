@@ -101,7 +101,7 @@ either `le` (little-endian) or `be` (big-endian).
 * `a.sub(b)` - subtraction (`i`, `n`, `in`)
 * `a.mul(b)` - multiply (`i`, `n`, `in`)
 * `a.sqr()` - square (`i`)
-* `a.pow(b)` - raise `a` to the power of `b`
+* `a.pow(b)` - raise `a` to the power of `b` (`i`)
 * `a.div(b)` - divide (`divn`, `idivn`)
 * `a.mod(b)` - reduct (`u`, `n`) (but no `umodn`)
 * `a.divmod(b)` - quotient and modulus obtained by dividing
