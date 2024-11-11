@@ -5,6 +5,16 @@ var BN = require('../').BN;
 
 describe('BN.js/Utils', function () {
   describe('.toString()', function () {
+    describe('hex no padding', function () {
+      it('should have same length as input', function () {
+        var hex = '1';
+        for (var i = 1; i <= 128; i++) {
+          var n = new BN(hex, 16);
+          assert.equal(n.toString(16).length, i);
+          hex = hex + '0';
+        }
+      });
+    });
     describe('binary padding', function () {
       it('should have a length of 256', function () {
         var a = new BN(0);
