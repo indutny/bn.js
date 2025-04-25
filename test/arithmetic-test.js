@@ -311,9 +311,9 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(a.clone().imuln(0).isZero(), true);
       assert.equal(a.clone().muln(0).isZero(), true);
 
-      var a = new BN('1222222225255589');
-      assert.equal(a.clone().imuln(0).isZero(), true);
-      assert.equal(a.clone().muln(0).isZero(), true);
+      var b = new BN('1222222225255589');
+      assert.equal(b.clone().imuln(0).isZero(), true);
+      assert.equal(b.clone().muln(0).isZero(), true);
     });
   });
 
