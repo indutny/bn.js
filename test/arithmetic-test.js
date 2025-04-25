@@ -305,6 +305,16 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(b.clone().imuln(-42).toString(16), b.clone().neg().muln(42).toString(16));
       assert.equal(b.clone().muln(-42).toString(16), b.clone().neg().muln(42).toString(16));
     });
+
+    it('should strip length on zero multiplication', function () {
+      var a = new BN(42);
+      assert.equal(a.clone().imuln(0).isZero(), true);
+      assert.equal(a.clone().muln(0).isZero(), true);
+
+      var a = new BN('1222222225255589');
+      assert.equal(a.clone().imuln(0).isZero(), true);
+      assert.equal(a.clone().muln(0).isZero(), true);
+    });
   });
 
   describe('.pow()', function () {
