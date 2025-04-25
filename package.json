@@ -1,6 +1,6 @@
 {
   "name": "bn.js",
-  "version": "4.12.1",
+  "version": "4.12.2",
   "description": "Big number implementation in pure javascript",
   "main": "lib/bn.js",
   "scripts": {
