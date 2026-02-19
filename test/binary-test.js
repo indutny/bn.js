@@ -56,6 +56,8 @@ describe('BN.js/Binary', function () {
 
   describe('.imaskn()', function () {
     it('should mask bits in-place', function () {
+      assert.equal(new BN(42).imaskn(0).toString(), '0');
+      assert.equal(new BN(42).imaskn(0).toString(16), '0');
       assert.equal(new BN(0).imaskn(1).toString(16), '0');
       assert.equal(new BN(3).imaskn(1).toString(16), '1');
       assert.equal(new BN('123456789', 16).imaskn(4).toString(16), '9');
