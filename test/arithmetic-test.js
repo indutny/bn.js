@@ -327,6 +327,15 @@ describe('BN.js/Arithmetic', function () {
     });
   });
 
+  describe('.sqrt()', function () {
+    it('should raise number to the sqrt', function () {
+      var a = new BN('123456', 10);
+      var b = a.mul(a).sqrt();
+
+      assert.equal(b.toString(10), a.toString(10));
+    });
+  });
+
   describe('.div()', function () {
     it('should divide small numbers (<=26 bits)', function () {
       assert.equal(new BN('256').div(new BN(10)).toString(10),
