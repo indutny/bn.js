@@ -57,6 +57,14 @@ describe('BN.js/Utils', function () {
         assert.equal(a.toString('hex', 64).length, 64);
       });
     });
+    describe('padding', function () {
+      it('should not apply if length is already larger', function () {
+        var number = '12345678';
+        var a = new BN(number);
+
+        assert.equal(a.toString(10, 6).length, number.length);
+      });
+    });
   });
 
   describe('.isNeg()', function () {
