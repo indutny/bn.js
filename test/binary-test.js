@@ -231,5 +231,23 @@ describe('BN.js/Binary', function () {
         '11111111111111111111111111111111' +
         '111111111111111111111111111111000111');
     });
+
+    it('should mask result to width when value is wider than width', function () {
+      // width < bitLength(value): the result must stay below 2 ** width,
+      // so the high words above the requested width have to be cleared.
+      var cases = [
+        ['5991996425021', 15],
+        ['4503599627370497', 26],
+        ['18446744073709551615', 4],
+        ['123456789012345678901234567890', 33]
+      ];
+
+      cases.forEach(function (pair) {
+        var value = pair[0];
+        var width = pair[1];
+        var expected = (~BigInt(value) & ((1n << BigInt(width)) - 1n)).toString();
+        assert.equal(new BN(value).notn(width).toString(), expected);
+      });
+    });
   });
 });
