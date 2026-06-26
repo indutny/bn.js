@@ -1,3 +1,8 @@
+5.2.4 / 2026-06-26
+------------------
+
+- fix: clear surplus words in inotn so notn(width) stays below 2 ** width (#319)
+
 5.2.3 / 2026-02-19
 ------------------
 
