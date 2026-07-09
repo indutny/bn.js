@@ -315,6 +315,15 @@ describe('BN.js/Arithmetic', function () {
       assert.equal(b.clone().imuln(0).isZero(), true);
       assert.equal(b.clone().muln(0).isZero(), true);
     });
+
+    it('should not keep the sign when multiplying a negative by zero', function () {
+      var a = new BN(-42);
+      assert.equal(a.clone().imuln(0).negative, 0);
+      assert.equal(a.clone().imuln(0).toString(), '0');
+      assert.equal(a.clone().muln(0).toString(), '0');
+      assert.equal(a.clone().muln(0).isNeg(), false);
+      assert.equal(a.clone().muln(0).eq(new BN(0)), true);
+    });
   });
 
   describe('.pow()', function () {
