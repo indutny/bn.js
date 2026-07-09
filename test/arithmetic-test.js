@@ -459,8 +459,70 @@ describe('BN.js/Arithmetic', function () {
         '-8');
     });
 
+    it('should round with negative operands', function () {
+      assert.equal(new BN(-40).divRound(new BN(-13)).toString(10), '3');
+      assert.equal(new BN(40).divRound(new BN(-13)).toString(10), '-3');
+      assert.equal(new BN(-40).divRound(new BN(13)).toString(10), '-3');
+      assert.equal(new BN(-30).divRound(new BN(40)).toString(10), '-1');
+      assert.equal(new BN(30).divRound(new BN(-40)).toString(10), '-1');
+      assert.equal(new BN(-7).divRound(new BN(2)).toString(10), '-4');
+      assert.equal(new BN(7).divRound(new BN(-2)).toString(10), '-4');
+      assert.equal(new BN(-25).divRound(new BN(10)).toString(10), '-3');
+      // odd divisor, remainder exactly floor(|divisor| / 2): round toward zero
+      assert.equal(new BN(-4).divRound(new BN(3)).toString(10), '-1');
+      assert.equal(new BN(4).divRound(new BN(-3)).toString(10), '-1');
+      assert.equal(new BN(-7).divRound(new BN(5)).toString(10), '-1');
+      assert.equal(new BN(7).divRound(new BN(-5)).toString(10), '-1');
+    });
+
+    it('should round values smaller than the divisor', function () {
+      assert.equal(new BN(4).divRound(new BN(10)).toString(10), '0');
+      assert.equal(new BN(-4).divRound(new BN(10)).toString(10), '0');
+      assert.equal(new BN(4).divRound(new BN(-10)).toString(10), '0');
+      assert.equal(new BN(6).divRound(new BN(10)).toString(10), '1');
+      assert.equal(new BN(-6).divRound(new BN(10)).toString(10), '-1');
+      assert.equal(new BN(6).divRound(new BN(-10)).toString(10), '-1');
+    });
+
+    it('should round with large multi-word operands', function () {
+      assert.equal(
+        new BN('123456789012345678901234567890')
+          .divRound(new BN('98765432109876543210')).toString(10),
+        '1249999989');
+      assert.equal(
+        new BN('-123456789012345678901234567890')
+          .divRound(new BN('98765432109876543210')).toString(10),
+        '-1249999989');
+      assert.equal(
+        new BN('123456789012345678901234567890')
+          .divRound(new BN('-98765432109876543210')).toString(10),
+        '-1249999989');
+      assert.equal(
+        new BN('-123456789012345678901234567890')
+          .divRound(new BN('-98765432109876543210')).toString(10),
+        '1249999989');
+    });
+
+    it('should round large multi-word ties away from zero', function () {
+      assert.equal(
+        new BN('3048315750647767350192043944016156078651272672090')
+          .divRound(new BN('246913578024691357802469135780')).toString(10),
+        '12345678901234567891');
+      assert.equal(
+        new BN('-3048315750647767350192043944016156078651272672090')
+          .divRound(new BN('246913578024691357802469135780')).toString(10),
+        '-12345678901234567891');
+      assert.equal(
+        new BN('3048315750647767350192043944016156078651272672090')
+          .divRound(new BN('-246913578024691357802469135780')).toString(10),
+        '-12345678901234567891');
+    });
+
     it('should return 1 on exact division', function () {
       assert.equal(new BN(144).divRound(new BN(144)).toString(10), '1');
+      assert.equal(new BN(-144).divRound(new BN(144)).toString(10), '-1');
+      assert.equal(new BN(144).divRound(new BN(-144)).toString(10), '-1');
+      assert.equal(new BN(-144).divRound(new BN(-144)).toString(10), '1');
     });
   });
 
