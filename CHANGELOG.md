@@ -1,3 +1,9 @@
+5.2.5 / 2026-07-09
+------------------
+
+- fix: correct divRound rounding for negative operands (#320)
+- fix: normalize sign when imuln multiplies by zero (#321)
+
 5.2.4 / 2026-06-26
 ------------------
 
