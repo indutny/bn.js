@@ -459,6 +459,17 @@ describe('BN.js/Arithmetic', function () {
         '-8');
     });
 
+    it('should round with negative operands', function () {
+      assert.equal(new BN(-40).divRound(new BN(-13)).toString(10), '3');
+      assert.equal(new BN(40).divRound(new BN(-13)).toString(10), '-3');
+      assert.equal(new BN(-40).divRound(new BN(13)).toString(10), '-3');
+      assert.equal(new BN(-30).divRound(new BN(40)).toString(10), '-1');
+      assert.equal(new BN(30).divRound(new BN(-40)).toString(10), '-1');
+      assert.equal(new BN(-7).divRound(new BN(2)).toString(10), '-4');
+      assert.equal(new BN(7).divRound(new BN(-2)).toString(10), '-4');
+      assert.equal(new BN(-25).divRound(new BN(10)).toString(10), '-3');
+    });
+
     it('should return 1 on exact division', function () {
       assert.equal(new BN(144).divRound(new BN(144)).toString(10), '1');
     });
