@@ -15,6 +15,14 @@ describe('BN.js/Utils', function () {
         }
       });
     });
+    describe('negative empty value', function () {
+      it('should have the same output as the input', function () {
+        var a = new BN('-');
+        for(var i = 2; i <= 36; i++) {
+          assert.equal(a.toString(i), '-');
+        }
+      });
+    });
     describe('binary padding', function () {
       it('should have a length of 256', function () {
         var a = new BN(0);
