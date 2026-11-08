@@ -647,6 +647,48 @@ describe('BN.js/Arithmetic', function () {
   });
 
   describe('.invm()', function () {
+    [
+      ['3', '15'],
+      ['-3', '15'],
+      ['0', '257'],
+      ['257', '257'],
+      ['12', '18'],
+      ['67108864', '134217728'],
+      ['123456789012345678901234567890', '987654321098765432109876543210']
+    ].forEach(function (pair) {
+      it('should reject ' + pair[0] + ' modulo ' + pair[1] + ' without an inverse', function () {
+        var a = new BN(pair[0]);
+        var modulus = new BN(pair[1]);
+        assert.throws(function () {
+          a.invm(modulus);
+        }, /Inverse does not exist/);
+        assert.equal(a.toString(), pair[0]);
+        assert.equal(modulus.toString(), pair[1]);
+      });
+    });
+
+    it('should invert negative values and preserve operands', function () {
+      var a = new BN(-3);
+      var modulus = new BN(10);
+      assert.equal(a.invm(modulus).toString(), '3');
+      assert.equal(a.toString(), '-3');
+      assert.equal(modulus.toString(), '10');
+    });
+
+    it('should preserve the zero representative modulo one', function () {
+      [-3, 0, 1, 3].forEach(function (a) {
+        assert.equal(new BN(a).invm(new BN(1)).toString(), '0');
+      });
+    });
+
+    it('should reject nonpositive moduli', function () {
+      [0, -1, -15].forEach(function (modulus) {
+        assert.throws(function () {
+          new BN(3).invm(new BN(modulus));
+        }, /Assertion failed/);
+      });
+    });
+
     it('should invert relatively-prime numbers', function () {
       var p = new BN(257);
       var a = new BN(3);

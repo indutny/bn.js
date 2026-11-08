@@ -125,7 +125,7 @@ either `le` (little-endian) or `be` (big-endian).
 
 * `a.gcd(b)` - GCD
 * `a.egcd(b)` - Extended GCD results (`{ a: ..., b: ..., gcd: ... }`)
-* `a.invm(b)` - inverse `a` modulo `b`
+* `a.invm(b)` - inverse `a` modulo `b`; throws if `a` and `b` are not coprime
 
 ## Fast reduction
 
